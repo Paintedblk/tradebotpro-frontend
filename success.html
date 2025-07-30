@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TradeBotPro - Payment Successful!</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0d1117; /* Dark background for a professional tech feel */
+            color: #e6edf3; /* Light text for contrast */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+        }
+        .container {
+            background-color: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            max-width: 600px;
+            width: 90%;
+        }
+        .license-key-display {
+            background-color: #2d3748;
+            padding: 1rem;
+            border-radius: 5px;
+            word-break: break-all;
+            margin-top: 1rem;
+            font-weight: bold;
+        }
+        .download-button {
+            background-image: linear-gradient(to right, #10B981, #059669); /* Green gradient */
+            transition: all 0.3s ease;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            color: white;
+            margin-top: 1.5rem;
+            cursor: pointer;
+            display: inline-block;
+        }
+        .download-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(16, 185, 129, 0.4);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="container">
+        <h2 class="text-4xl font-bold text-green-400 mb-4">Payment Successful!</h2>
+        <p class="text-xl text-gray-300 mb-6">Thank you for your purchase of the <span id="productTypeDisplay" class="font-semibold"></span>!</p>
+        
+        <div id="licenseKeySection" class="mb-4 hidden">
+            <p class="text-gray-400">Your unique license key:</p>
+            <p id="licenseKeyDisplay" class="license-key-display"></p>
+            <button onclick="copyLicenseKey()" class="text-blue-400 hover:underline mt-2 text-sm">Copy License Key</button>
+        </div>
+
+        <div id="downloadSection" class="mb-4 hidden">
+            <p class="text-gray-400">Your download should start automatically. If not, click the button below:</p>
+            <button id="downloadButton" class="download-button">Download TradeBotPro</button>
+        </div>
+
+        <p class="text-gray-500 text-sm mt-8">A confirmation email with your license key and download link has also been sent to your registered email address.</p>
+        <a href="index.html" class="text-blue-400 hover:underline mt-4 inline-block">Return to Homepage</a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const productType = sessionStorage.getItem('tradebotpro_product_type');
+            const licenseKey = sessionStorage.getItem('tradebotpro_license_key');
+            const downloadUrl = sessionStorage.getItem('tradebotpro_download_url');
+
+            document.getElementById('productTypeDisplay').textContent = productType === 'full' ? 'Pro Version' : 'Lite Version';
+
+            if (licenseKey && licenseKey !== 'null' && licenseKey !== '') {
+                document.getElementById('licenseKeySection').classList.remove('hidden');
+                document.getElementById('licenseKeyDisplay').textContent = licenseKey;
+            }
+
+            if (downloadUrl) {
+                document.getElementById('downloadSection').classList.remove('hidden');
+                document.getElementById('downloadButton').onclick = () => {
+                    const a = document.createElement('a');
+                    a.href = downloadUrl;
+                    a.download = 'TradeBotPro_Download.zip';
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                };
+                // Trigger download automatically on page load
+                document.getElementById('downloadButton').click();
+            }
+            
+            // Clear session storage after displaying/using the data
+            sessionStorage.removeItem('tradebotpro_product_type');
+            sessionStorage.removeItem('tradebotpro_license_key');
+            sessionStorage.removeItem('tradebotpro_download_url');
+        });
+
+        function copyLicenseKey() {
+            const licenseKeyText = document.getElementById('licenseKeyDisplay').textContent;
+            navigator.clipboard.writeText(licenseKeyText).then(() => {
+                alert('License key copied to clipboard!');
+            }).catch(err => {
+                console.error('Failed to copy license key:', err);
+                alert('Failed to copy license key. Please copy it manually.');
+            });
+        }
+    </script>
+</body>
+</html>

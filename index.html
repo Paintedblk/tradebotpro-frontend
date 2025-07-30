@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TradeBotPro - Automate Your Trading</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0d1117; /* Dark background for a professional tech feel */
+            color: #e6edf3; /* Light text for contrast */
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #1a202c, #2d3748);
+        }
+        .btn-primary {
+            background-image: linear-gradient(to right, #10B981, #059669); /* Green gradient */
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(16, 185, 129, 0.4);
+        }
+        .btn-secondary {
+            background-color: #4a5568; /* Grayish blue */
+            transition: all 0.3s ease;
+        }
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(74, 85, 104, 0.4);
+        }
+        .feature-card {
+            background-color: #161b22; /* Slightly lighter dark for cards */
+            border: 1px solid #30363d;
+            transition: transform 0.2s ease-in-out;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header -->
+    <header class="bg-gray-900 shadow-lg py-4 px-6 flex justify-between items-center fixed w-full z-50">
+        <div class="flex items-center space-x-3">
+            <!-- Simple Bot Icon (SVG) -->
+            <svg class="w-8 h-8 text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l3 3a1 1 0 001.414-1.414L11 9.586V6z" clip-rule="evenodd"></path>
+            </svg>
+            <h1 class="text-3xl font-bold text-white">TradeBotPro <span class="text-green-400">Pro Version</span></h1>
+        </div>
+        <nav>
+            <a href="#features" onclick="scrollToSection('features')" class="text-gray-300 hover:text-white px-4 py-2 rounded-md">Features</a>
+            <a href="feature_breakdown.html" class="text-gray-300 hover:text-white px-4 py-2 rounded-md">Feature Breakdown</a>
+            <a href="#pricing" onclick="scrollToSection('pricing')" class="text-gray-300 hover:text-white px-4 py-2 rounded-md">Pricing</a>
+            <a href="help.html" class="text-gray-300 hover:text-white px-4 py-2 rounded-md">Help</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative h-screen flex items-center justify-center text-center text-white overflow-hidden gradient-bg">
+        <div class="absolute inset-0 bg-black opacity-50"></div>
+        <div class="relative z-10 p-8 max-w-4xl mx-auto">
+            <h2 class="text-5xl md:text-6xl font-extrabold leading-tight mb-6 animate-pulse-slow">
+                Unlock Your Trading Potential with <span class="text-green-400">TradeBotPro Pro Version</span>
+            </h2>
+            <p class="text-xl md:text-2xl mb-8 opacity-90">
+                Intelligent Automation for Stocks & Options. Maximize Profits, Minimize Manual Effort.
+            </p>
+            <div class="space-x-4">
+                <button onclick="window.location.href='product.html?version=full'" class="btn-primary text-lg md:text-xl font-semibold py-3 px-8 rounded-lg shadow-lg">
+                    Get the Pro Version
+                </button>
+                <button onclick="window.location.href='product.html?version=lite'" class="btn-secondary text-lg md:text-xl font-semibold py-3 px-8 rounded-lg shadow-lg">
+                    Get Lite Version
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-16 px-6 bg-gray-900">
+        <h2 class="text-4xl font-bold text-center mb-12 text-white">Why Choose TradeBotPro?</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            
+            <!-- Feature 1: Advanced AI Decision-Making -->
+            <div class="feature-card p-6 rounded-lg shadow-xl flex flex-col items-center text-center">
+                <svg class="w-16 h-16 text-blue-400 mb-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 013 14v3a1 1 0 001 1h12a1 1 0 001-1v-3a1 1 0 01-.293-.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 110-6 3 3 0 010 6z"></path></svg>
+                <h3 class="text-2xl font-semibold mb-3 text-green-300">Advanced AI Decision-Making</h3>
+                <p class="text-gray-400 mb-4">Leveraging cutting-edge algorithms and technical indicators (RSI, MACD) for precise trade entry and exit points.</p>
+                <p class="text-green-200 font-medium italic">
+                    Profit Example: "Imagine identifying a momentum breakout in TSLA, entering at $180, and exiting at $185 for a swift <span class="text-green-400 font-bold">$500 profit</span> on a single day trade."
+                </p>
+            </div>
+
+            <!-- Feature 2: Fractional Share Trading -->
+            <div class="feature-card p-6 rounded-lg shadow-xl flex flex-col items-center text-center">
+                <svg class="w-16 h-16 text-purple-400 mb-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 000 2h6a1 1 0 100-2H7z" clip-rule="evenodd"></path></svg>
+                <h3 class="text-2xl font-semibold mb-3 text-green-300">Fractional Share Trading</h3>
+                <p class="text-gray-400 mb-4">Maximize every dollar. Invest in high-value stocks like NVDA or GOOG with as little as $1, ensuring no capital sits idle.</p>
+                <p class="text-green-200 font-medium italic">
+                    Profit Example: "Even with just $25, TradeBotPro can buy 0.02 shares of a $1200 stock, turning a 5% gain into a <span class="text-green-400 font-bold">$1.25 profit</span> that compounds over time."
+                </p>
+            </div>
+
+            <!-- Feature 3: Experimental Options Trading -->
+            <div class="feature-card p-6 rounded-lg shadow-xl flex flex-col items-center text-center">
+                <svg class="w-16 h-16 text-yellow-400 mb-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17.555 1.683a1 1 0 00-1.912-.087l-2.007 4.125a3 3 0 00-1.07 1.07L.707 15.293A1 1 0 001.414 16l4.01-4.01a1 1 0 001.07-1.07l4.125-2.007a1 1 0 00-.087-1.912l-4.125-2.007a3 3 0 00-1.07-1.07L3.707 2.707A1 1 0 002.99 2.99l4.01 4.01a1 1 0 001.07 1.07l4.125 2.007a1 1 0 00.087 1.912l2.007-4.125a3 3 0 001.07-1.07l4.01-4.01A1 1 0 0017.555 1.683z"></path></svg>
+                <h3 class="text-2xl font-semibold mb-3 text-green-300">Experimental Options Trading</h3>
+                <p class="text-gray-400 mb-4">Explore amplified returns with our new, experimental options module. Buy Calls or Puts based on market direction.</p>
+                <p class="text-green-200 font-medium italic">
+                    Profit Example: "A correctly predicted bullish move on SPY could turn a $35 option premium into <span class="text-green-400 font-bold">$105 profit</span> in days, a 300% gain! (High risk, high reward)."
+                </p>
+            </div>
+
+            <!-- Feature 4: Robust Persistent State & Auto-Restart -->
+            <div class="feature-card p-6 rounded-lg shadow-xl flex flex-col items-center text-center">
+                <svg class="w-16 h-16 text-red-400 mb-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M2 5a2 2 0 012-2h12a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2V5zm3 1h10v8H5V6zm1-2a1 1 0 00-1 1v1a1 1 0 102 0V5a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+                <h3 class="text-2xl font-semibold mb-3 text-green-300">Persistent State & Auto-Restart</h3>
+                <p class="text-gray-400 mb-4">Never lose your progress. The bot remembers all trades, P/L, and automatically resumes trading after market close.</p>
+                <p class="text-green-200 font-medium italic">
+                    Benefit: "Seamless operation ensures you're always ready for the next market open, without manual intervention."
+                </p>
+            </div>
+
+            <!-- Feature 5: Real-time Reconciliation -->
+            <div class="feature-card p-6 rounded-lg shadow-xl flex flex-col items-center text-center">
+                <svg class="w-16 h-16 text-teal-400 mb-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                <h3 class="text-2xl font-semibold mb-3 text-green-300">Real-time Reconciliation</h3>
+                <p class="text-gray-400 mb-4">Your P/L is always accurate. The bot verifies its state against your live brokerage, even after manual trades or cancellations.</p>
+                <p class="text-green-200 font-medium italic">
+                    Benefit: "Complete transparency and peace of mind, knowing your performance metrics are always correct."
+                </p>
+            </div>
+
+            <!-- Feature 6: Comprehensive Risk Management -->
+            <div class="feature-card p-6 rounded-lg shadow-xl flex flex-col items-center text-center">
+                <svg class="w-16 h-16 text-orange-400 mb-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+                <h3 class="text-2xl font-semibold mb-3 text-green-300">Comprehensive Risk Management</h3>
+                <p class="text-gray-400 mb-4">Built-in daily profit targets, stop-loss limits, and concurrent trade limits protect your capital.</p>
+                <p class="text-green-200 font-medium italic">
+                    Benefit: "Trade with confidence, knowing your downside is managed automatically."
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-16 px-6 bg-gray-800">
+        <h2 class="text-4xl font-bold text-center mb-12 text-white">Choose Your Trading Power</h2>
+        <div class="flex flex-col md:flex-row justify-center items-stretch gap-8 max-w-5xl mx-auto">
+            
+            <!-- Lite Version Card -->
+            <div class="flex-1 feature-card p-8 rounded-lg shadow-2xl flex flex-col items-center text-center transform hover:scale-105 transition-transform duration-300">
+                <h3 class="text-3xl font-bold text-blue-400 mb-4">Lite Version</h3>
+                <p class="text-5xl font-extrabold text-white mb-6">$49.99</p>
+                <ul class="text-gray-300 text-lg space-y-3 mb-8 text-left w-full">
+                    <li class="flex items-center"><svg class="w-6 h-6 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Lifetime Access</li>
+                    <li class="flex items-center"><svg class="w-6 h-6 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Basic Features (No Options)</li>
+                    <li class="flex items-center"><svg class="w-6 h-6 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Direct Download</li>
+                    <li class="flex items-center text-gray-500"><svg class="w-6 h-6 mr-2 text-red-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg> No Options Trading</li>
+                    <li class="flex items-center text-gray-500"><svg class="w-6 h-6 mr-2 text-red-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg> No Persistent State</li>
+                    <li class="flex items-center text-gray-500"><svg class="w-6 h-6 mr-2 text-red-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg> No Reconciliation</li>
+                    <li class="flex items-center text-gray-500"><svg class="w-6 h-6 mr-2 text-red-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg> No Account-Level Risk Management</li>
+                </ul>
+                <button onclick="window.location.href='product.html?version=lite'" class="btn-secondary text-xl font-semibold py-3 px-10 rounded-lg shadow-lg w-full">
+                    Get Now for $49.99
+                </button>
+            </div>
+
+            <!-- Pro Version Card -->
+            <div class="flex-1 feature-card p-8 rounded-lg shadow-2xl flex flex-col items-center text-center transform hover:scale-105 transition-transform duration-300">
+                <h3 class="text-3xl font-bold text-green-400 mb-4">Pro Version</h3>
+                <p class="text-5xl font-extrabold text-white mb-6">$199.99</p>
+                <ul class="text-gray-300 text-lg space-y-3 mb-8 text-left w-full">
+                    <li class="flex items-center"><svg class="w-6 h-6 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Lifetime Access</li>
+                    <li class="flex items-center"><svg class="w-6 h-6 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> All Features (Including Options)</li>
+                    <li class="flex items-center"><svg class="w-6 h-6 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Unique License Key</li>
+                    <li class="flex items-center"><svg class="w-6 h-6 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Immediate Download</li>
+                </ul>
+                <button onclick="window.location.href='product.html?version=full'" class="btn-primary text-xl font-semibold py-3 px-10 rounded-lg shadow-lg w-full">
+                    Buy Now for $199.99
+                </button>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 py-8 text-center text-gray-500 text-sm">
+        <p>&copy; 2025 TradeBotPro. All rights reserved. Trading involves substantial risk.</p>
+    </footer>
+
+    <script>
+        // Function to scroll smoothly to a section.
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
