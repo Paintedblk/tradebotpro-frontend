@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TradeBotPro - Purchase</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=AbFAFD99aa0hCnoggRAkKPvSg7i-FBwF1jQvHIqRwIxhgN4nh6fXk_-hxClQj0hCgvbH7m8vT6d2sPHi&currency=USD"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0d1117;
+            color: #e6edf3;
+        }
+        .container {
+            background-color: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            max-width: 600px;
+            margin: 2rem auto;
+        }
+        .feature-list li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+        .feature-list .check {
+            color: #10B981;
+            margin-right: 0.5rem;
+            font-weight: bold;
+        }
+        .feature-list .cross {
+            color: #ef4444;
+            margin-right: 0.5rem;
+            font-weight: bold;
+        }
+        .email-input {
+            width: 100%;
+            padding: 0.75rem;
+            margin: 1rem 0;
+            background-color: #2d3748;
+            border: 1px solid #4a5568;
+            border-radius: 0.5rem;
+            color: #e6edf3;
+        }
+        .email-input:focus {
+            outline: none;
+            border-color: #10B981;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col justify-center">
+
+    <div class="container">
+        <div id="productDetails" class="text-center">
+            <!-- Product details will be populated by JavaScript -->
+        </div>
+        
+        <div class="mb-6">
+            <label for="customerEmail" class="block text-sm font-medium text-gray-300 mb-2">
+                Email Address (for license key and download link)
+            </label>
+            <input 
+                type="email" 
+                id="customerEmail" 
+                class="email-input" 
+                placeholder="your.email@example.com"
+                required
+            >
+            <p class="text-sm text-gray-400 mt-1">
+                We'll send your license key and download link to this email address.
+            </p>
+        </div>
+        
+        <div id="paypal-button-container" class="mt-6"></div>
+        
+        <div id="loading" class="hidden text-center py-4">
+            <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-green-400"></div>
+            <p class="mt-2 text-gray-400">Processing payment...</p>
+        </div>
+        
+        <div id="error" class="hidden bg-red-600 text-white p-4 rounded-lg mt-4"></div>
+        
+        <div class="text-center mt-6">
+            <a href="index.html" class="text-blue-400 hover:underline">← Back to Homepage</a>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE_URL = 'https://tradebotpro-backend-553116950013.us-central1.run.app';
+        
+        const products = {
+            lite: {
+                name: 'TradeBotPro Lite Version',
+                price: 49.99,
+                features: [
+                    { text: 'Lifetime Access', included: true },
+                    { text: 'Basic Stock Trading Features', included: true },
+                    { text: 'Fractional Share Trading', included: true },
+                    { text: 'Direct Download', included: true },
+                    { text: 'Options Trading', included: false },
+                    { text: 'Persistent State & Auto-Restart', included: false },
+                    { text: 'Real-time Reconciliation', included: false },
+                    { text: 'Account-Level Risk Management', included: false }
+                ]
+            },
+            full: {
+                name: 'TradeBotPro Pro Version',
+                price: 199.99,
+                features: [
+                    { text: 'Lifetime Access', included: true },
+                    { text: 'All Stock Trading Features', included: true },
+                    { text: 'Fractional Share Trading', included: true },
+                    { text: 'Experimental Options Trading', included: true },
+                    { text: 'Persistent State & Auto-Restart', included: true },
+                    { text: 'Real-time Reconciliation', included: true },
+                    { text: 'Account-Level Risk Management', included: true },
+                    { text: 'Unique License Key', included: true }
+                ]
+            }
+        };
+
+        // Get product type from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const productType = urlParams.get('version') || 'full';
+        const product = products[productType];
+
+        if (!product) {
+            window.location.href = 'index.html';
+        }
+
+        // Populate product details
+        document.getElementById('productDetails').innerHTML = `
+            <h2 class="text-4xl font-bold text-green-400 mb-4">${product.name}</h2>
+            <p class="text-5xl font-extrabold text-white mb-6">$${product.price}</p>
+            <ul class="feature-list text-left max-w-md mx-auto mb-8">
+                ${product.features.map(feature => `
+                    <li class="${feature.included ? 'text-gray-300' : 'text-gray-500'}">
+                        <span class="${feature.included ? 'check' : 'cross'}">
+                            ${feature.included ? '✓' : '✗'}
+                        </span>
+                        ${feature.text}
+                    </li>
+                `).join('')}
+            </ul>
+        `;
+
+        // Validate email
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        // Show error message
+        function showError(message) {
+            const errorDiv = document.getElementById('error');
+            errorDiv.textContent = message;
+            errorDiv.classList.remove('hidden');
+            setTimeout(() => errorDiv.classList.add('hidden'), 5000);
+        }
+
+        // PayPal integration
+        paypal.Buttons({
+            createOrder: async function(data, actions) {
+                const email = document.getElementById('customerEmail').value.trim();
+                
+                if (!email) {
+                    showError('Please enter your email address.');
+                    return Promise.reject('Email required');
+                }
+                
+                if (!validateEmail(email)) {
+                    showError('Please enter a valid email address.');
+                    return Promise.reject('Invalid email');
+                }
+
+                document.getElementById('loading').classList.remove('hidden');
+
+                try {
+                    const response = await fetch(`${API_BASE_URL}/api/create-order`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ 
+                            productType,
+                            customerEmail: email
+                        })
+                    });
+
+                    const orderData = await response.json();
+                    
+                    if (!response.ok) {
+                        throw new Error(orderData.error || 'Failed to create order');
+                    }
+
+                    return orderData.id;
+                } catch (error) {
+                    console.error('Error creating order:', error);
+                    showError('Failed to create order. Please try again.');
+                    return Promise.reject(error);
+                } finally {
+                    document.getElementById('loading').classList.add('hidden');
+                }
+            },
+
+            onApprove: async function(data, actions) {
+                const email = document.getElementById('customerEmail').value.trim();
+                document.getElementById('loading').classList.remove('hidden');
+
+                try {
+                    const response = await fetch(`${API_BASE_URL}/api/capture-order`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            orderID: data.orderID,
+                            productType,
+                            customerEmail: email
+                        })
+                    });
+
+                    const captureData = await response.json();
+                    
+                    if (!response.ok) {
+                        throw new Error(captureData.error || 'Payment failed');
+                    }
+
+                    // Store data in session storage for success page
+                    sessionStorage.setItem('tradebotpro_product_type', productType);
+                    sessionStorage.setItem('tradebotpro_license_key', captureData.licenseKey || '');
+                    sessionStorage.setItem('tradebotpro_download_url', captureData.downloadUrl || '');
+
+                    // Redirect to success page
+                    window.location.href = 'success.html';
+
+                } catch (error) {
+                    console.error('Error capturing payment:', error);
+                    showError('Payment processing failed. Please contact support.');
+                } finally {
+                    document.getElementById('loading').classList.add('hidden');
+                }
+            },
+
+            onError: function(err) {
+                console.error('PayPal error:', err);
+                showError('Payment failed. Please try again or contact support.');
+                document.getElementById('loading').classList.add('hidden');
+            },
+
+            onCancel: function(data) {
+                console.log('Payment cancelled:', data);
+                window.location.href = 'cancel.html';
+            }
+        }).render('#paypal-button-container');
+    </script>
+</body>
+</html>
