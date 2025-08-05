@@ -58,7 +58,9 @@
 
     <div class="container">
         <h2 class="text-4xl font-bold text-green-400 mb-4">Payment Successful!</h2>
-        <p class="text-xl text-gray-300 mb-6">Thank you for your purchase of the <span id="productTypeDisplay" class="font-semibold"></span>!</p>
+        <div id="successMessage">
+            <!-- Success message will be populated by JavaScript -->
+        </div>
         
         <div id="licenseKeySection" class="mb-4 hidden">
             <p class="text-gray-400">Your unique license key:</p>
@@ -71,41 +73,55 @@
             <button id="downloadButton" class="download-button">Download TradeBotPro</button>
         </div>
 
-        <p class="text-gray-500 text-sm mt-8">A confirmation email with your license key and download link has also been sent to your registered email address.</p>
+        <div id="emailNotification">
+            <!-- Email notification will be populated by JavaScript -->
+        </div>
+        
         <a href="index.html" class="text-blue-400 hover:underline mt-4 inline-block">Return to Homepage</a>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const productType = sessionStorage.getItem('tradebotpro_product_type');
-            const licenseKey = sessionStorage.getItem('tradebotpro_license_key');
-            const downloadUrl = sessionStorage.getItem('tradebotpro_download_url');
-
-            document.getElementById('productTypeDisplay').textContent = productType === 'full' ? 'Pro Version' : 'Lite Version';
-
-            if (licenseKey && licenseKey !== 'null' && licenseKey !== '') {
-                document.getElementById('licenseKeySection').classList.remove('hidden');
-                document.getElementById('licenseKeyDisplay').textContent = licenseKey;
-            }
-
-            if (downloadUrl) {
-                document.getElementById('downloadSection').classList.remove('hidden');
-                document.getElementById('downloadButton').onclick = () => {
-                    const a = document.createElement('a');
-                    a.href = downloadUrl;
-                    a.download = 'TradeBotPro_Download.zip';
-                    document.body.appendChild(a);
-                    a.click();
-                    document.body.removeChild(a);
-                };
-                // Trigger download automatically on page load
-                document.getElementById('downloadButton').click();
-            }
+            // Get URL parameters from Stripe redirect
+            const urlParams = new URLSearchParams(window.location.search);
+            const sessionId = urlParams.get('session_id');
             
-            // Clear session storage after displaying/using the data
+            // Try to get product type from sessionStorage (stored before redirect)
+            let productType = sessionStorage.getItem('tradebotpro_product_type');
+            
+            // Fallback to URL parameter if available
+            if (!productType) {
+                productType = urlParams.get('product_type') || 'full';
+            }
+
+            // Display success message with product type
+            const productDisplayName = productType === 'full' ? 'Pro Version' : 'Lite Version';
+            
+            if (sessionId) {
+                // Payment was successful through Stripe
+                document.getElementById('successMessage').innerHTML = `
+                    <p class="text-xl text-gray-300 mb-6">Thank you for your purchase of the <span class="font-semibold">${productDisplayName}</span>!</p>
+                    <p class="text-gray-400 mb-4">Payment ID: ${sessionId}</p>
+                `;
+            } else {
+                // Fallback success message
+                document.getElementById('successMessage').innerHTML = `
+                    <p class="text-xl text-gray-300 mb-6">Thank you for your purchase of the <span class="font-semibold">${productDisplayName}</span>!</p>
+                `;
+            }
+
+            // Note: License key and download URL will need to be handled via Stripe webhooks
+            // For now, we'll show a message about email delivery
+            document.getElementById('emailNotification').innerHTML = `
+                <p class="text-gray-500 text-sm mt-8">
+                    Your license key and download link will be sent to your email address within a few minutes.
+                    If you don't receive it, please check your spam folder or contact support.
+                </p>
+            `;
+            
+            // Clear session storage after use
             sessionStorage.removeItem('tradebotpro_product_type');
-            sessionStorage.removeItem('tradebotpro_license_key');
-            sessionStorage.removeItem('tradebotpro_download_url');
+            sessionStorage.removeItem('tradebotpro_customer_email');
         });
 
         function copyLicenseKey() {

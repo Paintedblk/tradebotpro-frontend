@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TradeBotPro - Purchase</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://www.paypal.com/sdk/js?client-id=AbFAFD99aa0hCnoggRAkKPvSg7i-FBwF1jQvHIqRwIxhgN4nh6fXk_-hxClQj0hCgvbH7m8vT6d2sPHi&currency=USD"></script>
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
         body {
@@ -76,7 +76,11 @@
             </p>
         </div>
         
-        <div id="paypal-button-container" class="mt-6"></div>
+        <div id="stripe-button-container" class="mt-6">
+            <button id="buy-now-button" class="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed">
+                Buy Now with Stripe
+            </button>
+        </div>
         
         <div id="loading" class="hidden text-center py-4">
             <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-green-400"></div>
@@ -91,12 +95,11 @@
     </div>
 
     <script>
-        const API_BASE_URL = 'https://tradebotpro-backend-553116950013.us-central1.run.app';
-        
         const products = {
             lite: {
                 name: 'TradeBotPro Lite Version',
                 price: 49.99,
+                stripeUrl: 'https://buy.stripe.com/bJebJ14e56wF1ix59i7Vm01',
                 features: [
                     { text: 'Lifetime Access', included: true },
                     { text: 'Basic Stock Trading Features', included: true },
@@ -111,6 +114,7 @@
             full: {
                 name: 'TradeBotPro Pro Version',
                 price: 199.99,
+                stripeUrl: 'https://buy.stripe.com/7sY6oH9yp3ktd1f59i7Vm02',
                 features: [
                     { text: 'Lifetime Access', included: true },
                     { text: 'All Stock Trading Features', included: true },
@@ -163,101 +167,42 @@
             setTimeout(() => errorDiv.classList.add('hidden'), 5000);
         }
 
-        // PayPal integration
-        paypal.Buttons({
-            createOrder: async function(data, actions) {
-                const email = document.getElementById('customerEmail').value.trim();
-                
-                if (!email) {
-                    showError('Please enter your email address.');
-                    return Promise.reject('Email required');
-                }
-                
-                if (!validateEmail(email)) {
-                    showError('Please enter a valid email address.');
-                    return Promise.reject('Invalid email');
-                }
-
-                document.getElementById('loading').classList.remove('hidden');
-
-                try {
-                    const response = await fetch(`${API_BASE_URL}/api/create-order`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({ 
-                            productType,
-                            customerEmail: email
-                        })
-                    });
-
-                    const orderData = await response.json();
-                    
-                    if (!response.ok) {
-                        throw new Error(orderData.error || 'Failed to create order');
-                    }
-
-                    return orderData.id;
-                } catch (error) {
-                    console.error('Error creating order:', error);
-                    showError('Failed to create order. Please try again.');
-                    return Promise.reject(error);
-                } finally {
-                    document.getElementById('loading').classList.add('hidden');
-                }
-            },
-
-            onApprove: async function(data, actions) {
-                const email = document.getElementById('customerEmail').value.trim();
-                document.getElementById('loading').classList.remove('hidden');
-
-                try {
-                    const response = await fetch(`${API_BASE_URL}/api/capture-order`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                            orderID: data.orderID,
-                            productType,
-                            customerEmail: email
-                        })
-                    });
-
-                    const captureData = await response.json();
-                    
-                    if (!response.ok) {
-                        throw new Error(captureData.error || 'Payment failed');
-                    }
-
-                    // Store data in session storage for success page
-                    sessionStorage.setItem('tradebotpro_product_type', productType);
-                    sessionStorage.setItem('tradebotpro_license_key', captureData.licenseKey || '');
-                    sessionStorage.setItem('tradebotpro_download_url', captureData.downloadUrl || '');
-
-                    // Redirect to success page
-                    window.location.href = 'success.html';
-
-                } catch (error) {
-                    console.error('Error capturing payment:', error);
-                    showError('Payment processing failed. Please contact support.');
-                } finally {
-                    document.getElementById('loading').classList.add('hidden');
-                }
-            },
-
-            onError: function(err) {
-                console.error('PayPal error:', err);
-                showError('Payment failed. Please try again or contact support.');
-                document.getElementById('loading').classList.add('hidden');
-            },
-
-            onCancel: function(data) {
-                console.log('Payment cancelled:', data);
-                window.location.href = 'cancel.html';
+        // Handle Buy Now button click
+        document.getElementById('buy-now-button').addEventListener('click', function() {
+            const email = document.getElementById('customerEmail').value.trim();
+            
+            if (!email) {
+                showError('Please enter your email address.');
+                return;
             }
-        }).render('#paypal-button-container');
+            
+            if (!validateEmail(email)) {
+                showError('Please enter a valid email address.');
+                return;
+            }
+
+            document.getElementById('loading').classList.remove('hidden');
+            this.disabled = true;
+
+            // Store email and product type for potential success page use
+            sessionStorage.setItem('tradebotpro_customer_email', email);
+            sessionStorage.setItem('tradebotpro_product_type', productType);
+
+            // Create the Stripe checkout URL with customer email as a parameter
+            const checkoutUrl = new URL(product.stripeUrl);
+            
+            // Note: For Stripe's hosted checkout URLs, success/cancel URLs are typically 
+            // configured in the Stripe dashboard, not passed as URL parameters
+            // We can try to pass the email as a prefilled parameter if supported
+            try {
+                checkoutUrl.searchParams.append('prefilled_email', email);
+            } catch (error) {
+                console.warn('Could not add prefilled email parameter:', error);
+            }
+
+            // Redirect to Stripe Checkout
+            window.location.href = checkoutUrl.toString();
+        });
     </script>
 </body>
 </html>
