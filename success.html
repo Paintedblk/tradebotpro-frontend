@@ -36,6 +36,7 @@
             word-break: break-all;
             margin-top: 1rem;
             font-weight: bold;
+            font-family: monospace;
         }
         .download-button {
             background-image: linear-gradient(to right, #10B981, #059669); /* Green gradient */
@@ -47,92 +48,280 @@
             margin-top: 1.5rem;
             cursor: pointer;
             display: inline-block;
+            border: none;
         }
         .download-button:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 15px rgba(16, 185, 129, 0.4);
         }
+        .copy-button {
+            background-color: #4a5568;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            font-weight: 500;
+            color: white;
+            margin-top: 0.5rem;
+            cursor: pointer;
+            border: none;
+            font-size: 0.875rem;
+        }
+        .copy-button:hover {
+            background-color: #2d3748;
+        }
+        .status-message {
+            margin: 1rem 0;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            border-left: 4px solid;
+        }
+        .status-loading {
+            background-color: #1e293b;
+            border-color: #3b82f6;
+            color: #93c5fd;
+        }
+        .status-success {
+            background-color: #064e3b;
+            border-color: #10b981;
+            color: #6ee7b7;
+        }
+        .status-error {
+            background-color: #7f1d1d;
+            border-color: #ef4444;
+            color: #fca5a5;
+        }
+        .spinner {
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #3b82f6;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            margin-right: 0.5rem;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body class="antialiased">
 
+    <script>
+        // Configuration - Set API_BASE to call either same-origin /api or direct Cloud Run URL
+        // Leave empty to use same-origin (when proxy from algotbp.com → Cloud Run exists)
+        // Set to Cloud Run URL like 'https://your-service.run.app' if no reverse proxy
+        const API_BASE = '';
+    </script>
+
     <div class="container">
         <h2 class="text-4xl font-bold text-green-400 mb-4">Payment Successful!</h2>
-        <div id="successMessage">
-            <!-- Success message will be populated by JavaScript -->
+        
+        <div id="statusSection">
+            <!-- Status messages will be populated by JavaScript -->
         </div>
         
         <div id="licenseKeySection" class="mb-4 hidden">
-            <p class="text-gray-400">Your unique license key:</p>
-            <p id="licenseKeyDisplay" class="license-key-display"></p>
-            <button onclick="copyLicenseKey()" class="text-blue-400 hover:underline mt-2 text-sm">Copy License Key</button>
+            <p class="text-gray-400 mb-2">Your unique license key:</p>
+            <div id="licenseKeyDisplay" class="license-key-display"></div>
+            <button onclick="copyLicenseKey()" class="copy-button">Copy License Key</button>
         </div>
 
         <div id="downloadSection" class="mb-4 hidden">
-            <p class="text-gray-400">Your download should start automatically. If not, click the button below:</p>
+            <p class="text-gray-400 mb-2">Your download should start automatically. If not, click the button below:</p>
             <button id="downloadButton" class="download-button">Download TradeBotPro</button>
-        </div>
-
-        <div id="emailNotification">
-            <!-- Email notification will be populated by JavaScript -->
         </div>
         
         <a href="index.html" class="text-blue-400 hover:underline mt-4 inline-block">Return to Homepage</a>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Get URL parameters from Stripe redirect
-            const urlParams = new URLSearchParams(window.location.search);
-            const sessionId = urlParams.get('session_id');
-            
-            // Try to get product type from sessionStorage (stored before redirect)
-            let productType = sessionStorage.getItem('tradebotpro_product_type');
-            
-            // Fallback to URL parameter if available
-            if (!productType) {
-                productType = urlParams.get('product_type') || 'full';
+        class CheckoutResultPoller {
+            constructor() {
+                this.pollCount = 0;
+                this.maxPollAttempts = 60; // 5 minutes with increasing backoff
+                this.initialDelay = 2000; // Start with 2 seconds
+                this.maxDelay = 30000; // Cap at 30 seconds
             }
 
-            // Display success message with product type
-            const productDisplayName = productType === 'full' ? 'Pro Version' : 'Lite Version';
-            
-            if (sessionId) {
-                // Payment was successful through Stripe
-                document.getElementById('successMessage').innerHTML = `
-                    <p class="text-xl text-gray-300 mb-6">Thank you for your purchase of the <span class="font-semibold">${productDisplayName}</span>!</p>
-                    <p class="text-gray-400 mb-4">Payment ID: ${sessionId}</p>
-                `;
-            } else {
-                // Fallback success message
-                document.getElementById('successMessage').innerHTML = `
-                    <p class="text-xl text-gray-300 mb-6">Thank you for your purchase of the <span class="font-semibold">${productDisplayName}</span>!</p>
+            async init() {
+                // Get URL parameters from Stripe redirect
+                const urlParams = new URLSearchParams(window.location.search);
+                const sessionId = urlParams.get('session_id');
+                
+                if (!sessionId) {
+                    this.showStatus('error', 'No session ID found. Please contact support if this error persists.');
+                    return;
+                }
+
+                this.showStatus('loading', 'Processing your payment and preparing your download...');
+                this.startPolling(sessionId);
+            }
+
+            async startPolling(sessionId) {
+                while (this.pollCount < this.maxPollAttempts) {
+                    try {
+                        const result = await this.pollCheckoutResult(sessionId);
+                        
+                        if (result.status === 200) {
+                            // Success! Show license key and start download
+                            this.handleSuccess(result.data);
+                            return;
+                        } else if (result.status === 202) {
+                            // Still processing, continue polling
+                            this.pollCount++;
+                            await this.sleep(this.getBackoffDelay());
+                            this.updateLoadingMessage();
+                        } else {
+                            // Unexpected status
+                            throw new Error(`Unexpected response status: ${result.status}`);
+                        }
+                    } catch (error) {
+                        console.error('Polling error:', error);
+                        this.showStatus('error', `Error checking fulfillment status: ${error.message}. Please contact support if this persists.`);
+                        return;
+                    }
+                }
+
+                // Max attempts reached
+                this.showStatus('error', 'Fulfillment is taking longer than expected. Your license key will be sent to your email address shortly. Please contact support if you don\'t receive it within 10 minutes.');
+            }
+
+            async pollCheckoutResult(sessionId) {
+                const apiBase = API_BASE || '';
+                const url = `${apiBase}/api/checkout-result?session_id=${encodeURIComponent(sessionId)}`;
+                
+                const response = await fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                    },
+                });
+
+                let data = null;
+                const contentType = response.headers.get('content-type');
+                
+                try {
+                    if (contentType && contentType.includes('application/json')) {
+                        data = await response.json();
+                    } else {
+                        data = { message: await response.text() };
+                    }
+                } catch (e) {
+                    // If we can't parse response, use status text
+                    data = { message: response.statusText || 'Unknown error' };
+                }
+
+                return {
+                    status: response.status,
+                    data: data
+                };
+            }
+
+            handleSuccess(data) {
+                this.showStatus('success', 'Your purchase is complete!');
+                
+                if (data.licenseKey) {
+                    // Show license key
+                    document.getElementById('licenseKeyDisplay').textContent = data.licenseKey;
+                    document.getElementById('licenseKeySection').classList.remove('hidden');
+                }
+
+                if (data.downloadUrl) {
+                    // Auto-start download
+                    this.startDownload(data.downloadUrl);
+                    
+                    // Show manual download button
+                    const downloadButton = document.getElementById('downloadButton');
+                    downloadButton.onclick = () => this.startDownload(data.downloadUrl);
+                    document.getElementById('downloadSection').classList.remove('hidden');
+                }
+            }
+
+            startDownload(downloadUrl) {
+                // Create a temporary link element to trigger download
+                const link = document.createElement('a');
+                link.href = downloadUrl;
+                link.download = '';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }
+
+            showStatus(type, message) {
+                const statusSection = document.getElementById('statusSection');
+                let icon = '';
+                
+                if (type === 'loading') {
+                    icon = '<div class="spinner"></div>';
+                } else if (type === 'success') {
+                    icon = '✓ ';
+                } else if (type === 'error') {
+                    icon = '⚠ ';
+                }
+
+                statusSection.innerHTML = `
+                    <div class="status-message status-${type}">
+                        ${icon}${message}
+                    </div>
                 `;
             }
 
-            // Note: License key and download URL will need to be handled via Stripe webhooks
-            // For now, we'll show a message about email delivery
-            document.getElementById('emailNotification').innerHTML = `
-                <p class="text-gray-500 text-sm mt-8">
-                    Your license key and download link will be sent to your email address within a few minutes.
-                    If you don't receive it, please check your spam folder or contact support.
-                </p>
-            `;
-            
-            // Clear session storage after use
-            sessionStorage.removeItem('tradebotpro_product_type');
-            sessionStorage.removeItem('tradebotpro_customer_email');
-        });
+            updateLoadingMessage() {
+                const messages = [
+                    'Processing your payment and preparing your download...',
+                    'Generating your unique license key...',
+                    'Finalizing your product setup...',
+                    'Almost ready! Preparing your files...'
+                ];
+                
+                const messageIndex = Math.min(Math.floor(this.pollCount / 5), messages.length - 1);
+                this.showStatus('loading', messages[messageIndex]);
+            }
+
+            getBackoffDelay() {
+                // Exponential backoff with jitter: 2s, 3s, 4s, 6s, 8s, 12s, etc.
+                const baseDelay = this.initialDelay;
+                const backoffDelay = Math.min(
+                    baseDelay * Math.pow(1.5, Math.floor(this.pollCount / 3)),
+                    this.maxDelay
+                );
+                
+                // Add some jitter (±20%)
+                const jitter = backoffDelay * 0.2 * (Math.random() - 0.5);
+                return backoffDelay + jitter;
+            }
+
+            sleep(ms) {
+                return new Promise(resolve => setTimeout(resolve, ms));
+            }
+        }
 
         function copyLicenseKey() {
             const licenseKeyText = document.getElementById('licenseKeyDisplay').textContent;
+            if (!licenseKeyText) return;
+
             navigator.clipboard.writeText(licenseKeyText).then(() => {
-                alert('License key copied to clipboard!');
+                const copyButton = document.querySelector('.copy-button');
+                const originalText = copyButton.textContent;
+                copyButton.textContent = 'Copied!';
+                copyButton.style.backgroundColor = '#10b981';
+                setTimeout(() => {
+                    copyButton.textContent = originalText;
+                    copyButton.style.backgroundColor = '';
+                }, 2000);
             }).catch(err => {
                 console.error('Failed to copy license key:', err);
                 alert('Failed to copy license key. Please copy it manually.');
             });
         }
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            const poller = new CheckoutResultPoller();
+            poller.init();
+        });
     </script>
 </body>
 </html>
