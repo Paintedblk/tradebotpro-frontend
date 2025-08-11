@@ -16,6 +16,8 @@ To set up the "After payment" redirect URL in your Stripe Payment Link:
 
 The `{CHECKOUT_SESSION_ID}` placeholder will be automatically replaced by Stripe with the actual session ID.
 
+**Important**: Always ensure the Stripe Payment Link redirect URL points to `https://algotbp.com/success.html?session_id={CHECKOUT_SESSION_ID}` for proper post-payment processing.
+
 ## Success Page Functionality
 
 The `success.html` page handles post-purchase fulfillment by:
