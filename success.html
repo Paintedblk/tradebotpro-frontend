@@ -112,7 +112,8 @@
         // Configuration - Set API_BASE to call either same-origin /api or direct Cloud Run URL
         // Leave empty to use same-origin (when proxy from algotbp.com → Cloud Run exists)
         // Set to Cloud Run URL like 'https://your-service.run.app' if no reverse proxy
-        const API_BASE = '';
+        // TODO: Switch back to empty string once reverse proxy from algotbp.com to Cloud Run is configured
+        const API_BASE = 'https://tradebotpro-backend-553116950013.us-central1.run.app';
     </script>
 
     <div class="container">
