@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TradeBotPro - Feature Breakdown</title>
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
@@ -43,7 +42,6 @@
 </head>
 <body class="antialiased">
 
-    <!-- Header -->
     <header class="bg-gray-900 shadow-lg py-4 px-6 flex justify-between items-center fixed w-full z-50">
         <div class="flex items-center space-x-3">
             <svg class="w-8 h-8 text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -59,7 +57,6 @@
         </nav>
     </header>
 
-    <!-- Feature Breakdown Section -->
     <section id="comparison-section" class="py-20 px-6 bg-gray-900">
         <h2 class="text-5xl font-extrabold text-center mb-12 text-white">Extensive Feature Breakdown</h2>
         <p class="text-xl text-center text-gray-400 mb-12 max-w-3xl mx-auto">
@@ -77,83 +74,48 @@
                 </thead>
                 <tbody>
                     <tr>
+                        <td>**Asset Types**</td>
+                        <td>
+                            <p class="text-gray-300">Stocks Only.</p>
+                        </td>
+                        <td>
+                            <p class="text-gray-300"><span class="check-icon">&#x2713;</span> **Multi-Asset (Stocks & Crypto).** The Pro version can trade stocks during market hours and **crypto 24/7**, using specialized data clients for each.</p>
+                        </td>
+                    </tr>
+                    <tr>
                         <td>**AI Decision-Making**</td>
                         <td>
-                            <p class="text-gray-300">Basic strategy based on simple price change and volume thresholds. Identifies general momentum or mean reversion.</p>
+                            <p class="text-gray-300">A single, fixed strategy (Candlestick Pattern + RSI/MACD confirmation) that runs on a 5-minute timeframe.</p>
                         </td>
                         <td>
-                            <p class="text-gray-300">Advanced algorithms incorporating **RSI (Relative Strength Index)** and **MACD (Moving Average Convergence Divergence)** for more nuanced and precise entry/exit signals. Distinguishes between strong momentum for day trades and oversold conditions for swing trades.</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>**Fractional Share Trading**</td>
-                        <td>
-                            <p class="text-gray-300"><span class="cross-icon">&#x2718;</span> **Not Included.** The Lite version can only purchase whole shares. This limits your investment to stocks affordable in full share increments, potentially leaving idle cash.</p>
-                            <p class="text-gray-500 text-sm mt-2"><i>Example: With $35, you cannot buy a stock priced at $100.</i></p>
-                        </td>
-                        <td>
-                            <p class="text-gray-300"><span class="check-icon">&#x2713;</span> **Included.** The Pro version intelligently buys fractional shares for eligible stocks. This allows you to deploy nearly 100% of your capital, even into high-priced stocks like Google ($170+) or Nvidia ($1200+).</p>
-                            <p class="text-green-300 text-sm mt-2"><i>**Benefit:** This means you can significantly <strong class="text-white">increase your MAX STOCK PRICE window</strong>, gaining access to a much wider range of companies with higher growth potential that were previously out of reach for smaller investments. Every dollar works harder for you.</i></p>
+                            <p class="text-gray-300"><span class="check-icon">&#x2713;</span> **Multi-Strategy Engine.** Select from over 11 different strategies (e.g., Mean Reversion, Trend Following, Momentum) for both Stocks and Crypto via the Settings panel.</p>
                         </td>
                     </tr>
                     <tr>
-                        <td>**Options Trading**</td>
+                        <td>**Trading Timeframe**</td>
                         <td>
-                            <p class="text-gray-300"><span class="cross-icon">&#x2718;</span> **Not Included.** The Lite version is limited to trading traditional stocks (equities) only.</p>
+                            <p class="text-gray-300">Hardcoded to 5-minute candles. Not suitable for swing trading.</p>
                         </td>
                         <td>
-                            <p class="text-gray-300"><span class="check-icon">&#x2713;</span> **Experimental Options Module.** The Pro version includes an experimental module to trade options (Calls/Puts). This feature, while high-risk, offers the potential for amplified returns on correct market predictions.</p>
-                            <p class="text-green-300 text-sm mt-2"><i>**Benefit:** Diversify your strategies and potentially capitalize on market movements with greater leverage.</i></p>
+                            <p class="text-gray-300"><span class="check-icon">&#x2713;</span> **Multi-Timeframe Analysis.** Selectable 5-minute, 15-minute, or 30-minute timeframes. Use 5m for day trading or 30m for more robust swing trading signals.</p>
                         </td>
                     </tr>
                     <tr>
                         <td>**Persistent State Saving**</td>
                         <td>
-                            <p class="text-gray-300"><span class="cross-icon">&#x2718;</span> **Not Included.** If the bot is stopped or crashes, it loses track of its previous trades, realized P/L, and open positions. You would need to manually re-configure or re-enter data.</p>
+                            <p class="text-gray-300"><span class="cross-icon">&#x2718;</span> **Not Included.** If the bot is stopped or crashes, it loses track of all open positions and realized P/L. State is in-memory only.</p>
                         </td>
                         <td>
-                            <p class="text-gray-300"><span class="check-icon">&#x2713;</span> **Included.** The Pro version automatically saves its internal state (total profit, daily P/L, open trades) to a file. This ensures your progress is never lost, even across restarts or system interruptions.</p>
-                            <p class="text-green-300 text-sm mt-2"><i>**Benefit:** Seamless operation and peace of mind, knowing your bot can pick up exactly where it left off.</i></p>
+                            <p class="text-gray-300"><span class="check-icon">&#x2713;</span> **Included (SQLite Database).** The Pro version saves its internal state (all trades, open positions, P/L) to a local database. It can be stopped and restarted safely, picking up exactly where it left off.</p>
                         </td>
                     </tr>
                     <tr>
                         <td>**Real-time Reconciliation**</td>
                         <td>
-                            <p class="text-gray-300"><span class="cross-icon">&#x2718;</span> **Not Included.** The Lite version relies solely on its internal tracking, which can become inaccurate if you manually buy/sell positions or cancel orders outside the bot.</p>
+                            <p class="text-gray-300"><span class="cross-icon">&#x2718;</span> **Not Included.** Relies solely on its internal tracking, which can become inaccurate.</p>
                         </td>
                         <td>
-                            <p class="text-gray-300"><span class="check-icon">&#x2713;</span> **Included.** At startup, the Pro version actively reconciles its internal state with your live Alpaca brokerage account. It rebuilds its list of open positions and recalculates realized P/L from your order history, ensuring 100% accuracy even after manual interventions.</p>
-                            <p class="text-green-300 text-sm mt-2"><i>**Benefit:** Your reported profit/loss and active positions are always perfectly aligned with your brokerage, eliminating discrepancies.</i></p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>**Continuous Operation**</td>
-                        <td>
-                            <p class="text-gray-300"><span class="cross-icon">&#x2718;</span> **Stops at Market Close.** The Lite version is designed to stop trading and liquidate swing positions at market close, requiring manual restart the next trading day.</p>
-                        </td>
-                        <td>
-                            <p class="text-gray-300"><span class="check-icon">&#x2713;</span> **Auto-Resumes at Market Open.** The Pro version remains running and automatically detects market open, seamlessly resuming trading activities without any manual intervention from you.</p>
-                            <p class="text-green-300 text-sm mt-2"><i>**Benefit:** Truly set-and-forget automation, maximizing trading hours without constant monitoring.</i></p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>**Account-Level Risk Management**</td>
-                        <td>
-                            <p class="text-gray-300"><span class="cross-icon">&#x2718;</span> **Not Included.** The Lite version does not have global limits for daily profit/loss or maximum concurrent trades, making it harder to control overall account risk.</p>
-                        </td>
-                        <td>
-                            <p class="text-gray-300"><span class="check-icon">&#x2713;</span> **Included.** The Pro version features configurable daily profit targets and stop-loss limits that can halt trading for the day if reached. It also limits the number of concurrent open positions to prevent over-exposure.</p>
-                            <p class="text-green-300 text-sm mt-2"><i>**Benefit:** Protect your capital and enforce disciplined trading strategies at an account level.</i></p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>**Customizable Strategy Parameters**</td>
-                        <td>
-                            <p class="text-gray-300">Basic configuration for profit targets and stop losses.</p>
-                        </td>
-                        <td>
-                            <p class="text-gray-300"><span class="check-icon">&#x2713;</span> **Advanced Configuration.** Granular control over RSI, MACD thresholds, volume filters, and other technical indicator parameters to fine-tune strategies.</p>
-                            <p class="text-green-300 text-sm mt-2"><i>**Benefit:** Adapt the bot's behavior to different market conditions and personal trading styles.</i></p>
+                            <p class="text-gray-300"><span class="check-icon">&#x2713;</span> **Included.** At startup, the Pro version loads its open positions from the database. It actively monitors Alpaca order IDs to confirm fills before tracking them as "open".</p>
                         </td>
                     </tr>
                     <tr>
@@ -162,38 +124,43 @@
                             <p class="text-gray-300"><span class="cross-icon">&#x2718;</span> Not Included.</p>
                         </td>
                         <td>
-                            <p class="text-gray-300"><span class="check-icon">&#x2713;</span> **Integrated Backtesting Module.** Test your customized strategies against historical market data to evaluate performance before live trading.</p>
-                            <p class="text-green-300 text-sm mt-2"><i>**Benefit:** Validate strategy effectiveness and optimize parameters with confidence.</i></p>
+                            <p class="text-gray-300"><span class="check-icon">&#x2713;</span> **Integrated Backtesting Module.** Test all 11+ strategies against historical market data. It simulates portfolio performance and generates a visual **equity curve chart** to show results.</p>
                         </td>
                     </tr>
                     <tr>
-                        <td>**Real-time Alerts & Notifications**</td>
+                        <td>**Account-Level Risk Management**</td>
                         <td>
-                            <p class="text-gray-300"><span class="cross-icon">&#x2718;</span> Not Included.</p>
+                            <p class="text-gray-300">Basic. Only includes a limit on the number of concurrent trades.</p>
                         </td>
                         <td>
-                            <p class="text-gray-300"><span class="check-icon">&#x2713;</span> **Comprehensive Alert System.** Receive instant notifications for trades executed, profit/loss milestones, market events, and critical bot status updates.</p>
-                            <p class="text-green-300 text-sm mt-2"><i>**Benefit:** Stay informed about your trading activity without constant monitoring.</i></p>
+                            <p class="text-gray-300"><span class="check-icon">&#x2713;</span> **Advanced.** Features configurable **Daily Profit Targets** and **Daily Stop-Loss Limits** that pause trading. Also uses **Risk-Based Position Sizing** (based on ATR) for smarter trades.</p>
                         </td>
                     </tr>
                     <tr>
-                        <td>**Advanced Order Types**</td>
+                        <td>**Dashboard / Data**</td>
                         <td>
-                            <p class="text-gray-300">Basic Market and Limit Orders.</p>
+                            <p class="text-gray-300">Simple text log. Polls for data every 5 seconds.</p>
                         </td>
                         <td>
-                            <p class="text-gray-300"><span class="check-icon">&#x2713;</span> **Expanded Order Capabilities.** Utilize advanced order types like OCO (One Cancels Other) and Trailing Stop Limit orders for more precise entry and exit control.</p>
-                            <p class="text-green-300 text-sm mt-2"><i>**Benefit:** Enhance risk management and automate complex trading scenarios.</i></p>
-                        </p>
+                            <p class="text-gray-300"><span class="check-icon">&#x2713;</span> **Real-time Dashboard.** Uses a live **WebSocket stream** from Alpaca to update the "Open Positions" table with last-traded-prices and P/L in real-time.</p>
+                        </td>
                     </tr>
-                     <tr>
-                        <td>**Market News & Sentiment Analysis (LLM)**</td>
+                    <tr>
+                        <td>**Continuous Operation**</td>
                         <td>
-                            <p class="text-gray-300"><span class="cross-icon">&#x2718;</span> Not Included.</p>
+                            <p class="text-gray-300">Basic loop. Polls to see if the market is open and waits if it is not.</p>
                         </td>
                         <td>
-                            <p class="text-gray-300"><span class="check-icon">&#x2713;</span> **AI-Powered News Insights.** Get real-time summaries and sentiment analysis of market news for specific tickers, powered by advanced Large Language Models.</p>
-                            <p class="text-green-300 text-sm mt-2"><i>**Benefit:** Gain qualitative insights into market narratives to complement quantitative data.</i></p>
+                            <p class="text-gray-300"><span class="check-icon">&#x2713;</span> **Advanced 24/7 Operation.** Can run in "Swing Trade" mode to hold positions overnight, or "Day Trade" mode which automatically flattens stock positions at 3:50 PM ET.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>**Fractional Share Trading**</td>
+                        <td>
+                            <p class="text-gray-300"><span class="check-icon">&#x2713;</span> **Included.** Basic support for fractional shares using notional orders based on "Max Spend".</p>
+                        </td>
+                        <td>
+                            <p class="text-gray-300"><span class="check-icon">&#x2713;</span> **Advanced Risk-Based Sizing.** Fully integrated with **risk-based position sizing**. It calculates the exact fractional quantity based on your "Risk per Trade ($)" setting and the asset's ATR.</p>
                         </td>
                     </tr>
                     <tr>
@@ -205,7 +172,7 @@
             </table>
             <div class="p-6 bg-gray-700 text-center text-gray-200">
                 <p class="mb-4 text-lg font-semibold">Why upgrade to Pro?</p>
-                <p>The **TradeBotPro Pro Version** is engineered for traders who demand precision, flexibility, and peace of mind. Its advanced features, especially **Fractional Share Trading** and **Experimental Options Trading**, unlock greater market access and profit potential. Coupled with robust **Persistent State** and **Real-time Reconciliation**, you gain unparalleled accuracy and reliability. With **Customizable Strategy Parameters**, **Backtesting**, **Real-time Alerts**, **Advanced Order Types**, and **AI-Powered News Analysis**, the Pro Version provides a truly comprehensive and optimized trading experience. For serious traders, the Pro Version is the clear choice.</p>
+                <p>The **TradeBotPro Pro Version** is engineered for traders who demand precision, flexibility, and peace of mind. Its advanced features, especially its **Multi-Strategy Engine**, **Multi-Timeframe Analysis** (5m, 15m, 30m), and **Multi-Asset (Stock & Crypto)** support, unlock far greater market access and profit potential. Coupled with robust **SQLite Persistent State** and **Real-time Reconciliation**, you gain unparalleled accuracy and reliability. With **Customizable Strategies**, **Portfolio Backtesting**, and a **WebSocket-Powered Dashboard**, the Pro Version provides a truly comprehensive and optimized trading experience. For serious traders, the Pro Version is the clear choice.</p>
                 <a href="index.html#pricing" class="btn-primary inline-block mt-6 text-lg font-semibold py-3 px-8 rounded-lg shadow-lg">
                     Get the Pro Version Now!
                 </a>
@@ -213,7 +180,6 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer class="bg-gray-900 py-8 text-center text-gray-500 text-sm">
         <p>&copy; 2025 TradeBotPro. All rights reserved. Trading involves substantial risk.</p>
     </footer>
