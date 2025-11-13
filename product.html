@@ -57,8 +57,7 @@
 
     <div class="container">
         <div id="productDetails" class="text-center">
-            <!-- Product details will be populated by JavaScript -->
-        </div>
+            </div>
         
         <div class="mb-6">
             <label for="customerEmail" class="block text-sm font-medium text-gray-300 mb-2">
@@ -72,15 +71,12 @@
                 required
             >
             <p class="text-sm text-gray-400 mt-1">
-                We'll send your license key and download link to this email address.
+                We'll send your purchase details to this email address.
             </p>
         </div>
         
-        <div id="stripe-button-container" class="mt-6">
-            <button id="buy-now-button" class="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed">
-                Buy Now with Stripe
-            </button>
-        </div>
+        <div id="payment-options-container" class="mt-6">
+            </div>
         
         <div id="loading" class="hidden text-center py-4">
             <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-green-400"></div>
@@ -95,6 +91,7 @@
     </div>
 
     <script>
+        // --- Define Products and Payment Links ---
         const products = {
             lite: {
                 name: 'TradeBotPro Lite Version',
@@ -113,8 +110,8 @@
             },
             full: {
                 name: 'TradeBotPro Pro Version',
-                price: 199.99,
-                stripeUrl: 'https://buy.stripe.com/7sY6oH9yp3ktd1f59i7Vm02',
+                price: 199.99, // This is the lifetime price
+                stripeUrl: 'https://buy.stripe.com/7sY6oH9yp3ktd1f59i7Vm02', // Lifetime URL
                 features: [
                     { text: 'Lifetime Access', included: true },
                     { text: 'All Stock Trading Features', included: true },
@@ -128,19 +125,23 @@
             }
         };
 
-        // Get product type from URL
+        const PRO_SUBSCRIPTION_URL = 'https://buy.stripe.com/8x228r3a16wF5yN8lu7Vm03';
+
+        // --- Get elements ---
+        const productDetailsDiv = document.getElementById('productDetails');
+        const paymentOptionsContainer = document.getElementById('payment-options-container');
+        const loadingDiv = document.getElementById('loading');
+        
+        // --- Get product type from URL ---
         const urlParams = new URLSearchParams(window.location.search);
         const productType = urlParams.get('version') || 'full';
-        const product = products[productType];
+        const product = products[productType] || products.full;
 
-        if (!product) {
-            window.location.href = 'index.html';
-        }
-
-        // Populate product details
-        document.getElementById('productDetails').innerHTML = `
+        // --- Populate product details ---
+        productDetailsDiv.innerHTML = `
             <h2 class="text-4xl font-bold text-green-400 mb-4">${product.name}</h2>
             <p class="text-5xl font-extrabold text-white mb-6">$${product.price}</p>
+            ${productType === 'full' ? '<p class="text-3xl font-bold text-white -mt-4 mb-6">(One-Time Fee)</p>' : ''}
             <ul class="feature-list text-left max-w-md mx-auto mb-8">
                 ${product.features.map(feature => `
                     <li class="${feature.included ? 'text-gray-300' : 'text-gray-500'}">
@@ -153,13 +154,39 @@
             </ul>
         `;
 
-        // Validate email
+        // --- Dynamically inject payment buttons ---
+        if (productType === 'lite') {
+            // LITE Version: Show one button
+            paymentOptionsContainer.innerHTML = `
+                <button id="buy-lite-button" class="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed">
+                    Buy Now - $${product.price}
+                </button>
+            `;
+        } else {
+            // FULL (Pro) Version: Show two options
+            paymentOptionsContainer.innerHTML = `
+                <button id="buy-lifetime-button" class="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed">
+                    Buy Lifetime Access - $${product.price}
+                </button>
+
+                <div class="flex items-center my-4">
+                    <div class="flex-grow border-t border-gray-600"></div>
+                    <span class="flex-shrink mx-4 text-gray-400">OR</span>
+                    <div class="flex-grow border-t border-gray-600"></div>
+                </div>
+
+                <button id="buy-subscription-button" class="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed">
+                    Subscribe Weekly - $25.00
+                </button>
+            `;
+        }
+
+        // --- Validation and Error Functions ---
         function validateEmail(email) {
             const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             return re.test(email);
         }
 
-        // Show error message
         function showError(message) {
             const errorDiv = document.getElementById('error');
             errorDiv.textContent = message;
@@ -167,8 +194,8 @@
             setTimeout(() => errorDiv.classList.add('hidden'), 5000);
         }
 
-        // Handle Buy Now button click
-        document.getElementById('buy-now-button').addEventListener('click', function() {
+        // --- Unified Purchase Handler ---
+        function handlePurchase(stripeUrl, purchaseType) {
             const email = document.getElementById('customerEmail').value.trim();
             
             if (!email) {
@@ -181,19 +208,17 @@
                 return;
             }
 
-            document.getElementById('loading').classList.remove('hidden');
-            this.disabled = true;
+            // Show loading and disable ALL buttons
+            loadingDiv.classList.remove('hidden');
+            const buttons = paymentOptionsContainer.querySelectorAll('button');
+            buttons.forEach(btn => btn.disabled = true);
 
             // Store email and product type for potential success page use
             sessionStorage.setItem('tradebotpro_customer_email', email);
-            sessionStorage.setItem('tradebotpro_product_type', productType);
+            sessionStorage.setItem('tradebotpro_product_type', purchaseType);
 
-            // Create the Stripe checkout URL with customer email as a parameter
-            const checkoutUrl = new URL(product.stripeUrl);
-            
-            // Note: For Stripe's hosted checkout URLs, success/cancel URLs are typically 
-            // configured in the Stripe dashboard, not passed as URL parameters
-            // We can try to pass the email as a prefilled parameter if supported
+            // Create the Stripe checkout URL with customer email
+            const checkoutUrl = new URL(stripeUrl);
             try {
                 checkoutUrl.searchParams.append('prefilled_email', email);
             } catch (error) {
@@ -202,7 +227,22 @@
 
             // Redirect to Stripe Checkout
             window.location.href = checkoutUrl.toString();
+        }
+
+        // --- Use Event Delegation for Click Handlers ---
+        paymentOptionsContainer.addEventListener('click', function(event) {
+            const button = event.target.closest('button');
+            if (!button) return; // Click wasn't on a button
+
+            if (button.id === 'buy-lite-button') {
+                handlePurchase(product.stripeUrl, 'lite');
+            } else if (button.id === 'buy-lifetime-button') {
+                handlePurchase(product.stripeUrl, 'pro-lifetime');
+            } else if (button.id === 'buy-subscription-button') {
+                handlePurchase(PRO_SUBSCRIPTION_URL, 'pro-subscription');
+            }
         });
+
     </script>
-</body>
+    </body>
 </html>
