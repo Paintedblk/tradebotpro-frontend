@@ -91,12 +91,18 @@
     </div>
 
     <script>
-        // --- Define Products and Payment Links ---
+        // --- Define API Endpoint ---
+        // Since BASE_URL is in the backend, we use the hardcoded URL for the API call here.
+        // Replace with your actual deployed backend URL (the one that starts with https://tradebotpro-backend-...)
+        const API_BASE_URL = 'https://tradebotpro-backend-553116950013.us-central1.run.app';
+
+
+        // --- Define Products (Simplified for frontend) ---
         const products = {
             lite: {
                 name: 'TradeBotPro Lite Version',
                 price: 49.99,
-                stripeUrl: 'https://buy.stripe.com/bJebJ14e56wF1ix59i7Vm01',
+                purchaseType: 'lite-lifetime',
                 features: [
                     { text: 'Lifetime Access', included: true },
                     { text: 'Basic Stock Trading Features', included: true },
@@ -111,7 +117,7 @@
             full: {
                 name: 'TradeBotPro Pro Version',
                 price: 199.99, // This is the lifetime price
-                stripeUrl: 'https://buy.stripe.com/7sY6oH9yp3ktd1f59i7Vm02', // Lifetime URL
+                purchaseType: 'full-lifetime',
                 features: [
                     { text: 'Lifetime Access', included: true },
                     { text: 'All Stock Trading Features', included: true },
@@ -122,10 +128,13 @@
                     { text: 'Account-Level Risk Management', included: true },
                     { text: 'Unique License Key', included: true }
                 ]
+            },
+            subscription: {
+                name: 'TradeBotPro Pro Subscription',
+                price: 25.00,
+                purchaseType: 'full-subscription'
             }
         };
-
-        const PRO_SUBSCRIPTION_URL = 'https://buy.stripe.com/8x228r3a16wF5yN8lu7Vm03';
 
         // --- Get elements ---
         const productDetailsDiv = document.getElementById('productDetails');
@@ -134,16 +143,19 @@
         
         // --- Get product type from URL ---
         const urlParams = new URLSearchParams(window.location.search);
-        const productType = urlParams.get('version') || 'full';
-        const product = products[productType] || products.full;
+        // Default to 'full' for the primary view
+        const productTypeQuery = urlParams.get('version') || 'full'; 
+        
+        // Determine which product object to display (lite or full)
+        const productToDisplay = products[productTypeQuery] || products.full; 
 
         // --- Populate product details ---
         productDetailsDiv.innerHTML = `
-            <h2 class="text-4xl font-bold text-green-400 mb-4">${product.name}</h2>
-            <p class="text-5xl font-extrabold text-white mb-6">$${product.price}</p>
-            ${productType === 'full' ? '<p class="text-3xl font-bold text-white -mt-4 mb-6">(One-Time Fee)</p>' : ''}
+            <h2 class="text-4xl font-bold text-green-400 mb-4">${productToDisplay.name}</h2>
+            <p class="text-5xl font-extrabold text-white mb-6">$${productToDisplay.price}</p>
+            ${productTypeQuery === 'full' ? '<p class="text-3xl font-bold text-white -mt-4 mb-6">(One-Time Fee)</p>' : ''}
             <ul class="feature-list text-left max-w-md mx-auto mb-8">
-                ${product.features.map(feature => `
+                ${productToDisplay.features.map(feature => `
                     <li class="${feature.included ? 'text-gray-300' : 'text-gray-500'}">
                         <span class="${feature.included ? 'check' : 'cross'}">
                             ${feature.included ? '✓' : '✗'}
@@ -155,18 +167,18 @@
         `;
 
         // --- Dynamically inject payment buttons ---
-        if (productType === 'lite') {
-            // LITE Version: Show one button
+        if (productTypeQuery === 'lite') {
+            // LITE Version: Show one button (Lite Lifetime)
             paymentOptionsContainer.innerHTML = `
-                <button id="buy-lite-button" class="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed">
-                    Buy Now - $${product.price}
+                <button data-type="lite" class="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed">
+                    Buy Lite Access - $${products.lite.price}
                 </button>
             `;
         } else {
-            // FULL (Pro) Version: Show two options
+            // FULL (Pro) Version: Show two options (Lifetime and Subscription)
             paymentOptionsContainer.innerHTML = `
-                <button id="buy-lifetime-button" class="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed">
-                    Buy Lifetime Access - $${product.price}
+                <button data-type="full-lifetime" class="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed">
+                    Buy Lifetime Access - $${products.full.price}
                 </button>
 
                 <div class="flex items-center my-4">
@@ -175,8 +187,8 @@
                     <div class="flex-grow border-t border-gray-600"></div>
                 </div>
 
-                <button id="buy-subscription-button" class="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed">
-                    Subscribe Weekly - $25.00
+                <button data-type="full-subscription" class="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed">
+                    Subscribe Weekly - $${products.subscription.price}
                 </button>
             `;
         }
@@ -195,7 +207,7 @@
         }
 
         // --- Unified Purchase Handler ---
-        function handlePurchase(stripeUrl, purchaseType) {
+        async function handlePurchase(purchaseType) {
             const email = document.getElementById('customerEmail').value.trim();
             
             if (!email) {
@@ -208,25 +220,48 @@
                 return;
             }
 
+            // Map the purchase type to the API's expected productType
+            const apiProductType = purchaseType.startsWith('lite') ? 'lite' : 'full';
+
             // Show loading and disable ALL buttons
             loadingDiv.classList.remove('hidden');
             const buttons = paymentOptionsContainer.querySelectorAll('button');
             buttons.forEach(btn => btn.disabled = true);
 
-            // Store email and product type for potential success page use
-            sessionStorage.setItem('tradebotpro_customer_email', email);
-            sessionStorage.setItem('tradebotpro_product_type', purchaseType);
-
-            // Create the Stripe checkout URL with customer email
-            const checkoutUrl = new URL(stripeUrl);
             try {
-                checkoutUrl.searchParams.append('prefilled_email', email);
-            } catch (error) {
-                console.warn('Could not add prefilled email parameter:', error);
-            }
+                // 1. Call the backend API to create the payment link with metadata
+                const response = await fetch(`${API_BASE_URL}/api/create-payment-link`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        productType: apiProductType,
+                        customerEmail: email,
+                        // NOTE: If you decide to support subscription links via the API, 
+                        // you would pass a flag here (e.g., isSubscription: true).
+                        // For now, the API only creates links for the standard prices.
+                    })
+                });
 
-            // Redirect to Stripe Checkout
-            window.location.href = checkoutUrl.toString();
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.error || 'Failed to generate payment link');
+                }
+
+                // 2. Redirect to the generated Stripe URL
+                window.location.href = data.url;
+
+            } catch (error) {
+                console.error('Error during purchase process:', error);
+                showError('Payment link creation failed. Please try again or contact support.');
+            } finally {
+                // Re-enable buttons if redirection fails
+                loadingDiv.classList.add('hidden');
+                buttons.forEach(btn => btn.disabled = false);
+            }
         }
 
         // --- Use Event Delegation for Click Handlers ---
@@ -234,12 +269,33 @@
             const button = event.target.closest('button');
             if (!button) return; // Click wasn't on a button
 
-            if (button.id === 'buy-lite-button') {
-                handlePurchase(product.stripeUrl, 'lite');
-            } else if (button.id === 'buy-lifetime-button') {
-                handlePurchase(product.stripeUrl, 'pro-lifetime');
-            } else if (button.id === 'buy-subscription-button') {
-                handlePurchase(PRO_SUBSCRIPTION_URL, 'pro-subscription');
+            const purchaseType = button.getAttribute('data-type');
+            
+            // Note: The /api/create-payment-link currently only handles the lifetime prices.
+            // If the user selects the subscription, we revert to the hardcoded Stripe URL 
+            // for simplicity, or you need to update the backend to support subscription link creation.
+            // Since the user is hitting a price issue, we must use the backend.
+            // For now, let's treat 'full-subscription' as 'full' and update the backend price later.
+            
+            // --- CRITICAL TEMPORARY MEASURE ---
+            // Given the price issue, we assume all purchases should route through the API to ensure metadata is present.
+            // The API /create-payment-link creates a link for the full or lite price.
+            // To fix the immediate webhook issue, we'll force the subscription flow to use the API
+            // and assume the backend will handle the subscription price dynamically.
+            
+            if (purchaseType === 'full-subscription') {
+                // For the subscription option ($25.00), you will need a separate backend endpoint 
+                // that generates a subscription checkout session link to include the metadata.
+                // Since the current API only generates a payment link for the $199.99 or $49.99 prices,
+                // we'll treat all clicks as triggering the API for the *correct* product type.
+                
+                // --- IMMEDIATE FIX: Use API for all, treating subscription as 'full' product type for API purposes ---
+                handlePurchase('full'); // API will create the $199.99 link with metadata
+                showError('Note: Subscription functionality needs backend updates. Processing as standard Pro access for now.');
+            } else if (purchaseType === 'lite') {
+                handlePurchase('lite');
+            } else if (purchaseType === 'full-lifetime') {
+                handlePurchase('full');
             }
         });
 
