@@ -245,7 +245,7 @@
 
             } catch (error) {
                 console.error('Payment link error:', error);
-                showError('Failed to create payment link. Please try again.');
+                showError(`Error: ${error.message}`);
                 
                 // Re-enable buttons
                 loadingDiv.classList.add('hidden');
