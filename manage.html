@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Subscription - TradeBotPro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background-color: #0d1117; color: #e6edf3; font-family: sans-serif; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center p-4">
+
+    <div class="max-w-md w-full bg-[#161b22] border border-[#30363d] rounded-lg p-8 shadow-lg">
+        <h2 class="text-2xl font-bold text-green-400 mb-6 text-center">Manage Subscription</h2>
+        
+        <p class="text-gray-400 mb-6 text-sm text-center">
+            Enter your License Key to manage your billing, update payment methods, or cancel your subscription.
+        </p>
+
+        <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-300 mb-2">License Key</label>
+            <input type="text" id="licenseKey" 
+                class="w-full bg-[#0d1117] border border-[#30363d] text-white rounded p-3 focus:border-green-500 focus:outline-none"
+                placeholder="TBP-XXXXXXXX-XXXXXXXX">
+        </div>
+
+        <button id="manageBtn" onclick="redirectToPortal()" 
+            class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded transition duration-200">
+            Go to Billing Portal
+        </button>
+        
+        <div id="message" class="mt-4 text-center text-sm hidden"></div>
+        
+        <div class="mt-6 text-center">
+             <a href="index.html" class="text-gray-500 hover:text-gray-300 text-xs">← Back to Home</a>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE_URL = 'https://tradebotpro-backend-553116950013.us-central1.run.app'; // Your URL
+
+        async function redirectToPortal() {
+            const key = document.getElementById('licenseKey').value.trim();
+            const btn = document.getElementById('manageBtn');
+            const msg = document.getElementById('message');
+
+            if (!key) return;
+
+            btn.disabled = true;
+            btn.innerHTML = 'Processing...';
+            msg.classList.add('hidden');
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/create-portal-session`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ licenseKey: key })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    window.location.href = data.url; // Redirect to Stripe
+                } else {
+                    throw new Error(data.error || 'Failed to load portal');
+                }
+            } catch (error) {
+                msg.textContent = error.message;
+                msg.className = 'mt-4 text-center text-sm text-red-500 block';
+                btn.disabled = false;
+                btn.innerHTML = 'Go to Billing Portal';
+            }
+        }
+    </script>
+</body>
+</html>
