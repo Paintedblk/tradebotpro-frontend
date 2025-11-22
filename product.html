@@ -94,6 +94,12 @@
         // API Configuration - Replace with your actual backend URL
         const API_BASE_URL = 'https://tradebotpro-backend-553116950013.us-central1.run.app';
 
+        // --- HARDCODED STRIPE LINKS ---
+        const STRIPE_LINKS = {
+            full_lifetime: 'https://buy.stripe.com/7sY6oH9yp3ktd1f59i7Vm02',
+            full_subscription: 'https://buy.stripe.com/8x228r3a16wF5yN8lu7Vm03'
+        };
+
         // --- Define Products ---
         const products = {
             lite: {
@@ -216,6 +222,33 @@
             // Store email and product type for success page
             sessionStorage.setItem('tradebotpro_customer_email', email);
             sessionStorage.setItem('tradebotpro_product_type', isSubscription ? 'full-subscription' : purchaseProductType);
+
+            // ==========================================
+            // LOGIC SPLIT: PRO (Static Link) vs LITE (API)
+            // ==========================================
+            
+            if (purchaseProductType === 'full') {
+                // For Pro Version, use the hardcoded Stripe links directly
+                let stripeUrl;
+                
+                if (isSubscription) {
+                    stripeUrl = STRIPE_LINKS.full_subscription;
+                } else {
+                    stripeUrl = STRIPE_LINKS.full_lifetime;
+                }
+
+                // Append the email to the Stripe URL to prefill the checkout form
+                // This improves UX so they don't have to type it twice
+                const finalUrl = `${stripeUrl}?prefilled_email=${encodeURIComponent(email)}`;
+                
+                // Redirect directly to Stripe
+                window.location.href = finalUrl;
+                return; 
+            }
+
+            // ==========================================
+            // LITE VERSION (Keep existing API logic)
+            // ==========================================
 
             try {
                 // Call backend API to create payment link
