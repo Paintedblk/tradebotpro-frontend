@@ -4,20 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TradeBotPro - Automate Your Trading</title>
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #0d1117; /* Dark background for a professional tech feel */
-            color: #e6edf3; /* Light text for contrast */
+            background-color: #0d1117;
+            color: #e6edf3;
         }
         .gradient-bg {
             background: linear-gradient(135deg, #1a202c, #2d3748);
         }
         .btn-primary {
-            background-image: linear-gradient(to right, #10B981, #059669); /* Green gradient */
+            background-image: linear-gradient(to right, #10B981, #059669);
             transition: all 0.3s ease;
         }
         .btn-primary:hover {
@@ -25,7 +24,7 @@
             box-shadow: 0 8px 15px rgba(16, 185, 129, 0.4);
         }
         .btn-secondary {
-            background-color: #4a5568; /* Grayish blue */
+            background-color: #4a5568;
             transition: all 0.3s ease;
         }
         .btn-secondary:hover {
@@ -33,7 +32,7 @@
             box-shadow: 0 8px 15px rgba(74, 85, 104, 0.4);
         }
         .feature-card {
-            background-color: #161b22; /* Slightly lighter dark for cards */
+            background-color: #161b22;
             border: 1px solid #30363d;
             transition: transform 0.2s ease-in-out;
         }
@@ -41,14 +40,23 @@
             transform: translateY(-5px);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
         }
+        
+        /* Modal Styles */
+        #liabilityModal {
+            display: none; /* Hidden by default */
+        }
+        /* Disabled button style */
+        .btn-disabled {
+            background-color: #4a5568;
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
     </style>
 </head>
 <body class="antialiased">
 
-    <!-- Header -->
     <header class="bg-gray-900 shadow-lg py-4 px-6 flex justify-between items-center fixed w-full z-50">
         <div class="flex items-center space-x-3">
-            <!-- Simple Bot Icon (SVG) -->
             <svg class="w-8 h-8 text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l3 3a1 1 0 001.414-1.414L11 9.586V6z" clip-rule="evenodd"></path>
             </svg>
@@ -63,7 +71,6 @@
         </nav>
     </header>
 
-    <!-- Hero Section -->
     <section class="relative h-screen flex items-center justify-center text-center text-white overflow-hidden gradient-bg">
         <div class="absolute inset-0 bg-black opacity-50"></div>
         <div class="relative z-10 p-8 max-w-4xl mx-auto">
@@ -74,118 +81,51 @@
                 Intelligent Automation for Stocks & Options. Maximize Profits, Minimize Manual Effort.
             </p>
             <div class="space-x-4">
-                <button onclick="window.location.href='product.html?version=full'" class="btn-primary text-lg md:text-xl font-semibold py-3 px-8 rounded-lg shadow-lg">
+                <button onclick="openLiabilityModal('full')" class="btn-primary text-lg md:text-xl font-semibold py-3 px-8 rounded-lg shadow-lg">
                     Get the Pro Version
                 </button>
-                <button onclick="window.location.href='product.html?version=lite'" class="btn-secondary text-lg md:text-xl font-semibold py-3 px-8 rounded-lg shadow-lg">
+                <button onclick="openLiabilityModal('lite')" class="btn-secondary text-lg md:text-xl font-semibold py-3 px-8 rounded-lg shadow-lg">
                     Get Lite Version
                 </button>
             </div>
         </div>
     </section>
 
-    <!-- Features Section -->
-<section id="features" class="py-16 px-6 bg-gray-900">
+    <section id="features" class="py-16 px-6 bg-gray-900">
         <h2 class="text-4xl font-bold text-center mb-12 text-white">Why Choose TradeBotPro?</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            
             <div class="feature-card p-6 rounded-lg shadow-xl flex flex-col items-center text-center">
-                <svg class="w-16 h-16 text-blue-400 mb-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 013 14v3a1 1 0 001 1h12a1 1 0 001-1v-3a1 1 0 01-.293-.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 110-6 3 3 0 010 6z"></path></svg>
+                <svg class="w-16 h-16 text-blue-400 mb-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 013 14v3a1 1 0 001 1h12a1 1 0 001-1v-3a1 1 0 01-.293-.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 110-6 3 3 0 010 6z"></path></svg>
                 <h3 class="text-2xl font-semibold mb-3 text-green-300">Multi-Asset (Stock & Crypto)</h3>
-                <p class="text-gray-400 mb-4">TradeBotPro Pro isn't just for stocks. It's a 24/7 trading machine with full support for both equities and cryptocurrencies like BTC/USD and ETH/USD.</p>
-                <p class="text-green-200 font-medium italic">
-                    Benefit: "While the stock market sleeps, the bot is busy scanning 24/7 crypto markets for mean-reversion or trend-following opportunities."
-                </p>
+                <p class="text-gray-400 mb-4">TradeBotPro Pro isn't just for stocks. It's a 24/7 trading machine with full support for both equities and cryptocurrencies.</p>
             </div>
-
-            <div class="feature-card p-6 rounded-lg shadow-xl flex flex-col items-center text-center">
-                <svg class="w-16 h-16 text-purple-400 mb-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 000 2h6a1 1 0 100-2H7z" clip-rule="evenodd"></path></svg>
-                <h3 class="text-2xl font-semibold mb-3 text-green-300">Advanced AI Trading Engine</h3>
-                <p class="text-gray-400 mb-4">Select from over 11 strategies (Trend, Mean Reversion, Momentum) and choose your timeframe (5m, 15m, or 30m) to match your style.</p>
-                <p class="text-green-200 font-medium italic">
-                    Benefit: "Use the 5-minute timeframe for day trading or switch to the 30-minute timeframe for more reliable, high-conviction swing trading signals."
-                </p>
             </div>
-            
-            <div class="feature-card p-6 rounded-lg shadow-xl flex flex-col items-center text-center">
-                <svg class="w-16 h-16 text-yellow-400 mb-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path><path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path></svg>
-                <h3 class="text-2xl font-semibold mb-3 text-green-300">Integrated Portfolio Backtester</h3>
-                <p class="text-gray-400 mb-4">Don't guess. Test every strategy against historical data for any stock or crypto pair and see a visual equity chart of the results.</p>
-                <p class="text-green-200 font-medium italic">
-                    Benefit: "Validate your 'Crypto Breakout' strategy on BTC/USD over 60 days to see its performance *before* you risk a single live dollar."
-                </p>
-            </div>
-
-            <div class="feature-card p-6 rounded-lg shadow-xl flex flex-col items-center text-center">
-                <svg class="w-16 h-16 text-red-400 mb-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M2 5a2 2 0 012-2h12a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2V5zm3 1h10v8H5V6zm1-2a1 1 0 00-1 1v1a1 1 0 102 0V5a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
-                <h3 class="text-2xl font-semibold mb-3 text-green-300">Persistent State (SQLite DB)</h3>
-                <p class="text-gray-400 mb-4">Never lose your progress. The Pro version saves all open trades, pending orders, and P/L history to a robust SQLite database.</p>
-                <p class="text-green-200 font-medium italic">
-                    Benefit: "Stop the bot, restart your PC, or close it for the weekend. When you start it again, it picks up *exactly* where it left off, tracking all open swing trades."
-                </p>
-            </div>
-
-            <div class="feature-card p-6 rounded-lg shadow-xl flex flex-col items-center text-center">
-                <svg class="w-16 h-16 text-teal-400 mb-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"></path></svg>
-                <h3 class="text-2xl font-semibold mb-3 text-green-300">Real-time WebSocket Dashboard</h3>
-                <p class="text-gray-400 mb-4">The dashboard isn't just a list, it's a live data feed. It uses a WebSocket stream to update your open positions' prices and P/L in real-time.</p>
-                <p class="text-green-200 font-medium italic">
-                    Benefit: "Watch your P/L percentage tick up live from the dashboard without ever leaving the app or refreshing the page."
-                </p>
-            </div>
-
-            <div class="feature-card p-6 rounded-lg shadow-xl flex flex-col items-center text-center">
-                <svg class="w-16 h-16 text-orange-400 mb-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 1.944A11.954 11.954 0 012.166 5.026a11.954 11.954 0 01-1.42 6.052c-.07.248-.002.518.188.693l.36.275c.09.069.193.106.298.106h.411a.5.5 0 00.418-.236l.51-.818a.5.5 0 00-.063-.61l-.398-.398a.5.5 0 01.354-.854l.43.097a.5.5 0 00.518-.266l.51-1.018a.5.5 0 00-.17-.676l-.398-.398a.5.5 0 01.353-.854l.43.097a.5.5 0 00.518-.266l.51-1.018a.5.5 0 00-.17-.676l-.398-.398a.5.5 0 01.353-.854l.43.097a.5.5 0 00.518-.266l.51-1.018a.5.5 0 00-.17-.676l-.398-.398a.5.5 0 01.354-.854l.43.097a.5.5 0 00.518-.266l.51-1.018a.5.5 0 00-.17-.676l-.398-.398a.5.5 0 01.354-.854l.215.049a.5.5 0 00.518-.265l.51-1.018A.5.5 0 0010 1.944zM10 6a1 1 0 011 1v3a1 1 0 11-2 0V7a1 1 0 011-1zM10 12a1 1 0 100 2 1 1 0 000-2z" clip-rule="evenodd"></path></svg>
-                <h3 class="text-2xl font-semibold mb-3 text-green-300">Advanced Risk Management</h3>
-                <p class="text-gray-400 mb-4">Set Daily P/L Targets, Daily Stop-Losses, and your "Risk per Trade ($)". The bot uses this with ATR to calculate smart position sizes.</p>
-                <p class="text-green-200 font-medium italic">
-                    Benefit: "Risk $50 per trade. The bot will buy $1,000 of Stock A (low volatility) but only $300 of Stock B (high volatility) to keep your risk consistent."
-                </p>
-            </div>
-        </div>
     </section>
 
-    <!-- Pricing Section -->
     <section id="pricing" class="py-16 px-6 bg-gray-800">
         <h2 class="text-4xl font-bold text-center mb-12 text-white">Choose Your Trading Power</h2>
         <div class="flex flex-col md:flex-row justify-center items-stretch gap-8 max-w-5xl mx-auto">
             
-            <!-- Lite Version Card -->
             <div class="flex-1 feature-card p-8 rounded-lg shadow-2xl flex flex-col items-center text-center transform hover:scale-105 transition-transform duration-300">
                 <h3 class="text-3xl font-bold text-blue-400 mb-4">Lite Version</h3>
                 <p class="text-5xl font-extrabold text-white mb-6">$49.99</p>
                 <ul class="text-gray-300 text-lg space-y-3 mb-8 text-left w-full">
-                    <li class="flex items-center"><svg class="w-6 h-6 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Lifetime Access</li>
-                    <li class="flex items-center"><svg class="w-6 h-6 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Stocks Only Trading</li>
-                    <li class="flex items-center"><svg class="w-6 h-6 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Single Fixed Strategy (5-min)</li>
-                    <li class="flex items-center text-gray-500"><svg class="w-6 h-6 mr-2 text-red-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg> No Crypto Trading</li>
-                    <li class="flex items-center text-gray-500"><svg class="w-6 h-6 mr-2 text-red-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg> No Multi-Timeframe Analysis</li>
-                    <li class="flex items-center text-gray-500"><svg class="w-6 h-6 mr-2 text-red-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg> No Multi-Strategy Engine</li>
-                    <li class="flex items-center text-gray-500"><svg class="w-6 h-6 mr-2 text-red-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg> No Backtesting Module</li>
-                    <li class="flex items-center text-gray-500"><svg class="w-6 h-6 mr-2 text-red-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg> No Persistent State (DB)</li>
+                     <li class="flex items-center"><svg class="w-6 h-6 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Lifetime Access</li>
+                     <li class="flex items-center"><svg class="w-6 h-6 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Stocks Only Trading</li>
                 </ul>
-                <button onclick="window.location.href='product.html?version=lite'" class="btn-secondary text-xl font-semibold py-3 px-10 rounded-lg shadow-lg w-full">
+                <button onclick="openLiabilityModal('lite')" class="btn-secondary text-xl font-semibold py-3 px-10 rounded-lg shadow-lg w-full">
                     Get Now for $49.99
                 </button>
             </div>
 
-            <!-- Pro Version Card -->
             <div class="flex-1 feature-card p-8 rounded-lg shadow-2xl flex flex-col items-center text-center transform hover:scale-105 transition-transform duration-300">
                 <h3 class="text-3xl font-bold text-green-400 mb-4">Pro Version</h3>
                 <p class="text-5xl font-extrabold text-white mb-6">$199.99</p>
-                <p class="text-xl md:text-2xl mb-8 opacity-90">Try for $25 Weekly</p>
                 <ul class="text-gray-300 text-lg space-y-3 mb-8 text-left w-full">
-                    <li class="flex items-center"><svg class="w-6 h-6 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Lifetime Access for $199 One Time Fee!</li>
-                    <li class="flex items-center"><svg class="w-6 h-6 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Stocks & 24/7 Crypto Trading</li>
-                    <li class="flex items-center"><svg class="w-6 h-6 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Multi-Strategy Engine (11+)</li>
-                    <li class="flex items-center"><svg class="w-6 h-6 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Multi-Timeframe (5m, 15m, 30m)</li>
-                    <li class="flex items-center"><svg class="w-6 h-6 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Integrated Portfolio Backtester</li>
-                    <li class="flex items-center"><svg class="w-6 h-6 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Persistent State (SQLite DB)</li>
-                    <li class="flex items-center"><svg class="w-6 h-6 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Advanced P/L Risk Management</li>
-                    <li class="flex items-center"><svg class="w-6 h-6 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Real-time WebSocket Dashboard</li>
-                     <li class="flex items-center"><svg class="w-6 h-6 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Cancel Subscription Anytime!</li>
+                     <li class="flex items-center"><svg class="w-6 h-6 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Stocks & Crypto Trading</li>
+                     <li class="flex items-center"><svg class="w-6 h-6 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Multi-Strategy Engine</li>
                 </ul>
-                <button onclick="window.location.href='product.html?version=full'" class="btn-primary text-xl font-semibold py-3 px-10 rounded-lg shadow-lg w-full">
+                <button onclick="openLiabilityModal('full')" class="btn-primary text-xl font-semibold py-3 px-10 rounded-lg shadow-lg w-full">
                     Buy Now!
                 </button>
             </div>
@@ -193,23 +133,91 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer class="bg-gray-900 py-8 text-center text-gray-500 text-sm">
         <p>&copy; 2025 TradeBotPro. All rights reserved. Trading involves substantial risk.</p>
     </footer>
 
+    <div id="liabilityModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-80 backdrop-blur-sm p-4">
+        <div class="bg-gray-800 border border-gray-600 rounded-lg shadow-2xl max-w-2xl w-full flex flex-col max-h-[90vh]">
+            
+            <div class="p-6 border-b border-gray-700">
+                <h3 class="text-2xl font-bold text-red-500">⚠ IMPORTANT: Liability Waiver</h3>
+                <p class="text-gray-400 text-sm mt-1">Please read carefully before proceeding.</p>
+            </div>
+
+            <div class="p-6 overflow-y-auto text-gray-300 text-sm leading-relaxed space-y-4">
+                <p class="font-bold text-white">TradeBotPro is a software tool, not a financial advisor. We do not provide personalized investment advice.</p>
+                
+                <p><strong class="text-white">All sales are final.</strong> Trading in financial markets carries a high level of risk, and TradeBotPro is provided "as is" without any warranties, express or implied. The use of this software is at your sole risk. We do not guarantee any profits or protection against losses. Past performance is not indicative of future results.</p>
+                
+                <p>By using TradeBotPro, you acknowledge and agree that the developers, distributors, and affiliates shall not be liable for any direct, indirect, incidental, special, consequential, or exemplary damages, including but not limited to, damages for loss of profits, goodwill, use, data, or other intangible losses, resulting from the use or inability to use the software. It is your responsibility to understand the risks involved in trading and to manage your capital appropriately.</p>
+            </div>
+
+            <div class="p-6 border-t border-gray-700 bg-gray-900 rounded-b-lg">
+                <div class="flex items-start mb-4">
+                    <input id="agreeCheckbox" type="checkbox" onchange="toggleContinueButton()" class="w-5 h-5 text-green-500 rounded focus:ring-green-500 border-gray-600 bg-gray-700 mt-1">
+                    <label for="agreeCheckbox" class="ml-3 text-gray-300 text-sm cursor-pointer select-none">
+                        I have read and agree to the <span class="text-white font-bold">Terms of Service</span> and <span class="text-white font-bold">Liability Waiver</span> above. I understand that I can lose money trading.
+                    </label>
+                </div>
+                
+                <div class="flex space-x-4">
+                    <button onclick="closeModal()" class="w-1/3 py-3 rounded-lg border border-gray-600 text-gray-400 hover:text-white hover:border-gray-400 transition">
+                        Cancel
+                    </button>
+                    <button id="continueBtn" onclick="proceedToCheckout()" disabled class="w-2/3 py-3 rounded-lg font-bold text-white btn-disabled transition">
+                        Accept & Continue
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // Function to scroll smoothly to a section.
+        let targetVersion = '';
+
+        // Open the modal and remember which product they wanted
+        function openLiabilityModal(version) {
+            targetVersion = version;
+            document.getElementById('liabilityModal').style.display = 'flex';
+            // Reset the state every time it opens
+            document.getElementById('agreeCheckbox').checked = false;
+            toggleContinueButton(); 
+        }
+
+        // Close modal
+        function closeModal() {
+            document.getElementById('liabilityModal').style.display = 'none';
+            targetVersion = '';
+        }
+
+        // Enable button only if checkbox is checked
+        function toggleContinueButton() {
+            const checkbox = document.getElementById('agreeCheckbox');
+            const btn = document.getElementById('continueBtn');
+            
+            if (checkbox.checked) {
+                btn.disabled = false;
+                btn.classList.remove('btn-disabled');
+                btn.classList.add('bg-green-600', 'hover:bg-green-500', 'shadow-lg'); // Add active styles
+            } else {
+                btn.disabled = true;
+                btn.classList.add('btn-disabled');
+                btn.classList.remove('bg-green-600', 'hover:bg-green-500', 'shadow-lg'); // Remove active styles
+            }
+        }
+
+        // Redirect to the actual product page
+        function proceedToCheckout() {
+            if (targetVersion) {
+                window.location.href = 'product.html?version=' + targetVersion;
+            }
+        }
+
+        // Smooth scroll function
         function scrollToSection(id) {
             document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
         }
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
