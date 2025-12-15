@@ -71,26 +71,77 @@
         </nav>
     </header>
 
-   <section class="relative h-screen flex items-center justify-center text-center text-white overflow-hidden gradient-bg">
-        <div class="absolute inset-0 bg-black opacity-50"></div>
-        <div class="relative z-10 p-8 max-w-4xl mx-auto">
-            <h2 class="text-5xl md:text-6xl font-extrabold leading-tight mb-6 animate-pulse-slow">
-                Pro-Level Trading Power. <br>
-                <span class="text-green-400">Perfect for Beginners.</span>
+   <section class="relative min-h-screen flex flex-col items-center justify-center text-center text-white overflow-hidden gradient-bg pt-28 pb-16">
+        
+        <div class="absolute inset-0 z-0 opacity-10" style="background-image: radial-gradient(#4ade80 1px, transparent 1px); background-size: 32px 32px;"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-[#0d1117]/50 to-[#0d1117] z-0"></div>
+
+        <div class="relative z-10 px-6 max-w-6xl mx-auto flex flex-col items-center">
+            
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-800/80 border border-green-500/30 text-green-400 text-xs md:text-sm font-medium mb-6 backdrop-blur-sm animate-fade-in-up">
+                <span class="relative flex h-2 w-2">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                </span>
+                Get the same automated tools the pros use, designed specifically for those just getting started. No complex setup required.
+            </div>
+
+            <h2 class="text-5xl md:text-7xl font-extrabold leading-tight mb-6 tracking-tight drop-shadow-lg">
+                Pro-Level Trading. <br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-500">Simplified.</span>
             </h2>
             
-            <p class="text-xl md:text-2xl mb-8 opacity-90">
-                Get the same automated tools the pros use, designed specifically for those just getting started. No complex setup required.
+            <p class="text-xl md:text-2xl mb-8 text-gray-300 max-w-2xl mx-auto leading-relaxed">
+                The automated trading bot that bridges the gap between institutional power and beginner simplicity.
             </p>
             
-            <div class="space-x-4">
-                <button onclick="openLiabilityModal('full')" class="btn-primary text-lg md:text-xl font-semibold py-3 px-8 rounded-lg shadow-lg">
+            <div class="flex flex-col sm:flex-row gap-4 justify-center w-full sm:w-auto mb-10">
+                <button onclick="openLiabilityModal('full')" class="btn-primary text-lg font-bold py-4 px-10 rounded-xl shadow-lg shadow-green-900/40 flex items-center justify-center gap-2 hover:scale-105 transition-transform">
                     Start Trading Like a Pro
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
                 </button>
-                <button onclick="openLiabilityModal('lite')" class="btn-secondary text-lg md:text-xl font-semibold py-3 px-8 rounded-lg shadow-lg">
-                    Get Lite Version
+                <button onclick="openLiabilityModal('lite')" class="btn-secondary text-lg font-semibold py-4 px-10 rounded-xl shadow-lg border border-gray-600 hover:border-gray-400 hover:text-white transition-colors">
+                    View Lite Version
                 </button>
             </div>
+
+            <div class="flex flex-wrap justify-center gap-6 md:gap-12 text-sm md:text-base text-gray-400 font-medium mb-12 border-t border-b border-gray-800 py-4 w-full max-w-4xl bg-gray-900/30 backdrop-blur-sm rounded-lg">
+                <div class="flex items-center gap-2">
+                    <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <span>No Coding Required</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    <span>Instant Backtesting</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                    <span>Risk Management Engine</span>
+                </div>
+            </div>
+
+            <div class="relative w-full max-w-5xl mx-auto rounded-xl shadow-2xl border border-gray-700 bg-[#1e1e1e] overflow-hidden transform hover:scale-[1.01] transition duration-500 group">
+                
+                <div class="bg-[#2d2d2d] px-4 py-3 flex items-center justify-between border-b border-black">
+                    <div class="flex gap-2">
+                        <div class="w-3 h-3 rounded-full bg-[#ff5f56]"></div>
+                        <div class="w-3 h-3 rounded-full bg-[#ffbd2e]"></div>
+                        <div class="w-3 h-3 rounded-full bg-[#27c93f]"></div>
+                    </div>
+                    <div class="text-xs text-gray-500 font-mono select-none">TradeBotPro_Backtester.exe</div>
+                    <div class="w-10"></div> </div>
+
+                <img src="bot_screenshot.png" 
+                     alt="TradeBotPro Backtesting Interface showing profit graph" 
+                     class="w-full h-auto opacity-95 group-hover:opacity-100 transition-opacity">
+                
+                <div class="absolute inset-0 bg-gradient-to-tr from-white/5 to-transparent pointer-events-none"></div>
+            </div>
+
+            <p class="mt-4 text-sm text-gray-500 italic">
+                *Actual screenshot of Strategy Backtester showing portfolio growth.
+            </p>
+
         </div>
     </section>
 
