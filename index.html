@@ -329,5 +329,22 @@
             document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
         }
     </script>
+    <div id="windows-flag" class="fixed bottom-6 right-6 z-50 animate-bounce" style="animation-duration: 3s;">
+        <div class="bg-gray-800/90 backdrop-blur-md border border-blue-500 text-white px-5 py-3 rounded-full shadow-2xl flex items-center gap-3 transform transition hover:scale-105">
+            
+            <svg class="w-6 h-6 text-blue-400" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M0 3.449L9.75 2.1v9.451H0V3.449zm10.949-1.551L24 0v11.023h-13.051V1.898zm-10.949 9.977H9.75v9.451L0 19.951v-8.076zm10.949 0H24v11.023l-13.051-1.898V11.875z"/>
+            </svg>
+            
+            <div class="flex flex-col">
+                <span class="font-bold text-sm leading-tight text-blue-100">Windows PC Only</span>
+                <span class="text-[10px] text-gray-400 uppercase tracking-wider">Windows 10/11 Compatible</span>
+            </div>
+
+            <button onclick="document.getElementById('windows-flag').style.display='none'" class="ml-2 text-gray-500 hover:text-white transition-colors">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+    </div>
 </body>
 </html>
