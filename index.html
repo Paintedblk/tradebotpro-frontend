@@ -91,41 +91,106 @@
         </div>
     </section>
 
-    <section id="features" class="py-16 px-6 bg-gray-900">
+   <section id="features" class="py-16 px-6 bg-gray-900">
         <h2 class="text-4xl font-bold text-center mb-12 text-white">Why Choose TradeBotPro?</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            
             <div class="feature-card p-6 rounded-lg shadow-xl flex flex-col items-center text-center">
-                <svg class="w-16 h-16 text-blue-400 mb-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 013 14v3a1 1 0 001 1h12a1 1 0 001-1v-3a1 1 0 01-.293-.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 110-6 3 3 0 010 6z"></path></svg>
+                <svg class="w-16 h-16 text-blue-400 mb-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 013 14v3a1 1 0 001 1h12a1 1 0 001-1v-3a1 1 0 01-.293-.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 110-6 3 3 0 010 6z"></path></svg>
                 <h3 class="text-2xl font-semibold mb-3 text-green-300">Multi-Asset (Stock & Crypto)</h3>
-                <p class="text-gray-400 mb-4">TradeBotPro Pro isn't just for stocks. It's a 24/7 trading machine with full support for both equities and cryptocurrencies.</p>
+                <p class="text-gray-400 mb-4">TradeBotPro Pro isn't just for stocks. It's a 24/7 trading machine with full support for both equities and cryptocurrencies like BTC/USD and ETH/USD.</p>
+                <p class="text-green-200 font-medium italic">
+                    Benefit: "While the stock market sleeps, the bot is busy scanning 24/7 crypto markets for mean-reversion or trend-following opportunities."
+                </p>
             </div>
+
+            <div class="feature-card p-6 rounded-lg shadow-xl flex flex-col items-center text-center">
+                <svg class="w-16 h-16 text-purple-400 mb-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 000 2h6a1 1 0 100-2H7z" clip-rule="evenodd"></path></svg>
+                <h3 class="text-2xl font-semibold mb-3 text-green-300">Advanced AI Trading Engine</h3>
+                <p class="text-gray-400 mb-4">Select from over 11 strategies (Trend, Mean Reversion, Momentum) and choose your timeframe (5m, 15m, or 30m) to match your style.</p>
+                <p class="text-green-200 font-medium italic">
+                    Benefit: "Use the 5-minute timeframe for day trading or switch to the 30-minute timeframe for more reliable, high-conviction swing trading signals."
+                </p>
             </div>
+            
+            <div class="feature-card p-6 rounded-lg shadow-xl flex flex-col items-center text-center">
+                <svg class="w-16 h-16 text-yellow-400 mb-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path><path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path></svg>
+                <h3 class="text-2xl font-semibold mb-3 text-green-300">Integrated Portfolio Backtester</h3>
+                <p class="text-gray-400 mb-4">Don't guess. Test every strategy against historical data for any stock or crypto pair and see a visual equity chart of the results.</p>
+                <p class="text-green-200 font-medium italic">
+                    Benefit: "Validate your 'Crypto Breakout' strategy on BTC/USD over 60 days to see its performance *before* you risk a single live dollar."
+                </p>
+            </div>
+
+            <div class="feature-card p-6 rounded-lg shadow-xl flex flex-col items-center text-center">
+                <svg class="w-16 h-16 text-red-400 mb-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M2 5a2 2 0 012-2h12a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2V5zm3 1h10v8H5V6zm1-2a1 1 0 00-1 1v1a1 1 0 102 0V5a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+                <h3 class="text-2xl font-semibold mb-3 text-green-300">Persistent State (SQLite DB)</h3>
+                <p class="text-gray-400 mb-4">Never lose your progress. The Pro version saves all open trades, pending orders, and P/L history to a robust SQLite database.</p>
+                <p class="text-green-200 font-medium italic">
+                    Benefit: "Stop the bot, restart your PC, or close it for the weekend. When you start it again, it picks up *exactly* where it left off, tracking all open swing trades."
+                </p>
+            </div>
+
+            <div class="feature-card p-6 rounded-lg shadow-xl flex flex-col items-center text-center">
+                <svg class="w-16 h-16 text-teal-400 mb-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"></path></svg>
+                <h3 class="text-2xl font-semibold mb-3 text-green-300">Real-time WebSocket Dashboard</h3>
+                <p class="text-gray-400 mb-4">The dashboard isn't just a list, it's a live data feed. It uses a WebSocket stream to update your open positions' prices and P/L in real-time.</p>
+                <p class="text-green-200 font-medium italic">
+                    Benefit: "Watch your P/L percentage tick up live from the dashboard without ever leaving the app or refreshing the page."
+                </p>
+            </div>
+
+            <div class="feature-card p-6 rounded-lg shadow-xl flex flex-col items-center text-center">
+                <svg class="w-16 h-16 text-orange-400 mb-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 1.944A11.954 11.954 0 012.166 5.026a11.954 11.954 0 01-1.42 6.052c-.07.248-.002.518.188.693l.36.275c.09.069.193.106.298.106h.411a.5.5 0 00.418-.236l.51-.818a.5.5 0 00-.063-.61l-.398-.398a.5.5 0 01.354-.854l.43.097a.5.5 0 00.518-.266l.51-1.018a.5.5 0 00-.17-.676l-.398-.398a.5.5 0 01.353-.854l.43.097a.5.5 0 00.518-.266l.51-1.018a.5.5 0 00-.17-.676l-.398-.398a.5.5 0 01.353-.854l.43.097a.5.5 0 00.518-.266l.51-1.018a.5.5 0 00-.17-.676l-.398-.398a.5.5 0 01.354-.854l.43.097a.5.5 0 00.518-.266l.51-1.018a.5.5 0 00-.17-.676l-.398-.398a.5.5 0 01.354-.854l.215.049a.5.5 0 00.518-.265l.51-1.018A.5.5 0 0010 1.944zM10 6a1 1 0 011 1v3a1 1 0 11-2 0V7a1 1 0 011-1zM10 12a1 1 0 100 2 1 1 0 000-2z" clip-rule="evenodd"></path></svg>
+                <h3 class="text-2xl font-semibold mb-3 text-green-300">Advanced Risk Management</h3>
+                <p class="text-gray-400 mb-4">Set Daily P/L Targets, Daily Stop-Losses, and your "Risk per Trade ($)". The bot uses this with ATR to calculate smart position sizes.</p>
+                <p class="text-green-200 font-medium italic">
+                    Benefit: "Risk $50 per trade. The bot will buy $1,000 of Stock A (low volatility) but only $300 of Stock B (high volatility) to keep your risk consistent."
+                </p>
+            </div>
+        </div>
     </section>
 
-    <section id="pricing" class="py-16 px-6 bg-gray-800">
+        <section id="pricing" class="py-16 px-6 bg-gray-800">
         <h2 class="text-4xl font-bold text-center mb-12 text-white">Choose Your Trading Power</h2>
         <div class="flex flex-col md:flex-row justify-center items-stretch gap-8 max-w-5xl mx-auto">
             
+            <!-- Lite Version Card -->
             <div class="flex-1 feature-card p-8 rounded-lg shadow-2xl flex flex-col items-center text-center transform hover:scale-105 transition-transform duration-300">
                 <h3 class="text-3xl font-bold text-blue-400 mb-4">Lite Version</h3>
                 <p class="text-5xl font-extrabold text-white mb-6">$49.99</p>
                 <ul class="text-gray-300 text-lg space-y-3 mb-8 text-left w-full">
-                     <li class="flex items-center"><svg class="w-6 h-6 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Lifetime Access</li>
-                     <li class="flex items-center"><svg class="w-6 h-6 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Stocks Only Trading</li>
+                    <li class="flex items-center"><svg class="w-6 h-6 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Lifetime Access</li>
+                    <li class="flex items-center"><svg class="w-6 h-6 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Stocks Only Trading</li>
+                    <li class="flex items-center"><svg class="w-6 h-6 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Single Fixed Strategy (5-min)</li>
+                    <li class="flex items-center text-gray-500"><svg class="w-6 h-6 mr-2 text-red-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg> No Crypto Trading</li>
+                    <li class="flex items-center text-gray-500"><svg class="w-6 h-6 mr-2 text-red-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg> No Multi-Timeframe Analysis</li>
+                    <li class="flex items-center text-gray-500"><svg class="w-6 h-6 mr-2 text-red-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg> No Multi-Strategy Engine</li>
+                    <li class="flex items-center text-gray-500"><svg class="w-6 h-6 mr-2 text-red-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg> No Backtesting Module</li>
+                    <li class="flex items-center text-gray-500"><svg class="w-6 h-6 mr-2 text-red-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg> No Persistent State (DB)</li>
                 </ul>
-                <button onclick="openLiabilityModal('lite')" class="btn-secondary text-xl font-semibold py-3 px-10 rounded-lg shadow-lg w-full">
+                <button onclick="window.location.href='product.html?version=lite'" class="btn-secondary text-xl font-semibold py-3 px-10 rounded-lg shadow-lg w-full">
                     Get Now for $49.99
                 </button>
             </div>
 
+            <!-- Pro Version Card -->
             <div class="flex-1 feature-card p-8 rounded-lg shadow-2xl flex flex-col items-center text-center transform hover:scale-105 transition-transform duration-300">
                 <h3 class="text-3xl font-bold text-green-400 mb-4">Pro Version</h3>
                 <p class="text-5xl font-extrabold text-white mb-6">$199.99</p>
+                <p class="text-xl md:text-2xl mb-8 opacity-90">Try for $25 Weekly</p>
                 <ul class="text-gray-300 text-lg space-y-3 mb-8 text-left w-full">
-                     <li class="flex items-center"><svg class="w-6 h-6 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Stocks & Crypto Trading</li>
-                     <li class="flex items-center"><svg class="w-6 h-6 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Multi-Strategy Engine</li>
+                    <li class="flex items-center"><svg class="w-6 h-6 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Lifetime Access for $199 One Time Fee!</li>
+                    <li class="flex items-center"><svg class="w-6 h-6 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Stocks & 24/7 Crypto Trading</li>
+                    <li class="flex items-center"><svg class="w-6 h-6 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Multi-Strategy Engine (11+)</li>
+                    <li class="flex items-center"><svg class="w-6 h-6 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Multi-Timeframe (5m, 15m, 30m)</li>
+                    <li class="flex items-center"><svg class="w-6 h-6 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Integrated Portfolio Backtester</li>
+                    <li class="flex items-center"><svg class="w-6 h-6 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Persistent State (SQLite DB)</li>
+                    <li class="flex items-center"><svg class="w-6 h-6 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Advanced P/L Risk Management</li>
+                    <li class="flex items-center"><svg class="w-6 h-6 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Real-time WebSocket Dashboard</li>
+                     <li class="flex items-center"><svg class="w-6 h-6 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Cancel Subscription Anytime!</li>
                 </ul>
-                <button onclick="openLiabilityModal('full')" class="btn-primary text-xl font-semibold py-3 px-10 rounded-lg shadow-lg w-full">
+                <button onclick="window.location.href='product.html?version=full'" class="btn-primary text-xl font-semibold py-3 px-10 rounded-lg shadow-lg w-full">
                     Buy Now!
                 </button>
             </div>
