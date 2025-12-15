@@ -196,11 +196,10 @@
         </div>
     </section>
 
-        <section id="pricing" class="py-16 px-6 bg-gray-800">
+       <section id="pricing" class="py-16 px-6 bg-gray-800">
         <h2 class="text-4xl font-bold text-center mb-12 text-white">Choose Your Trading Power</h2>
         <div class="flex flex-col md:flex-row justify-center items-stretch gap-8 max-w-5xl mx-auto">
             
-            <!-- Lite Version Card -->
             <div class="flex-1 feature-card p-8 rounded-lg shadow-2xl flex flex-col items-center text-center transform hover:scale-105 transition-transform duration-300">
                 <h3 class="text-3xl font-bold text-blue-400 mb-4">Lite Version</h3>
                 <p class="text-5xl font-extrabold text-white mb-6">$49.99</p>
@@ -214,12 +213,12 @@
                     <li class="flex items-center text-gray-500"><svg class="w-6 h-6 mr-2 text-red-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg> No Backtesting Module</li>
                     <li class="flex items-center text-gray-500"><svg class="w-6 h-6 mr-2 text-red-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg> No Persistent State (DB)</li>
                 </ul>
-                <button onclick="window.location.href='product.html?version=lite'" class="btn-secondary text-xl font-semibold py-3 px-10 rounded-lg shadow-lg w-full">
+                
+                <button onclick="openLiabilityModal('lite')" class="btn-secondary text-xl font-semibold py-3 px-10 rounded-lg shadow-lg w-full">
                     Get Now for $49.99
                 </button>
             </div>
 
-            <!-- Pro Version Card -->
             <div class="flex-1 feature-card p-8 rounded-lg shadow-2xl flex flex-col items-center text-center transform hover:scale-105 transition-transform duration-300">
                 <h3 class="text-3xl font-bold text-green-400 mb-4">Pro Version</h3>
                 <p class="text-5xl font-extrabold text-white mb-6">$199.99</p>
@@ -235,7 +234,8 @@
                     <li class="flex items-center"><svg class="w-6 h-6 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Real-time WebSocket Dashboard</li>
                      <li class="flex items-center"><svg class="w-6 h-6 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Cancel Subscription Anytime!</li>
                 </ul>
-                <button onclick="window.location.href='product.html?version=full'" class="btn-primary text-xl font-semibold py-3 px-10 rounded-lg shadow-lg w-full">
+                
+                <button onclick="openLiabilityModal('full')" class="btn-primary text-xl font-semibold py-3 px-10 rounded-lg shadow-lg w-full">
                     Buy Now!
                 </button>
             </div>
