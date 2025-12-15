@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TradeBotPro - Help Guide</title>
-    <!-- Tailwind CSS CDN -->
+    <title>TradeBotPro - Help & Documentation</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
@@ -13,15 +12,17 @@
             background-color: #0d1117; /* Dark background */
             color: #e6edf3; /* Light text */
         }
-        .gradient-bg {
-            background: linear-gradient(135deg, #1a202c, #2d3748);
-        }
         .step-card {
             background-color: #161b22;
             border: 1px solid #30363d;
+            transition: transform 0.2s;
+        }
+        .step-card:hover {
+            transform: translateY(-2px);
+            border-color: #58a6ff;
         }
         .step-number {
-            background-color: #059669;
+            background-color: #238636;
             color: white;
             width: 40px;
             height: 40px;
@@ -31,6 +32,7 @@
             border-radius: 50%;
             font-weight: bold;
             font-size: 1.25rem;
+            flex-shrink: 0;
         }
         .accordion-item {
             background-color: #161b22;
@@ -61,7 +63,7 @@
             color: #b0b8c2;
         }
         .accordion-content.active {
-            max-height: 200px; /* Adjust as needed */
+            max-height: 500px; /* Adjust as needed */
             padding: 15px 20px;
         }
         .accordion-icon {
@@ -71,187 +73,279 @@
         .accordion-icon.active {
             transform: rotate(180deg);
         }
+        /* ELI5 Section Styles */
+        .eli5-card {
+            background-color: #161b22;
+            border: 1px solid #30363d;
+            transition: all 0.2s ease;
+        }
+        .eli5-card:hover {
+            border-color: #238636;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
     </style>
 </head>
 <body class="antialiased">
 
-    <!-- Header -->
-    <header class="bg-gray-900 shadow-lg py-4 px-6 flex justify-between items-center fixed w-full z-50">
+    <header class="bg-gray-900 shadow-lg py-4 px-6 flex justify-between items-center fixed w-full z-50 border-b border-gray-800">
         <div class="flex items-center space-x-3">
-            <svg class="w-8 h-8 text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <svg class="w-8 h-8 text-green-500" fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l3 3a1 1 0 001.414-1.414L11 9.586V6z" clip-rule="evenodd"></path>
             </svg>
-            <h1 class="text-3xl font-bold text-white">TradeBotPro <span class="text-green-400">Help Guide</span></h1>
+            <h1 class="text-2xl font-bold text-white tracking-tight">TradeBotPro <span class="text-green-500">Help Center</span></h1>
         </div>
-        <nav>
-            <a href="index.html" class="text-gray-300 hover:text-white px-4 py-2 rounded-md">Home</a>
-            <a href="feature_breakdown.html" class="text-gray-300 hover:text-white px-4 py-2 rounded-md">Feature Breakdown</a>
-            <a href="index.html#pricing" class="text-gray-300 hover:text-white px-4 py-2 rounded-md">Pricing</a>
-            <a href="manage.html" class="text-gray-300 hover:text-white px-4 py-2 rounded-md">Manage Subscription</a>
-            <a href="#top" class="text-gray-300 hover:text-white px-4 py-2 rounded-md">Help</a>
+        <nav class="hidden md:flex space-x-1">
+            <a href="index.html" class="text-gray-300 hover:text-white px-3 py-2 rounded-md transition">Home</a>
+            <a href="feature_breakdown.html" class="text-gray-300 hover:text-white px-3 py-2 rounded-md transition">Features</a>
+            <a href="#settings-eli5" class="text-white bg-green-700 hover:bg-green-600 px-4 py-2 rounded-md transition font-medium shadow-md">Settings Explained</a>
         </nav>
     </header>
 
-    <!-- Help Content Section -->
-    <section id="top" class="py-20 px-6 bg-gray-900">
-        <h2 class="text-5xl font-extrabold text-center mb-12 text-white">Getting Started with TradeBotPro</h2>
-        <p class="text-xl text-center text-gray-400 mb-12 max-w-3xl mx-auto">
-            Follow these simple steps to set up your Alpaca trading account and connect it to TradeBotPro.
-        </p>
+    <section id="top" class="pt-28 pb-16 px-6 bg-gray-900">
+        <div class="max-w-4xl mx-auto text-center mb-12">
+            <h2 class="text-4xl md:text-5xl font-extrabold text-white mb-6">Getting Started</h2>
+            <p class="text-xl text-gray-400">
+                Five simple steps to automate your trading with Alpaca.
+            </p>
+        </div>
 
-        <div class="max-w-4xl mx-auto space-y-10">
+        <div class="max-w-4xl mx-auto space-y-8">
 
-            <!-- Step 1: Access Alpaca Site -->
-            <div class="step-card p-8 rounded-lg shadow-xl flex flex-col md:flex-row items-center md:items-start gap-6">
-                <div class="step-number flex-shrink-0">1</div>
+            <div class="step-card p-6 rounded-xl flex items-start gap-5">
+                <div class="step-number">1</div>
                 <div>
-                    <h3 class="text-2xl font-semibold mb-3 text-green-300">Access the Alpaca Trading Platform</h3>
-                    <p class="text-gray-300 mb-4">
-                        TradeBotPro uses the Alpaca API for seamless and commission-free trading.
-                        First, navigate to the official Alpaca Markets website.
+                    <h3 class="text-xl font-bold text-green-400 mb-2">Access Alpaca Markets</h3>
+                    <p class="text-gray-300 mb-3">
+                        TradeBotPro connects to Alpaca, a commission-free brokerage. You need an account there to trade.
                     </p>
-                    <a href="https://alpaca.markets/" target="_blank" class="text-blue-400 hover:underline">
-                        Go to Alpaca.Markets <span class="text-sm">&#x2197;</span>
+                    <a href="https://alpaca.markets/" target="_blank" class="text-blue-400 hover:text-blue-300 font-medium inline-flex items-center">
+                        Visit Alpaca.Markets <span class="ml-1 text-lg">→</span>
                     </a>
-                    <img src="https://placehold.co/600x300/1a202c/e6edf3?text=Alpaca+Homepage+Screenshot" alt="Alpaca Homepage" class="rounded-md mt-4 shadow-md">
                 </div>
             </div>
 
-            <!-- Step 2: Set Up an Account -->
-            <div class="step-card p-8 rounded-lg shadow-xl flex flex-col md:flex-row items-center md:items-start gap-6">
-                <div class="step-number flex-shrink-0">2</div>
+            <div class="step-card p-6 rounded-xl flex items-start gap-5">
+                <div class="step-number">2</div>
                 <div>
-                    <h3 class="text-2xl font-semibold mb-3 text-green-300">Create and Verify Your Alpaca Account</h3>
-                    <p class="text-gray-300 mb-4">
-                        On the Alpaca website, click on "Sign Up" or "Get Started" to begin the account creation process.
-                        You will need to provide personal information, link your bank account, and complete identity verification (KYC).
-                        This process is standard for brokerage accounts.
+                    <h3 class="text-xl font-bold text-green-400 mb-2">Create & Verify Account</h3>
+                    <p class="text-gray-300">
+                        Sign up and complete the identity verification (KYC). This is required by federal law for all financial trading accounts.
                     </p>
-                    <ul class="list-disc list-inside text-gray-400 mb-4">
-                        <li>Click "Sign Up" or "Get Started".</li>
-                        <li>Follow the on-screen prompts to enter your details.</li>
-                        <li>Complete identity verification (KYC).</li>
-                        <li>Fund your account.</li>
+                </div>
+            </div>
+
+            <div class="step-card p-6 rounded-xl flex items-start gap-5">
+                <div class="step-number">3</div>
+                <div>
+                    <h3 class="text-xl font-bold text-green-400 mb-2">Generate API Keys</h3>
+                    <p class="text-gray-300 mb-3">
+                        Go to your Alpaca Dashboard. On the right side, look for "API Keys" and click "Generate".
+                    </p>
+                    <div class="bg-gray-800 p-3 rounded border-l-4 border-yellow-500 text-sm text-gray-300">
+                        <strong>Important:</strong> You will see a <strong>Key ID</strong> and a <strong>Secret Key</strong>. Copy these immediately! The Secret Key is shown only once.
+                    </div>
+                </div>
+            </div>
+
+            <div class="step-card p-6 rounded-xl flex items-start gap-5">
+                <div class="step-number">4</div>
+                <div>
+                    <h3 class="text-xl font-bold text-green-400 mb-2">Configure TradeBotPro</h3>
+                    <p class="text-gray-300 mb-2">
+                        Open the bot and go to the <strong>Settings</strong> tab.
+                    </p>
+                    <ul class="list-disc list-inside text-gray-400 space-y-1">
+                        <li>Paste your <strong>API Key</strong>.</li>
+                        <li>Paste your <strong>Secret Key</strong>.</li>
+                        <li>Select <strong>Paper Trading</strong> (Practice) or <strong>Live Trading</strong> (Real Money).</li>
                     </ul>
-                    <img src="https://placehold.co/600x300/1a202c/e6edf3?text=Alpaca+Signup+Process" alt="Alpaca Signup Process" class="rounded-md mt-4 shadow-md">
                 </div>
             </div>
 
-            <!-- Step 3: Generate API Keys -->
-            <div class="step-card p-8 rounded-lg shadow-xl flex flex-col md:flex-row items-center md:items-start gap-6">
-                <div class="step-number flex-shrink-0">3</div>
+            <div class="step-card p-6 rounded-xl flex items-start gap-5">
+                <div class="step-number">5</div>
                 <div>
-                    <h3 class="text-2xl font-semibold mb-3 text-green-300">Generate Your Alpaca API Keys</h3>
-                    <p class="text-gray-300 mb-4">
-                        Once your Alpaca account is set up and verified, you'll need to generate your API keys.
-                        These keys allow TradeBotPro to securely communicate with your Alpaca account.
+                    <h3 class="text-xl font-bold text-green-400 mb-2">Activate License & Start</h3>
+                    <p class="text-gray-300">
+                        Click the <strong>Start Bot</strong> button on the Dashboard. A popup will ask for your <strong>License Key</strong>. Enter the key sent to your email to begin trading.
                     </p>
-                    <ol class="list-decimal list-inside text-gray-400 mb-4">
-                        <li>Log in to your Alpaca Dashboard.</li>
-                        <li>Navigate to the "API Keys" section (usually found under "Account" or "Settings").</li>
-                        <li>Click on "Generate New Key" or similar.</li>
-                        <li>You will be provided with an **API Key ID** and a **Secret Key**.</li>
-                        <li><strong class="text-yellow-400">IMPORTANT: Copy both keys immediately!</strong> The Secret Key is usually shown only once. If you lose it, you'll have to regenerate it.</li>
-                    </ol>
-                    <img src="https://placehold.co/600x300/1a202c/e6edf3?text=Alpaca+API+Keys+Dashboard" alt="Alpaca API Keys Dashboard" class="rounded-md mt-4 shadow-md">
-                </div>
-            </div>
-
-            <!-- Step 4: Input Keys into TradeBotPro -->
-            <div class="step-card p-8 rounded-lg shadow-xl flex flex-col md:flex-row items-center md:items-start gap-6">
-                <div class="step-number flex-shrink-0">4</div>
-                <div>
-                    <h3 class="text-2xl font-semibold mb-3 text-green-300">Input API Keys into TradeBotPro</h3>
-                    <p class="text-gray-300 mb-4">
-                        Open your downloaded TradeBotPro application. On the main interface, you will find fields for "API Key" and "Secret Key".
-                    </p>
-                    <ul class="list-disc list-inside text-gray-400 mb-4">
-                        <li>Paste your **API Key ID** into the "API Key" field.</li>
-                        <li>Paste your **Secret Key** into the "Secret Key" field.</li>
-                        <li>Click the "Start Bot" button.</li>
-                    </ul>
-                    <p class="text-yellow-400 font-semibold mt-4">
-                        Ensure you are using the correct keys for your Paper Trading (testing) or Live Trading account.
-                    </p>
-                    <img src="https://placehold.co/600x300/1a202c/e6edf3?text=TradeBotPro+GUI+API+Input" alt="TradeBotPro GUI API Input" class="rounded-md mt-4 shadow-md">
-                </div>
-            </div>
-
-            <!-- Limited Liability Clause -->
-            <div class="step-card p-8 rounded-lg shadow-xl">
-                <h3 class="text-2xl font-semibold mb-3 text-red-400">Limited Liability Clause</h3>
-                <p class="text-gray-400 text-sm">
-                    **All sales are final.** Trading in financial markets carries a high level of risk, and TradeBotPro is provided "as is" without any warranties, express or implied. The use of this software is at your sole risk. We do not guarantee any profits or protection against losses. Past performance is not indicative of future results. By using TradeBotPro, you acknowledge and agree that the developers, distributors, and affiliates shall not be liable for any direct, indirect, incidental, special, consequential, or exemplary damages, including but not limited to, damages for loss of profits, goodwill, use, data, or other intangible losses, resulting from the use or inability to use the software. It is your responsibility to understand the risks involved in trading and to manage your capital appropriately.
-                </p>
-            </div>
-
-            <!-- FAQ Section -->
-            <div class="py-10">
-                <h2 class="text-4xl font-bold text-center mb-8 text-white">Frequently Asked Questions (FAQ)</h2>
-                <div class="max-w-3xl mx-auto">
-                    <!-- FAQ Item 1 -->
-                    <div class="accordion-item">
-                        <div class="accordion-header" onclick="toggleAccordion(this)">
-                            <span>Is TradeBotPro suitable for beginners?</span>
-                            <span class="accordion-icon">&#9660;</span>
-                        </div>
-                        <div class="accordion-content">
-                            <p>TradeBotPro is designed to automate trading, which can be beneficial for beginners by handling complex decisions. However, understanding basic trading concepts and risks is highly recommended. We advise starting with a paper trading account on Alpaca.</p>
-                        </div>
-                    </div>
-
-                    <!-- FAQ Item 2 -->
-                    <div class="accordion-item">
-                        <div class="accordion-header" onclick="toggleAccordion(this)">
-                            <span>What kind of returns can I expect?</span>
-                            <span class="accordion-icon">&#9660;</span>
-                        </div>
-                        <div class="accordion-content">
-                            <p>We cannot guarantee any specific returns. Trading performance is subject to market volatility, economic conditions, and the specific strategies employed. Past performance is not indicative of future results. It's crucial to understand that trading involves significant risk, and losses can exceed initial investments.</p>
-                        </div>
-                    </div>
-
-                    <!-- FAQ Item 3 -->
-                    <div class="accordion-item">
-                        <div class="accordion-header" onclick="toggleAccordion(this)">
-                            <span>Do I need to keep my computer running 24/7?</span>
-                            <span class="accordion-icon">&#9660;</span>
-                        </div>
-                        <div class="accordion-content">
-                            <p>For continuous operation during market hours and for the bot to automatically resume, your computer needs to be running. Many users opt for a Virtual Private Server (VPS) to ensure uninterrupted operation without needing their personal computer on.</p>
-                        </div>
-                    </div>
-
-                    <!-- FAQ Item 4 -->
-                    <div class="accordion-item">
-                        <div class="accordion-header" onclick="toggleAccordion(this)">
-                            <span>What is fractional share trading?</span>
-                            <span class="accordion-icon">&#9660;</span>
-                        </div>
-                        <div class="accordion-content">
-                            <p>Fractional share trading allows you to buy a portion of a stock, rather than a full share. This means you can invest smaller amounts of money into high-priced stocks, diversifying your portfolio more easily and utilizing all your capital.</p>
-                        </div>
-                    </div>
-
-                    <!-- FAQ Item 5 -->
-                    <div class="accordion-item">
-                        <div class="accordion-header" onclick="toggleAccordion(this)">
-                            <span>Is options trading included in the Lite version?</span>
-                            <span class="accordion-icon">&#9660;</span>
-                        </div>
-                        <div class="accordion-content">
-                            <p>No, the experimental options trading module is exclusively available in the TradeBotPro Pro Version. The Lite version is limited to traditional stock (equity) trading.</p>
-                        </div>
-                    </div>
                 </div>
             </div>
 
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="bg-gray-900 py-8 text-center text-gray-500 text-sm">
-        <p>&copy; 2025 TradeBotPro. All rights reserved. Trading involves substantial risk.</p>
+    <section id="settings-eli5" class="py-16 px-6 bg-gray-800 border-t border-gray-700">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-4 text-white">Bot Settings: Explained Simply</h2>
+            <p class="text-xl text-center text-gray-400 mb-12">
+                Confused by the jargon? Here is exactly what every setting does.
+            </p>
+
+            <div class="bg-gradient-to-r from-indigo-900 to-purple-900 border border-indigo-500 rounded-xl p-8 mb-12 shadow-2xl relative overflow-hidden">
+                <div class="relative z-10 flex flex-col md:flex-row items-center gap-6">
+                    <div class="md:w-3/4">
+                        <h3 class="text-2xl font-bold text-white mb-2">💡 Pro Tip: Customize with AI</h3>
+                        <p class="text-gray-200 text-lg mb-4">
+                            Not sure what numbers to type? Take a screenshot of your Settings tab and upload it to <strong>ChatGPT</strong> or <strong>Gemini</strong>.
+                        </p>
+                        <div class="bg-black bg-opacity-30 p-4 rounded-lg border border-indigo-400/30">
+                            <p class="text-indigo-200 italic font-mono text-sm">
+                                "Here is a screenshot of my bot settings. I have $500 to invest and I want to be very safe. What numbers should I put in the Risk and Stop Loss fields?"
+                            </p>
+                        </div>
+                    </div>
+                    <div class="md:w-1/4 flex justify-center">
+                        <svg class="w-24 h-24 text-indigo-400 opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <div class="eli5-card p-6 rounded-lg">
+                    <h4 class="text-green-400 font-bold text-lg mb-2">Trading Timeframe</h4>
+                    <p class="text-white font-semibold mb-1">The "Pulse" of the Bot</p>
+                    <p class="text-gray-400 text-sm mb-3">Controls how fast the bot thinks. <strong>5 Minute</strong> is for Day Trading (faster). <strong>30 Minute</strong> is for Swing Trading (slower, more reliable).</p>
+                </div>
+
+                <div class="eli5-card p-6 rounded-lg">
+                    <h4 class="text-green-400 font-bold text-lg mb-2">Risk per Trade ($)</h4>
+                    <p class="text-white font-semibold mb-1">The "Bet Size"</p>
+                    <p class="text-gray-400 text-sm mb-3">This is NOT how much you buy. It is how much you are willing to <em>lose</em> if a trade fails. The bot calculates your share size automatically based on this number.</p>
+                </div>
+
+                <div class="eli5-card p-6 rounded-lg">
+                    <h4 class="text-green-400 font-bold text-lg mb-2">Live Strategies (Checkboxes)</h4>
+                    <p class="text-white font-semibold mb-1">The "Playbook"</p>
+                    <p class="text-gray-400 text-sm mb-3">You can check multiple boxes. The bot will scan for ALL of them at once. If "Trend Pullback" and "Momentum Cross" are both checked, it looks for both.</p>
+                </div>
+
+                <div class="eli5-card p-6 rounded-lg border-l-4 border-red-500">
+                    <h4 class="text-red-400 font-bold text-lg mb-2">ATR Stop Multiplier</h4>
+                    <p class="text-white font-semibold mb-1">The "Safety Net"</p>
+                    <p class="text-gray-400 text-sm mb-3">This sets your Stop Loss. A higher number (e.g., 2.0) gives the stock more room to wiggle. A lower number (e.g., 1.0) cuts losses very quickly.</p>
+                </div>
+
+                <div class="eli5-card p-6 rounded-lg border-l-4 border-blue-500">
+                    <h4 class="text-blue-400 font-bold text-lg mb-2">ATR Profit Multiplier</h4>
+                    <p class="text-white font-semibold mb-1">The "Goal Line"</p>
+                    <p class="text-gray-400 text-sm mb-3">This sets where you sell for a win. Usually, you want this number to be 2x your Stop Multiplier (e.g., Risk 1.0, Profit 2.0).</p>
+                </div>
+
+                <div class="eli5-card p-6 rounded-lg">
+                    <h4 class="text-purple-400 font-bold text-lg mb-2">Trade Mode</h4>
+                    <p class="text-white font-semibold mb-1">Day vs. Swing</p>
+                    <p class="text-gray-400 text-sm mb-3"><strong>Day Trade:</strong> Sells everything before the market closes (Stocks only).<br><strong>Swing Trade:</strong> Holds stocks overnight or for days.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 px-6 bg-gray-900">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-3xl font-bold text-white mb-8">Included Strategies</h2>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold text-blue-400 mb-4 border-b border-gray-700 pb-2">Stock Strategies</h3>
+                    <ul class="space-y-4 text-gray-300 text-sm">
+                        <li>
+                            <strong class="text-white block">Trend Pullback (BB+Stoch)</strong>
+                            Buys when an uptrending stock dips slightly (a "discount") and shows signs of bouncing back up.
+                        </li>
+                        <li>
+                            <strong class="text-white block">Pattern + Confirm</strong>
+                            Strict. Finds bullish candlestick patterns (Hammer, Engulfing) confirmed by MACD and RSI indicators.
+                        </li>
+                        <li>
+                            <strong class="text-white block">Momentum Cross</strong>
+                            Chases momentum. Buys when the MACD lines cross upward while the Stochastic indicator is also rising.
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-xl font-bold text-purple-400 mb-4 border-b border-gray-700 pb-2">Crypto Strategies</h3>
+                    <ul class="space-y-4 text-gray-300 text-sm">
+                        <li>
+                            <strong class="text-white block">Trend Follow (EMA 50/200)</strong>
+                            The "Golden Cross." Buys when the short-term trend crosses above the long-term trend.
+                        </li>
+                        <li>
+                            <strong class="text-white block">Breakout (BB+Vol)</strong>
+                            Buys when price explodes above the Bollinger Bands with a massive spike in volume. High risk, high reward.
+                        </li>
+                        <li>
+                            <strong class="text-white block">Mean Reversion</strong>
+                            Buys when a coin is "Oversold" (RSI < 30) and the price is statistically too low (Low Bollinger Band).
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 px-6 bg-gray-800">
+        <h2 class="text-4xl font-bold text-center mb-8 text-white">Frequently Asked Questions (FAQ)</h2>
+        <div class="max-w-3xl mx-auto space-y-4">
+            
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>Is TradeBotPro suitable for beginners?</span>
+                    <span class="accordion-icon text-green-400">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <p>Yes. The automation handles the complex math. However, we strongly recommend using "Paper Trading" mode first to learn how the bot behaves without risking real money.</p>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>Do I need to keep my computer on?</span>
+                    <span class="accordion-icon text-green-400">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <p>Yes. The bot runs on your computer. If you close the program or put your computer to sleep, it stops trading. For 24/7 Crypto trading, consider using a VPS.</p>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>What is Fractional Share trading?</span>
+                    <span class="accordion-icon text-green-400">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <p>This allows you to buy $50 worth of Amazon, even if one share costs $100. The bot uses this automatically to manage your risk precisely.</p>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>Does this bot trade Options?</span>
+                    <span class="accordion-icon text-green-400">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <p>No. TradeBotPro is designed exclusively for <strong>Stocks (Equities)</strong> and <strong>Cryptocurrencies</strong>. It does not support options or futures trading.</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+     <section class="py-10 px-6 bg-gray-900 border-t border-gray-800 text-center">
+        <div class="max-w-4xl mx-auto p-6 rounded-lg bg-gray-800 bg-opacity-50">
+            <h3 class="text-lg font-semibold mb-2 text-red-400">⚠ Risk Disclosure</h3>
+            <p class="text-gray-500 text-xs leading-relaxed">
+                Trading in financial markets carries a high level of risk. TradeBotPro is a software tool provided "as is" without warranties. We do not guarantee profits. Past performance is not indicative of future results. You acknowledge that you can lose some or all of your invested capital. The developers are not financial advisors.
+            </p>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 py-8 text-center text-gray-600 text-sm">
+        <p>&copy; 2025 TradeBotPro. All rights reserved.</p>
     </footer>
 
     <script>
@@ -259,21 +353,24 @@
             const content = header.nextElementSibling;
             const icon = header.querySelector('.accordion-icon');
 
+            // Close all others
+            document.querySelectorAll('.accordion-content').forEach(item => {
+                if (item !== content) {
+                    item.classList.remove('active');
+                    item.previousElementSibling.querySelector('.accordion-icon').style.transform = 'rotate(0deg)';
+                }
+            });
+
+            // Toggle current
             if (content.classList.contains('active')) {
                 content.classList.remove('active');
-                icon.classList.remove('active');
+                icon.style.transform = 'rotate(0deg)';
             } else {
-                // Close all other open accordions
-                document.querySelectorAll('.accordion-content.active').forEach(item => {
-                    item.classList.remove('active');
-                    item.previousElementSibling.querySelector('.accordion-icon').classList.remove('active');
-                });
                 content.classList.add('active');
-                icon.classList.add('active');
+                icon.style.transform = 'rotate(180deg)';
             }
         }
     </script>
 
 </body>
 </html>
-
