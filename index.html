@@ -3,350 +3,541 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TradeBotPro - Automate Your Trading</title>
+    <title>TradeBotPro — Your First Automated Trading Bot</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #0d1117;
-            color: #e6edf3;
-        }
-        .gradient-bg {
-            background: linear-gradient(135deg, #1a202c, #2d3748);
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #0d1117; color: #e6edf3; }
+
+        .gradient-bg { background: linear-gradient(135deg, #1a202c, #2d3748); }
+
         .btn-primary {
             background-image: linear-gradient(to right, #10B981, #059669);
             transition: all 0.3s ease;
         }
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 15px rgba(16, 185, 129, 0.4);
-        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(16,185,129,0.45); }
+
         .btn-secondary {
-            background-color: #4a5568;
+            background-color: transparent;
+            border: 1px solid #4ade80;
+            color: #4ade80;
             transition: all 0.3s ease;
         }
-        .btn-secondary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 15px rgba(74, 85, 104, 0.4);
-        }
+        .btn-secondary:hover { background-color: rgba(74,222,128,0.1); transform: translateY(-2px); }
+
         .feature-card {
             background-color: #161b22;
             border: 1px solid #30363d;
-            transition: transform 0.2s ease-in-out;
+            transition: transform 0.2s ease-in-out, border-color 0.2s;
         }
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        .feature-card:hover { transform: translateY(-5px); border-color: #4ade80; box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
+
+        .step-card { background-color: #161b22; border: 1px solid #30363d; }
+
+        .badge-new {
+            background: linear-gradient(135deg, #10B981, #059669);
+            font-size: 0.65rem;
+            padding: 1px 7px;
+            border-radius: 99px;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            vertical-align: middle;
         }
-        
-        /* Modal Styles */
-        #liabilityModal {
-            display: none; /* Hidden by default */
-        }
-        /* Disabled button style */
-        .btn-disabled {
-            background-color: #4a5568;
-            cursor: not-allowed;
-            opacity: 0.5;
-        }
+
+        /* Modal */
+        #liabilityModal { display: none; }
+        .btn-disabled { background-color: #4a5568; cursor: not-allowed; opacity: 0.5; }
+
+        /* FAQ accordion */
+        .accordion-item { background-color: #161b22; border: 1px solid #30363d; border-radius: 8px; margin-bottom: 10px; overflow: hidden; }
+        .accordion-header { padding: 16px 20px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-weight: 600; font-size: 1rem; color: #e6edf3; transition: background-color 0.2s; }
+        .accordion-header:hover { background-color: #1a202c; }
+        .accordion-content { padding: 0 20px; max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out, padding 0.3s ease-out; color: #9ca3af; }
+        .accordion-content.active { max-height: 300px; padding: 14px 20px; }
     </style>
 </head>
 <body class="antialiased">
 
-    <header class="bg-gray-900 shadow-lg py-4 px-6 flex justify-between items-center fixed w-full z-50">
+    <!-- NAV -->
+    <header class="bg-gray-900/95 backdrop-blur-sm shadow-lg py-4 px-6 flex justify-between items-center fixed w-full z-50 border-b border-gray-800">
         <div class="flex items-center space-x-3">
-            <svg class="w-8 h-8 text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l3 3a1 1 0 001.414-1.414L11 9.586V6z" clip-rule="evenodd"></path>
+            <svg class="w-7 h-7 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l3 3a1 1 0 001.414-1.414L11 9.586V6z" clip-rule="evenodd"/>
             </svg>
-            <h1 class="text-3xl font-bold text-white">TradeBotPro <span class="text-green-400">Pro Version</span></h1>
+            <span class="text-xl font-bold text-white">TradeBotPro</span>
         </div>
-        <nav>
-            <a href="#features" onclick="scrollToSection('features')" class="text-gray-300 hover:text-white px-4 py-2 rounded-md">Features</a>
-            <a href="feature_breakdown.html" class="text-gray-300 hover:text-white px-4 py-2 rounded-md">Feature Breakdown</a>
-            <a href="#pricing" onclick="scrollToSection('pricing')" class="text-gray-300 hover:text-white px-4 py-2 rounded-md">Pricing</a>
-            <a href="manage.html" class="text-gray-300 hover:text-white px-4 py-2 rounded-md">Manage Subscription</a>
-            <a href="help.html" class="text-gray-300 hover:text-white px-4 py-2 rounded-md">Help</a>
+        <nav class="hidden md:flex items-center gap-1">
+            <a href="#how-it-works" class="text-gray-400 hover:text-white px-3 py-2 rounded-md text-sm transition">How It Works</a>
+            <a href="#features" class="text-gray-400 hover:text-white px-3 py-2 rounded-md text-sm transition">Features</a>
+            <a href="feature_breakdown.html" class="text-gray-400 hover:text-white px-3 py-2 rounded-md text-sm transition">Breakdown</a>
+            <a href="#pricing" class="text-gray-400 hover:text-white px-3 py-2 rounded-md text-sm transition">Pricing</a>
+            <a href="#faq" class="text-gray-400 hover:text-white px-3 py-2 rounded-md text-sm transition">FAQ</a>
+            <a href="manage.html" class="text-gray-400 hover:text-white px-3 py-2 rounded-md text-sm transition">My Account</a>
+            <a href="help.html" class="text-gray-400 hover:text-white px-3 py-2 rounded-md text-sm transition">Help</a>
         </nav>
     </header>
 
-   <section class="relative min-h-screen flex flex-col items-center justify-center text-center text-white overflow-hidden gradient-bg pt-28 pb-16">
-        
+    <!-- ═══════════════════════ HERO ═══════════════════════ -->
+    <section class="relative min-h-screen flex flex-col items-center justify-center text-center text-white overflow-hidden gradient-bg pt-28 pb-16">
+
+        <!-- Grid overlay -->
         <div class="absolute inset-0 z-0 opacity-10" style="background-image: radial-gradient(#4ade80 1px, transparent 1px); background-size: 32px 32px;"></div>
-        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-[#0d1117]/50 to-[#0d1117] z-0"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-[#0d1117]/40 to-[#0d1117] z-0"></div>
 
-        <div class="relative z-10 px-6 max-w-6xl mx-auto flex flex-col items-center">
-            
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-800/80 border border-green-500/30 text-green-400 text-xs md:text-sm font-medium mb-6 backdrop-blur-sm animate-fade-in-up">
+        <div class="relative z-10 px-6 max-w-5xl mx-auto flex flex-col items-center">
+
+            <!-- Live badge -->
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-800/90 border border-green-500/30 text-green-400 text-xs font-semibold mb-6">
                 <span class="relative flex h-2 w-2">
-                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                  <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
                 </span>
-                Get the same automated tools the pros use, designed specifically for those just getting started.
- 
+                Scanning stocks &amp; crypto 24/7 — right now
             </div>
 
-            <h2 class="text-5xl md:text-7xl font-extrabold leading-tight mb-6 tracking-tight drop-shadow-lg">
-                Pro-Level Trading. <br>
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-500">Simplified.</span>
-            </h2>
-            
-            <p class="text-xl md:text-2xl mb-8 text-gray-300 max-w-2xl mx-auto leading-relaxed">
-                Your First Automated Trading Bot. Running in 15 Minutes.
-TradeBotPro connects to your Alpaca account and scans stocks and crypto 24/7 using 11 proven strategies — no coding, no manual watching, no complexity. Start in Paper Trading mode with zero risk, then go live when you're ready. Paper Trading means you are using fake money to test real strategies. Try the Pro version for $25/week. Cancel anytime.
+            <!-- Headline — playbook rewrite -->
+            <h1 class="text-5xl md:text-7xl font-extrabold leading-tight mb-5 tracking-tight">
+                Your First Automated<br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-500">Trading Bot.</span>
+            </h1>
+            <p class="text-2xl font-semibold text-white mb-3">Running in 15 Minutes.</p>
+
+            <!-- Subheadline — playbook rewrite -->
+            <p class="text-lg md:text-xl mb-8 text-gray-300 max-w-2xl mx-auto leading-relaxed">
+                TradeBotPro connects to your Alpaca account and scans stocks and crypto 24/7
+                using <strong class="text-white">12 proven strategies</strong> — no coding, no manual watching, no complexity.
+                Start in Paper Trading mode with zero risk, then go live when you're ready.
             </p>
-            
+
+            <!-- CTAs — playbook: $25/week as PRIMARY -->
             <div class="flex flex-col sm:flex-row gap-4 justify-center w-full sm:w-auto mb-10">
-                <button onclick="openLiabilityModal('full')" class="btn-primary text-lg font-bold py-4 px-10 rounded-xl shadow-lg shadow-green-900/40 flex items-center justify-center gap-2 hover:scale-105 transition-transform">
-                    Start Trading Like a Pro
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
+                <button onclick="openLiabilityModal('full')"
+                    class="btn-primary text-lg font-bold py-4 px-10 rounded-xl shadow-lg flex items-center justify-center gap-2">
+                    Start for $25/week — Cancel Anytime
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
                 </button>
-                <button onclick="openLiabilityModal('lite')" class="btn-secondary text-lg font-semibold py-4 px-10 rounded-xl shadow-lg border border-gray-600 hover:border-gray-400 hover:text-white transition-colors">
-                    View Lite Version
+                <button onclick="openLiabilityModal('lite')"
+                    class="btn-secondary text-base font-semibold py-4 px-8 rounded-xl">
+                    Or try the Lite version ($49.99)
                 </button>
             </div>
 
-            <div class="flex flex-wrap justify-center gap-6 md:gap-12 text-sm md:text-base text-gray-400 font-medium mb-12 border-t border-b border-gray-800 py-4 w-full max-w-4xl bg-gray-900/30 backdrop-blur-sm rounded-lg">
-                <div class="flex items-center gap-2">
-                    <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    <span>No Coding Required</span>
-                </div>
-                <div class="flex items-center gap-2">
-                    <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                    <span>Instant Backtesting</span>
-                </div>
-                <div class="flex items-center gap-2">
-                    <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-                    <span>Risk Management Engine</span>
-                </div>
+            <!-- Trust bar -->
+            <div class="flex flex-wrap justify-center gap-6 md:gap-10 text-sm text-gray-400 font-medium border-t border-b border-gray-800 py-4 w-full max-w-3xl bg-gray-900/30 backdrop-blur-sm rounded-lg mb-12">
+                <div class="flex items-center gap-2"><svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span>No Coding Required</span></div>
+                <div class="flex items-center gap-2"><svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg><span>Instant Backtesting</span></div>
+                <div class="flex items-center gap-2"><svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg><span>Risk Management Built-In</span></div>
+                <div class="flex items-center gap-2"><svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span>Cancel Anytime</span></div>
             </div>
 
-           <div class="relative w-full max-w-5xl mx-auto rounded-lg shadow-2xl border border-gray-600 bg-gray-900 overflow-hidden transform hover:scale-[1.01] transition duration-500 group">
-                
-                <img src="Strategy Backtester.jpg" 
-                     alt="TradeBotPro Backtesting Interface" 
-                     class="w-full h-auto opacity-95 group-hover:opacity-100 transition-opacity">
-                
+            <!-- Screenshot -->
+            <div class="relative w-full max-w-5xl mx-auto rounded-xl shadow-2xl border border-gray-700 bg-gray-900 overflow-hidden transform hover:scale-[1.01] transition duration-500 group">
+                <img src="Strategy Backtester.jpg" alt="TradeBotPro Strategy Backtester showing portfolio growth" class="w-full h-auto opacity-95 group-hover:opacity-100 transition-opacity">
                 <div class="absolute inset-0 bg-gradient-to-tr from-white/5 to-transparent pointer-events-none"></div>
             </div>
-
-            <p class="mt-4 text-sm text-gray-500 italic">
-                *Actual screenshot of Strategy Backtester showing portfolio growth.
-            </p>
-
+            <p class="mt-4 text-xs text-gray-500 italic">*Actual screenshot of the Strategy Backtester showing portfolio equity curve.</p>
         </div>
     </section>
 
-   <section id="features" class="py-16 px-6 bg-gray-900">
-        <h2 class="text-4xl font-bold text-center mb-12 text-white">Why Choose TradeBotPro?</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            
-            <div class="feature-card p-6 rounded-lg shadow-xl flex flex-col items-center text-center">
-                <svg class="w-16 h-16 text-blue-400 mb-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 013 14v3a1 1 0 001 1h12a1 1 0 001-1v-3a1 1 0 01-.293-.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 110-6 3 3 0 010 6z"></path></svg>
-                <h3 class="text-2xl font-semibold mb-3 text-green-300">Multi-Asset (Stock & Crypto)</h3>
-                <p class="text-gray-400 mb-4">TradeBotPro Pro isn't just for stocks. It's a 24/7 trading machine with full support for both equities and cryptocurrencies like BTC/USD and ETH/USD.</p>
-                <p class="text-green-200 font-medium italic">
-                    Benefit: "While the stock market sleeps, the bot is busy scanning 24/7 crypto markets for mean-reversion or trend-following opportunities."
-                </p>
-            </div>
+    <!-- ═══════════════════ HOW IT WORKS ═══════════════════ -->
+    <section id="how-it-works" class="py-20 px-6 bg-gray-900 border-t border-gray-800">
+        <div class="max-w-4xl mx-auto text-center mb-14">
+            <h2 class="text-4xl font-bold text-white mb-3">Up and Running in 3 Steps</h2>
+            <p class="text-gray-400 text-lg">No developer needed. No complex setup. Just connect and click Start.</p>
+        </div>
 
-            <div class="feature-card p-6 rounded-lg shadow-xl flex flex-col items-center text-center">
-                <svg class="w-16 h-16 text-purple-400 mb-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 000 2h6a1 1 0 100-2H7z" clip-rule="evenodd"></path></svg>
-                <h3 class="text-2xl font-semibold mb-3 text-green-300">Advanced AI Trading Engine</h3>
-                <p class="text-gray-400 mb-4">Select from over 11 strategies (Trend, Mean Reversion, Momentum) and choose your timeframe (5m, 15m, or 30m) to match your style.</p>
-                <p class="text-green-200 font-medium italic">
-                    Benefit: "Use the 5-minute timeframe for day trading or switch to the 30-minute timeframe for more reliable, high-conviction swing trading signals."
-                </p>
+        <div class="max-w-4xl mx-auto grid md:grid-cols-3 gap-8">
+            <div class="step-card rounded-xl p-7 text-center relative">
+                <div class="w-12 h-12 rounded-full bg-green-500/20 border border-green-500/40 flex items-center justify-center mx-auto mb-4">
+                    <span class="text-green-400 font-bold text-xl">1</span>
+                </div>
+                <h3 class="text-lg font-bold text-white mb-2">Connect</h3>
+                <p class="text-gray-400 text-sm leading-relaxed">Sign up at <a href="https://alpaca.markets" target="_blank" class="text-green-400 hover:underline">alpaca.markets</a> (free) and paste your API keys into the bot. Takes 5 minutes.</p>
             </div>
-            
-            <div class="feature-card p-6 rounded-lg shadow-xl flex flex-col items-center text-center">
-                <svg class="w-16 h-16 text-yellow-400 mb-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path><path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path></svg>
-                <h3 class="text-2xl font-semibold mb-3 text-green-300">Integrated Portfolio Backtester</h3>
-                <p class="text-gray-400 mb-4">Don't guess. Test every strategy against historical data for any stock or crypto pair and see a visual equity chart of the results.</p>
-                <p class="text-green-200 font-medium italic">
-                    Benefit: "Validate your 'Crypto Breakout' strategy on BTC/USD over 60 days to see its performance *before* you risk a single live dollar."
-                </p>
+            <div class="step-card rounded-xl p-7 text-center relative">
+                <div class="w-12 h-12 rounded-full bg-green-500/20 border border-green-500/40 flex items-center justify-center mx-auto mb-4">
+                    <span class="text-green-400 font-bold text-xl">2</span>
+                </div>
+                <h3 class="text-lg font-bold text-white mb-2">Configure</h3>
+                <p class="text-gray-400 text-sm leading-relaxed">Choose your asset type (Stocks or Crypto), set your risk amount, and select which of the 12 strategies to run.</p>
             </div>
-
-            <div class="feature-card p-6 rounded-lg shadow-xl flex flex-col items-center text-center">
-                <svg class="w-16 h-16 text-red-400 mb-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M2 5a2 2 0 012-2h12a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2V5zm3 1h10v8H5V6zm1-2a1 1 0 00-1 1v1a1 1 0 102 0V5a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
-                <h3 class="text-2xl font-semibold mb-3 text-green-300">Persistent State (SQLite DB)</h3>
-                <p class="text-gray-400 mb-4">Never lose your progress. The Pro version saves all open trades, pending orders, and P/L history to a robust SQLite database.</p>
-                <p class="text-green-200 font-medium italic">
-                    Benefit: "Stop the bot, restart your PC, or close it for the weekend. When you start it again, it picks up *exactly* where it left off, tracking all open swing trades."
-                </p>
-            </div>
-
-            <div class="feature-card p-6 rounded-lg shadow-xl flex flex-col items-center text-center">
-                <svg class="w-16 h-16 text-teal-400 mb-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"></path></svg>
-                <h3 class="text-2xl font-semibold mb-3 text-green-300">Real-time WebSocket Dashboard</h3>
-                <p class="text-gray-400 mb-4">The dashboard isn't just a list, it's a live data feed. It uses a WebSocket stream to update your open positions' prices and P/L in real-time.</p>
-                <p class="text-green-200 font-medium italic">
-                    Benefit: "Watch your P/L percentage tick up live from the dashboard without ever leaving the app or refreshing the page."
-                </p>
-            </div>
-
-            <div class="feature-card p-6 rounded-lg shadow-xl flex flex-col items-center text-center">
-                <svg class="w-16 h-16 text-orange-400 mb-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 1.944A11.954 11.954 0 012.166 5.026a11.954 11.954 0 01-1.42 6.052c-.07.248-.002.518.188.693l.36.275c.09.069.193.106.298.106h.411a.5.5 0 00.418-.236l.51-.818a.5.5 0 00-.063-.61l-.398-.398a.5.5 0 01.354-.854l.43.097a.5.5 0 00.518-.266l.51-1.018a.5.5 0 00-.17-.676l-.398-.398a.5.5 0 01.353-.854l.43.097a.5.5 0 00.518-.266l.51-1.018a.5.5 0 00-.17-.676l-.398-.398a.5.5 0 01.353-.854l.43.097a.5.5 0 00.518-.266l.51-1.018a.5.5 0 00-.17-.676l-.398-.398a.5.5 0 01.354-.854l.43.097a.5.5 0 00.518-.266l.51-1.018a.5.5 0 00-.17-.676l-.398-.398a.5.5 0 01.354-.854l.215.049a.5.5 0 00.518-.265l.51-1.018A.5.5 0 0010 1.944zM10 6a1 1 0 011 1v3a1 1 0 11-2 0V7a1 1 0 011-1zM10 12a1 1 0 100 2 1 1 0 000-2z" clip-rule="evenodd"></path></svg>
-                <h3 class="text-2xl font-semibold mb-3 text-green-300">Advanced Risk Management</h3>
-                <p class="text-gray-400 mb-4">Set Daily P/L Targets, Daily Stop-Losses, and your "Risk per Trade ($)". The bot uses this with ATR to calculate smart position sizes.</p>
-                <p class="text-green-200 font-medium italic">
-                    Benefit: "Risk $50 per trade. The bot will buy $1,000 of Stock A (low volatility) but only $300 of Stock B (high volatility) to keep your risk consistent."
-                </p>
+            <div class="step-card rounded-xl p-7 text-center relative">
+                <div class="w-12 h-12 rounded-full bg-green-500/20 border border-green-500/40 flex items-center justify-center mx-auto mb-4">
+                    <span class="text-green-400 font-bold text-xl">3</span>
+                </div>
+                <h3 class="text-lg font-bold text-white mb-2">Start</h3>
+                <p class="text-gray-400 text-sm leading-relaxed">Click <strong class="text-white">Start Bot</strong>. It scans the market every 5, 15, or 30 minutes and trades for you — automatically.</p>
             </div>
         </div>
     </section>
 
-       <section id="pricing" class="py-16 px-6 bg-gray-800">
-        <h2 class="text-4xl font-bold text-center mb-12 text-white">Choose Your Trading Power</h2>
+    <!-- ═══════════════════ FEATURES ═══════════════════════ -->
+    <section id="features" class="py-20 px-6 bg-gray-950 border-t border-gray-800">
+        <h2 class="text-4xl font-bold text-center mb-4 text-white">Why TradeBotPro?</h2>
+        <p class="text-center text-gray-400 mb-14 text-lg max-w-2xl mx-auto">Everything a serious trader needs — in a Windows app you can launch in minutes.</p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7 max-w-6xl mx-auto">
+
+            <!-- Feature 1 — playbook headline rewrite -->
+            <div class="feature-card p-7 rounded-xl flex flex-col">
+                <div class="w-12 h-12 rounded-lg bg-blue-500/15 flex items-center justify-center mb-4">
+                    <svg class="w-7 h-7 text-blue-400" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 003 14v3a1 1 0 001 1h12a1 1 0 001-1v-3a1 1 0 01-.293-.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 110-6 3 3 0 010 6z"/></svg>
+                </div>
+                <h3 class="text-lg font-bold text-white mb-2">Never miss a crypto move — the bot runs 24/7 even when the stock market is closed</h3>
+                <p class="text-gray-400 text-sm leading-relaxed flex-1">Full support for both stocks and crypto (BTC/USD, ETH/USD, and more). When equities close at 4 PM, the bot keeps scanning crypto around the clock.</p>
+                <p class="text-green-300 text-sm mt-3 italic font-medium">"Set it up once. It runs while you sleep."</p>
+            </div>
+
+            <!-- Feature 2 — playbook headline rewrite -->
+            <div class="feature-card p-7 rounded-xl flex flex-col">
+                <div class="w-12 h-12 rounded-lg bg-purple-500/15 flex items-center justify-center mb-4">
+                    <svg class="w-7 h-7 text-purple-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 000 2h6a1 1 0 100-2H7z" clip-rule="evenodd"/></svg>
+                </div>
+                <h3 class="text-lg font-bold text-white mb-2">12 strategies. You pick which ones run. No coding required. <span class="badge-new">NEW</span></h3>
+                <p class="text-gray-400 text-sm leading-relaxed flex-1">Trend Pullback, Mean Reversion, Momentum Cross, Golden Cross, VWAP Reversion, RSI Divergence — enable any combo with a checkbox. Choose 5-min, 15-min, or 30-min candles.</p>
+                <p class="text-green-300 text-sm mt-3 italic font-medium">"Day trade on 5-minute candles or swing trade on 30-minute candles — same bot, one setting."</p>
+            </div>
+
+            <!-- Feature 3 — playbook headline rewrite -->
+            <div class="feature-card p-7 rounded-xl flex flex-col">
+                <div class="w-12 h-12 rounded-lg bg-yellow-500/15 flex items-center justify-center mb-4">
+                    <svg class="w-7 h-7 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"/><path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"/></svg>
+                </div>
+                <h3 class="text-lg font-bold text-white mb-2">Test before you risk a dollar — backtest any strategy on 60 days of real data</h3>
+                <p class="text-gray-400 text-sm leading-relaxed flex-1">Run the Portfolio Backtester on any stock or crypto ticker. See a visual equity chart plus Win Rate, Sharpe Ratio, and Max Drawdown before you go live.</p>
+                <p class="text-green-300 text-sm mt-3 italic font-medium">"Validate 'Crypto Breakout' on BTC/USD over 60 days — before risking a single dollar."</p>
+            </div>
+
+            <!-- Feature 4 — playbook headline rewrite -->
+            <div class="feature-card p-7 rounded-xl flex flex-col">
+                <div class="w-12 h-12 rounded-lg bg-red-500/15 flex items-center justify-center mb-4">
+                    <svg class="w-7 h-7 text-red-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M2 5a2 2 0 012-2h12a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2V5zm3 1h10v8H5V6zm1-2a1 1 0 00-1 1v1a1 1 0 102 0V5a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
+                </div>
+                <h3 class="text-lg font-bold text-white mb-2">Restart your PC anytime. Your open trades and P&amp;L are always saved.</h3>
+                <p class="text-gray-400 text-sm leading-relaxed flex-1">All positions, pending orders, and daily P/L are stored in a local SQLite database. Close the bot, restart — it picks up exactly where it left off.</p>
+                <p class="text-green-300 text-sm mt-3 italic font-medium">"Hold swing trades over the weekend without losing state."</p>
+            </div>
+
+            <!-- Feature 5 — playbook headline rewrite -->
+            <div class="feature-card p-7 rounded-xl flex flex-col">
+                <div class="w-12 h-12 rounded-lg bg-teal-500/15 flex items-center justify-center mb-4">
+                    <svg class="w-7 h-7 text-teal-400" fill="currentColor" viewBox="0 0 20 20"><path d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"/></svg>
+                </div>
+                <h3 class="text-lg font-bold text-white mb-2">Watch your positions update live — no refreshing, no switching tabs</h3>
+                <p class="text-gray-400 text-sm leading-relaxed flex-1">Real-time WebSocket feed updates your P/L percentage live on the dashboard. See entry price, current price, stop loss, and target all in one view.</p>
+                <p class="text-green-300 text-sm mt-3 italic font-medium">"Your P/L ticks up in real-time — without ever leaving the app."</p>
+            </div>
+
+            <!-- Feature 6 — playbook headline rewrite -->
+            <div class="feature-card p-7 rounded-xl flex flex-col">
+                <div class="w-12 h-12 rounded-lg bg-orange-500/15 flex items-center justify-center mb-4">
+                    <svg class="w-7 h-7 text-orange-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3 6a3 3 0 013-3h10a1 1 0 01.8 1.6L14.25 7l2.55 2.4A1 1 0 0116 11H6a1 1 0 00-1 1v3a1 1 0 11-2 0V6z" clip-rule="evenodd"/></svg>
+                </div>
+                <h3 class="text-lg font-bold text-white mb-2">Set a daily loss limit. The bot stops itself if things go wrong.</h3>
+                <p class="text-gray-400 text-sm leading-relaxed flex-1">ATR-based position sizing, daily stop-loss, daily profit target, and now a <strong class="text-white">Trailing Stop</strong> that locks in profits automatically as price rises.</p>
+                <p class="text-green-300 text-sm mt-3 italic font-medium">"Risk $50 per trade — the bot sizes positions differently for volatile vs. quiet stocks."</p>
+            </div>
+
+            <!-- Feature 7 — NEW v20.0 Stats Tab -->
+            <div class="feature-card p-7 rounded-xl flex flex-col border-green-500/30">
+                <div class="w-12 h-12 rounded-lg bg-green-500/15 flex items-center justify-center mb-4">
+                    <svg class="w-7 h-7 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                </div>
+                <h3 class="text-lg font-bold text-white mb-2">📊 Stats Tab — Win Rate, Sharpe Ratio &amp; Trade Journal <span class="badge-new">NEW v20</span></h3>
+                <p class="text-gray-400 text-sm leading-relaxed flex-1">The dedicated Stats tab shows your total trades, win rate, Sharpe ratio, max drawdown, and average gain/loss. Export your full trade history to CSV with one click.</p>
+                <p class="text-green-300 text-sm mt-3 italic font-medium">"Know exactly how you're performing — not just what you feel."</p>
+            </div>
+
+            <!-- Feature 8 — NEW Trailing Stop -->
+            <div class="feature-card p-7 rounded-xl flex flex-col border-green-500/30">
+                <div class="w-12 h-12 rounded-lg bg-emerald-500/15 flex items-center justify-center mb-4">
+                    <svg class="w-7 h-7 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+                </div>
+                <h3 class="text-lg font-bold text-white mb-2">Trailing Stop Loss — lock in profits automatically <span class="badge-new">NEW v20</span></h3>
+                <p class="text-gray-400 text-sm leading-relaxed flex-1">Enable the trailing stop to move your stop to breakeven once a trade is profitable, then trail it below the rolling high — protecting gains without cutting winners short.</p>
+                <p class="text-green-300 text-sm mt-3 italic font-medium">"Up 2%? Stop moves to breakeven. Up 5%? Stop trails below your high."</p>
+            </div>
+
+            <!-- Feature 9 — NEW RSI Divergence -->
+            <div class="feature-card p-7 rounded-xl flex flex-col border-green-500/30">
+                <div class="w-12 h-12 rounded-lg bg-indigo-500/15 flex items-center justify-center mb-4">
+                    <svg class="w-7 h-7 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"/></svg>
+                </div>
+                <h3 class="text-lg font-bold text-white mb-2">RSI Divergence — the reversal signal pro traders watch <span class="badge-new">NEW v20</span></h3>
+                <p class="text-gray-400 text-sm leading-relaxed flex-1">Detects when price makes a lower low but RSI makes a higher low — a powerful early signal that selling pressure is weakening. Works on stocks and crypto.</p>
+                <p class="text-green-300 text-sm mt-3 italic font-medium">"Catch bounces before the crowd — using divergence that most retail traders miss."</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ═══════════════════════ PRICING ═══════════════════════ -->
+    <section id="pricing" class="py-20 px-6 bg-gray-900 border-t border-gray-800">
+        <h2 class="text-4xl font-bold text-center mb-4 text-white">Simple, Transparent Pricing</h2>
+        <p class="text-center text-gray-400 mb-14 text-lg">Start small. Upgrade when you're ready. Cancel anytime.</p>
+
         <div class="flex flex-col md:flex-row justify-center items-stretch gap-8 max-w-5xl mx-auto">
-            
-            <div class="flex-1 feature-card p-8 rounded-lg shadow-2xl flex flex-col items-center text-center transform hover:scale-105 transition-transform duration-300">
-                <h3 class="text-3xl font-bold text-blue-400 mb-4">Lite Version</h3>
-                <p class="text-5xl font-extrabold text-white mb-6">$49.99</p>
-                <ul class="text-gray-300 text-lg space-y-3 mb-8 text-left w-full">
-                    <li class="flex items-center"><svg class="w-6 h-6 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Lifetime Access</li>
-                    <li class="flex items-center"><svg class="w-6 h-6 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Stocks Only Trading</li>
-                    <li class="flex items-center"><svg class="w-6 h-6 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Single Fixed Strategy (5-min)</li>
-                    <li class="flex items-center text-gray-500"><svg class="w-6 h-6 mr-2 text-red-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg> No Crypto Trading</li>
-                    <li class="flex items-center text-gray-500"><svg class="w-6 h-6 mr-2 text-red-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg> No Multi-Timeframe Analysis</li>
-                    <li class="flex items-center text-gray-500"><svg class="w-6 h-6 mr-2 text-red-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg> No Multi-Strategy Engine</li>
-                    <li class="flex items-center text-gray-500"><svg class="w-6 h-6 mr-2 text-red-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg> No Backtesting Module</li>
-                    <li class="flex items-center text-gray-500"><svg class="w-6 h-6 mr-2 text-red-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg> No Persistent State (DB)</li>
+
+            <!-- Lite -->
+            <div class="flex-1 feature-card p-8 rounded-xl shadow-2xl flex flex-col">
+                <h3 class="text-2xl font-bold text-blue-400 mb-1">Lite</h3>
+                <p class="text-gray-500 text-sm mb-5">Best for beginners exploring automation</p>
+                <p class="text-5xl font-extrabold text-white mb-1">$49.99</p>
+                <p class="text-gray-400 text-sm mb-7">One-time payment · Lifetime access</p>
+
+                <ul class="text-gray-300 text-sm space-y-2.5 mb-8 flex-1">
+                    <li class="flex items-start gap-2"><svg class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>Lifetime access — pay once</li>
+                    <li class="flex items-start gap-2"><svg class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>Stocks-only trading</li>
+                    <li class="flex items-start gap-2"><svg class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>Single strategy (Trend Pullback)</li>
+                    <li class="flex items-start gap-2"><svg class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>Basic risk management</li>
+                    <li class="flex items-start gap-2 text-gray-500"><svg class="w-5 h-5 text-red-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>No crypto trading</li>
+                    <li class="flex items-start gap-2 text-gray-500"><svg class="w-5 h-5 text-red-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>No backtesting module</li>
+                    <li class="flex items-start gap-2 text-gray-500"><svg class="w-5 h-5 text-red-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>No Stats &amp; Performance tab</li>
+                    <li class="flex items-start gap-2 text-gray-500"><svg class="w-5 h-5 text-red-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>No trailing stop loss</li>
                 </ul>
-                
-                <button onclick="openLiabilityModal('lite')" class="btn-secondary text-xl font-semibold py-3 px-10 rounded-lg shadow-lg w-full">
-                    Get Now for $49.99
+                <button onclick="openLiabilityModal('lite')" class="w-full py-3 rounded-xl font-semibold bg-gray-700 hover:bg-gray-600 text-white transition">
+                    Get Lite — $49.99
                 </button>
             </div>
 
-            <div class="flex-1 feature-card p-8 rounded-lg shadow-2xl flex flex-col items-center text-center transform hover:scale-105 transition-transform duration-300">
-                <h3 class="text-3xl font-bold text-green-400 mb-4">Pro Version</h3>
-                <p class="text-5xl font-extrabold text-white mb-6">$199.99</p>
-                <p class="text-xl md:text-2xl mb-8 opacity-90">Try for $25 Weekly</p>
-                <ul class="text-gray-300 text-lg space-y-3 mb-8 text-left w-full">
-                    <li class="flex items-center"><svg class="w-6 h-6 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Lifetime Access for $199 One Time Fee!</li>
-                    <li class="flex items-center"><svg class="w-6 h-6 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Stocks & 24/7 Crypto Trading</li>
-                    <li class="flex items-center"><svg class="w-6 h-6 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Multi-Strategy Engine (11+)</li>
-                    <li class="flex items-center"><svg class="w-6 h-6 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Multi-Timeframe (5m, 15m, 30m)</li>
-                    <li class="flex items-center"><svg class="w-6 h-6 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Integrated Portfolio Backtester</li>
-                    <li class="flex items-center"><svg class="w-6 h-6 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Persistent State (SQLite DB)</li>
-                    <li class="flex items-center"><svg class="w-6 h-6 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Advanced P/L Risk Management</li>
-                    <li class="flex items-center"><svg class="w-6 h-6 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Real-time WebSocket Dashboard</li>
-                     <li class="flex items-center"><svg class="w-6 h-6 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Cancel Subscription Anytime!</li>
+            <!-- Pro — playbook: weekly as primary CTA -->
+            <div class="flex-1 feature-card p-8 rounded-xl shadow-2xl flex flex-col relative border-green-500/40 bg-gradient-to-b from-gray-800/60 to-gray-900">
+                <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-green-500 text-black text-xs font-bold px-4 py-1 rounded-full">MOST POPULAR</div>
+                <h3 class="text-2xl font-bold text-green-400 mb-1">Pro</h3>
+                <p class="text-gray-500 text-sm mb-5">Everything — for serious traders</p>
+
+                <!-- Primary: weekly trial -->
+                <div class="bg-green-500/10 border border-green-500/30 rounded-xl p-4 mb-4 text-center">
+                    <p class="text-3xl font-extrabold text-white">$25<span class="text-lg font-normal text-gray-400">/week</span></p>
+                    <p class="text-green-400 text-sm font-semibold mt-1">Try for a week — cancel anytime</p>
+                </div>
+                <!-- Secondary: lifetime -->
+                <p class="text-center text-gray-500 text-xs mb-6">Or get lifetime access for <button onclick="openLiabilityModal('full')" class="text-white underline font-semibold hover:text-green-400 transition">$199 one-time →</button></p>
+
+                <ul class="text-gray-300 text-sm space-y-2.5 mb-8 flex-1">
+                    <li class="flex items-start gap-2"><svg class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>Everything in Lite</li>
+                    <li class="flex items-start gap-2"><svg class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>Stocks &amp; 24/7 Crypto trading</li>
+                    <li class="flex items-start gap-2"><svg class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>12 strategies — enable any combo</li>
+                    <li class="flex items-start gap-2"><svg class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>Multi-timeframe (5m, 15m, 30m)</li>
+                    <li class="flex items-start gap-2"><svg class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>Portfolio Backtester + Sharpe/Drawdown</li>
+                    <li class="flex items-start gap-2"><svg class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>📊 Stats tab with Sharpe &amp; Win Rate</li>
+                    <li class="flex items-start gap-2"><svg class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>Trailing Stop Loss</li>
+                    <li class="flex items-start gap-2"><svg class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>RSI Divergence strategy</li>
+                    <li class="flex items-start gap-2"><svg class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>Persistent state (SQLite DB)</li>
+                    <li class="flex items-start gap-2"><svg class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>Real-time WebSocket dashboard</li>
                 </ul>
-                
-                <button onclick="openLiabilityModal('full')" class="btn-primary text-xl font-semibold py-3 px-10 rounded-lg shadow-lg w-full">
-                    Buy Now!
+
+                <!-- Primary CTA -->
+                <button onclick="openLiabilityModal('full')"
+                    class="btn-primary w-full py-4 rounded-xl font-bold text-white text-lg shadow-lg mb-2">
+                    Start for $25/week — Cancel Anytime
                 </button>
+                <p class="text-center text-gray-500 text-xs">No commitment. Cancel from your account page any time.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════ FAQ ═══════════════════════ -->
+    <section id="faq" class="py-20 px-6 bg-gray-950 border-t border-gray-800">
+        <h2 class="text-4xl font-bold text-center mb-4 text-white">Frequently Asked Questions</h2>
+        <p class="text-center text-gray-400 mb-12 text-lg">Everything you need to know before getting started.</p>
+
+        <div class="max-w-3xl mx-auto space-y-3">
+
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>Do I need to know how to code?</span>
+                    <svg class="w-5 h-5 text-green-400 accordion-icon transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </div>
+                <div class="accordion-content">
+                    <p>No. TradeBotPro is a downloadable Windows application. You install it like any other program, enter your Alpaca API keys, and click Start. Zero coding required at any step.</p>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>What is Alpaca? Do I need an account?</span>
+                    <svg class="w-5 h-5 text-green-400 accordion-icon transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </div>
+                <div class="accordion-content">
+                    <p>Alpaca is a free, commission-free brokerage API. You sign up at <a href="https://alpaca.markets" target="_blank" class="text-green-400 hover:underline">alpaca.markets</a>, complete identity verification, generate your API keys, and paste them into TradeBotPro. You can start in Paper Trading (fake money) mode for free with no deposit required.</p>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>Is my money at risk?</span>
+                    <svg class="w-5 h-5 text-green-400 accordion-icon transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </div>
+                <div class="accordion-content">
+                    <p><strong>Paper Trading mode uses completely fake money</strong> — nothing is at risk, no deposit required. The bot will only trade with real money if you explicitly select "Live Trading" in Settings and confirm the warning prompt. We strongly recommend starting in Paper Trading to learn the bot's behavior first.</p>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>What if the bot makes bad trades?</span>
+                    <svg class="w-5 h-5 text-green-400 accordion-icon transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </div>
+                <div class="accordion-content">
+                    <p>You set a <strong>Daily Stop-Loss Limit</strong> in Settings. If the bot loses more than that amount in a single day, it automatically stops placing new trades. Every trade also has an individual stop-loss based on ATR, so no single trade can blow up your account. The "Force Sell All" button on the dashboard lets you exit everything instantly.</p>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>Does it work on Mac?</span>
+                    <svg class="w-5 h-5 text-green-400 accordion-icon transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </div>
+                <div class="accordion-content">
+                    <p>Currently Windows 10 and Windows 11 only. Mac support is on our roadmap. If you need 24/7 operation without keeping your PC on, consider running the bot on a Windows VPS (Virtual Private Server).</p>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>Do I need to keep my computer on?</span>
+                    <svg class="w-5 h-5 text-green-400 accordion-icon transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </div>
+                <div class="accordion-content">
+                    <p>Yes — the bot runs on your local machine. If you close it, it stops. Your open positions and P/L are saved to a local database, so nothing is lost when you restart. For 24/7 crypto trading, a Windows VPS running the bot 24/7 is the best solution.</p>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>What is the Trailing Stop and why does it matter?</span>
+                    <svg class="w-5 h-5 text-green-400 accordion-icon transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </div>
+                <div class="accordion-content">
+                    <p>A trailing stop automatically moves your stop-loss upward as a trade becomes profitable. For example: if a stock rises 1%, your stop moves to breakeven (you can't lose). As it keeps rising, the stop trails below the highest price — locking in more profit without cutting your winner short. It's one of the most powerful risk tools available to retail traders.</p>
+                </div>
             </div>
 
         </div>
     </section>
 
-    <footer class="bg-gray-900 py-8 text-center text-gray-500 text-sm">
-        <p>&copy; 2025 TradeBotPro. All rights reserved. Trading involves substantial risk.</p>
+    <!-- ═══════════════════ FINAL CTA ═══════════════════════ -->
+    <section class="py-20 px-6 bg-gradient-to-br from-gray-900 to-gray-800 text-center border-t border-gray-700">
+        <h2 class="text-4xl md:text-5xl font-extrabold text-white mb-4">Ready to automate your trading?</h2>
+        <p class="text-gray-400 text-xl mb-10 max-w-xl mx-auto">Start with Paper Trading — no money at risk. Go live when you're confident.</p>
+        <button onclick="openLiabilityModal('full')"
+            class="btn-primary text-xl font-bold py-5 px-14 rounded-xl shadow-xl inline-flex items-center gap-3">
+            Start for $25/week — Cancel Anytime
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+        </button>
+        <p class="mt-4 text-gray-500 text-sm">Or <button onclick="openLiabilityModal('full')" class="text-white underline hover:text-green-400 transition">get lifetime access for $199</button></p>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-gray-900 py-10 px-6 border-t border-gray-800">
+        <div class="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-2">
+                <svg class="w-6 h-6 text-green-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l3 3a1 1 0 001.414-1.414L11 9.586V6z" clip-rule="evenodd"/></svg>
+                <span class="text-white font-semibold">TradeBotPro</span>
+            </div>
+            <div class="flex gap-6 text-sm text-gray-500">
+                <a href="help.html" class="hover:text-white transition">Help</a>
+                <a href="manage.html" class="hover:text-white transition">Manage Subscription</a>
+                <a href="feature_breakdown.html" class="hover:text-white transition">Feature Breakdown</a>
+            </div>
+            <p class="text-gray-600 text-xs text-center md:text-right">© 2025 TradeBotPro. All rights reserved.<br>Trading involves substantial risk of loss.</p>
+        </div>
     </footer>
 
-    <div id="liabilityModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-80 backdrop-blur-sm p-4">
-        <div class="bg-gray-800 border border-gray-600 rounded-lg shadow-2xl max-w-2xl w-full flex flex-col max-h-[90vh]">
-            
+    <!-- LIABILITY MODAL -->
+    <div id="liabilityModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
+        <div class="bg-gray-800 border border-gray-600 rounded-xl shadow-2xl max-w-2xl w-full flex flex-col max-h-[90vh]">
             <div class="p-6 border-b border-gray-700">
-                <h3 class="text-2xl font-bold text-red-500">⚠ IMPORTANT: Liability Waiver</h3>
+                <h3 class="text-2xl font-bold text-red-400">⚠ Risk Disclosure &amp; Liability Waiver</h3>
                 <p class="text-gray-400 text-sm mt-1">Please read carefully before proceeding.</p>
             </div>
-
             <div class="p-6 overflow-y-auto text-gray-300 text-sm leading-relaxed space-y-4">
                 <p class="font-bold text-white">TradeBotPro is a software tool, not a financial advisor. We do not provide personalized investment advice.</p>
-                
-                <p><strong class="text-white">All sales are final.</strong> Trading in financial markets carries a high level of risk, and TradeBotPro is provided "as is" without any warranties, express or implied. The use of this software is at your sole risk. We do not guarantee any profits or protection against losses. Past performance is not indicative of future results.</p>
-                
-                <p>By using TradeBotPro, you acknowledge and agree that the developers, distributors, and affiliates shall not be liable for any direct, indirect, incidental, special, consequential, or exemplary damages, including but not limited to, damages for loss of profits, goodwill, use, data, or other intangible losses, resulting from the use or inability to use the software. It is your responsibility to understand the risks involved in trading and to manage your capital appropriately.</p>
+                <p><strong class="text-white">All sales are final.</strong> Trading in financial markets carries a high level of risk. TradeBotPro is provided "as is" without any warranties. We do not guarantee any profits or protection against losses. Past performance is not indicative of future results.</p>
+                <p>By using TradeBotPro, you acknowledge that the developers, distributors, and affiliates shall not be liable for any damages including loss of profits, resulting from the use or inability to use the software. It is your responsibility to understand the risks and manage your capital appropriately.</p>
             </div>
-
-            <div class="p-6 border-t border-gray-700 bg-gray-900 rounded-b-lg">
+            <div class="p-6 border-t border-gray-700 bg-gray-900 rounded-b-xl">
                 <div class="flex items-start mb-4">
                     <input id="agreeCheckbox" type="checkbox" onchange="toggleContinueButton()" class="w-5 h-5 text-green-500 rounded focus:ring-green-500 border-gray-600 bg-gray-700 mt-1">
                     <label for="agreeCheckbox" class="ml-3 text-gray-300 text-sm cursor-pointer select-none">
-                        I have read and agree to the <span class="text-white font-bold">Terms of Service</span> and <span class="text-white font-bold">Liability Waiver</span> above. I understand that I can lose money trading.
+                        I have read and agree to the <span class="text-white font-bold">Terms of Service</span> and <span class="text-white font-bold">Liability Waiver</span>. I understand I can lose money trading.
                     </label>
                 </div>
-                
-                <div class="flex space-x-4">
-                    <button onclick="closeModal()" class="w-1/3 py-3 rounded-lg border border-gray-600 text-gray-400 hover:text-white hover:border-gray-400 transition">
-                        Cancel
-                    </button>
-                    <button id="continueBtn" onclick="proceedToCheckout()" disabled class="w-2/3 py-3 rounded-lg font-bold text-white btn-disabled transition">
-                        Accept & Continue
-                    </button>
+                <div class="flex gap-3">
+                    <button onclick="closeModal()" class="w-1/3 py-3 rounded-lg border border-gray-600 text-gray-400 hover:text-white hover:border-gray-400 transition">Cancel</button>
+                    <button id="continueBtn" onclick="proceedToCheckout()" disabled class="w-2/3 py-3 rounded-lg font-bold text-white btn-disabled transition">Accept &amp; Continue</button>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- Windows badge -->
+    <div id="windows-flag" class="fixed bottom-6 right-6 z-50 animate-bounce" style="animation-duration: 3s;">
+        <div class="bg-gray-800/90 backdrop-blur-md border border-blue-500 text-white px-5 py-3 rounded-full shadow-2xl flex items-center gap-3 transform transition hover:scale-105">
+            <svg class="w-6 h-6 text-blue-400" fill="currentColor" viewBox="0 0 24 24"><path d="M0 3.449L9.75 2.1v9.451H0V3.449zm10.949-1.551L24 0v11.023h-13.051V1.898zm-10.949 9.977H9.75v9.451L0 19.951v-8.076zm10.949 0H24v11.023l-13.051-1.898V11.875z"/></svg>
+            <div class="flex flex-col">
+                <span class="font-bold text-sm leading-tight text-blue-100">Windows PC Only</span>
+                <span class="text-[10px] text-gray-400 uppercase tracking-wider">Windows 10/11 Compatible</span>
+            </div>
+            <button onclick="document.getElementById('windows-flag').style.display='none'" class="ml-2 text-gray-500 hover:text-white transition">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
         </div>
     </div>
 
     <script>
         let targetVersion = '';
-
-        // Open the modal and remember which product they wanted
         function openLiabilityModal(version) {
             targetVersion = version;
             document.getElementById('liabilityModal').style.display = 'flex';
-            // Reset the state every time it opens
             document.getElementById('agreeCheckbox').checked = false;
-            toggleContinueButton(); 
+            toggleContinueButton();
         }
-
-        // Close modal
         function closeModal() {
             document.getElementById('liabilityModal').style.display = 'none';
             targetVersion = '';
         }
-
-        // Enable button only if checkbox is checked
         function toggleContinueButton() {
-            const checkbox = document.getElementById('agreeCheckbox');
+            const cb = document.getElementById('agreeCheckbox');
             const btn = document.getElementById('continueBtn');
-            
-            if (checkbox.checked) {
+            if (cb.checked) {
                 btn.disabled = false;
                 btn.classList.remove('btn-disabled');
-                btn.classList.add('bg-green-600', 'hover:bg-green-500', 'shadow-lg'); // Add active styles
+                btn.classList.add('bg-green-600', 'hover:bg-green-500');
             } else {
                 btn.disabled = true;
                 btn.classList.add('btn-disabled');
-                btn.classList.remove('bg-green-600', 'hover:bg-green-500', 'shadow-lg'); // Remove active styles
+                btn.classList.remove('bg-green-600', 'hover:bg-green-500');
             }
         }
-
-        // Redirect to the actual product page
         function proceedToCheckout() {
-            if (targetVersion) {
-                window.location.href = 'product.html?version=' + targetVersion;
+            if (targetVersion) window.location.href = 'product.html?version=' + targetVersion;
+        }
+        function toggleAccordion(header) {
+            const content = header.nextElementSibling;
+            const icon = header.querySelector('.accordion-icon');
+            document.querySelectorAll('.accordion-content').forEach(item => {
+                if (item !== content) {
+                    item.classList.remove('active');
+                    item.previousElementSibling.querySelector('.accordion-icon').style.transform = 'rotate(0deg)';
+                }
+            });
+            if (content.classList.contains('active')) {
+                content.classList.remove('active');
+                icon.style.transform = 'rotate(0deg)';
+            } else {
+                content.classList.add('active');
+                icon.style.transform = 'rotate(180deg)';
             }
         }
-
-        // Smooth scroll function
-        function scrollToSection(id) {
-            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
-        }
+        // Smooth scroll for nav links
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', e => {
+                const target = document.querySelector(a.getAttribute('href'));
+                if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+            });
+        });
     </script>
-    <div id="windows-flag" class="fixed bottom-6 right-6 z-50 animate-bounce" style="animation-duration: 3s;">
-        <div class="bg-gray-800/90 backdrop-blur-md border border-blue-500 text-white px-5 py-3 rounded-full shadow-2xl flex items-center gap-3 transform transition hover:scale-105">
-            
-            <svg class="w-6 h-6 text-blue-400" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M0 3.449L9.75 2.1v9.451H0V3.449zm10.949-1.551L24 0v11.023h-13.051V1.898zm-10.949 9.977H9.75v9.451L0 19.951v-8.076zm10.949 0H24v11.023l-13.051-1.898V11.875z"/>
-            </svg>
-            
-            <div class="flex flex-col">
-                <span class="font-bold text-sm leading-tight text-blue-100">Windows PC Only</span>
-                <span class="text-[10px] text-gray-400 uppercase tracking-wider">Windows 10/11 Compatible</span>
-            </div>
-
-            <button onclick="document.getElementById('windows-flag').style.display='none'" class="ml-2 text-gray-500 hover:text-white transition-colors">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-            </button>
-        </div>
-    </div>
 </body>
 </html>
