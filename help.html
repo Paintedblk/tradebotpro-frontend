@@ -3,147 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TradeBotPro - Help & Documentation</title>
+    <title>TradeBotPro — Help &amp; Documentation</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #0d1117; /* Dark background */
-            color: #e6edf3; /* Light text */
-        }
-        .step-card {
-            background-color: #161b22;
-            border: 1px solid #30363d;
-            transition: transform 0.2s;
-        }
-        .step-card:hover {
-            transform: translateY(-2px);
-            border-color: #58a6ff;
-        }
-        .step-number {
-            background-color: #238636;
-            color: white;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            font-weight: bold;
-            font-size: 1.25rem;
-            flex-shrink: 0;
-        }
-        .accordion-item {
-            background-color: #161b22;
-            border: 1px solid #30363d;
-            border-radius: 8px;
-            overflow: hidden;
-            margin-bottom: 10px;
-        }
-        .accordion-header {
-            padding: 15px 20px;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-weight: 600;
-            font-size: 1.1rem;
-            color: #e6edf3;
-            transition: background-color 0.3s ease;
-        }
-        .accordion-header:hover {
-            background-color: #1a202c;
-        }
-        .accordion-content {
-            padding: 0 20px;
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-out, padding 0.3s ease-out;
-            color: #b0b8c2;
-        }
-        .accordion-content.active {
-            max-height: 500px; /* Adjust as needed */
-            padding: 15px 20px;
-        }
-        .accordion-icon {
-            transform: rotate(0deg);
-            transition: transform 0.3s ease;
-        }
-        .accordion-icon.active {
-            transform: rotate(180deg);
-        }
-        /* ELI5 Section Styles */
-        .eli5-card {
-            background-color: #161b22;
-            border: 1px solid #30363d;
-            transition: all 0.2s ease;
-        }
-        .eli5-card:hover {
-            border-color: #238636;
-            transform: translateY(-3px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-        }
+        body { font-family: 'Inter', sans-serif; background-color: #0d1117; color: #e6edf3; }
+
+        .step-card { background-color: #161b22; border: 1px solid #30363d; transition: transform 0.2s, border-color 0.2s; }
+        .step-card:hover { transform: translateY(-2px); border-color: #58a6ff; }
+        .step-number { background-color: #238636; color: white; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-weight: bold; font-size: 1.25rem; flex-shrink: 0; }
+
+        .eli5-card { background-color: #161b22; border: 1px solid #30363d; transition: all 0.2s ease; }
+        .eli5-card:hover { border-color: #238636; transform: translateY(-3px); box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+
+        .new-badge { background: linear-gradient(135deg,#10B981,#059669); font-size: 0.6rem; padding: 1px 6px; border-radius: 99px; font-weight: 700; letter-spacing: 0.05em; vertical-align: middle; color: #fff; }
+
+        .accordion-item { background-color: #161b22; border: 1px solid #30363d; border-radius: 8px; overflow: hidden; margin-bottom: 10px; }
+        .accordion-header { padding: 15px 20px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-weight: 600; font-size: 1.05rem; color: #e6edf3; transition: background-color 0.3s; }
+        .accordion-header:hover { background-color: #1a202c; }
+        .accordion-content { padding: 0 20px; max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out, padding 0.3s ease-out; color: #b0b8c2; }
+        .accordion-content.active { max-height: 400px; padding: 15px 20px; }
+        .accordion-icon { transition: transform 0.3s; }
+        .accordion-icon.active { transform: rotate(180deg); }
+
+        .strat-card { background-color: #161b22; border: 1px solid #30363d; border-radius: 10px; padding: 16px; transition: border-color 0.2s; }
+        .strat-card:hover { border-color: #4ade80; }
     </style>
 </head>
 <body class="antialiased">
 
+    <!-- NAV -->
     <header class="bg-gray-900 shadow-lg py-4 px-6 flex justify-between items-center fixed w-full z-50 border-b border-gray-800">
         <div class="flex items-center space-x-3">
-            <svg class="w-8 h-8 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l3 3a1 1 0 001.414-1.414L11 9.586V6z" clip-rule="evenodd"></path>
+            <svg class="w-7 h-7 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l3 3a1 1 0 001.414-1.414L11 9.586V6z" clip-rule="evenodd"/>
             </svg>
-            <h1 class="text-2xl font-bold text-white tracking-tight">TradeBotPro <span class="text-green-500">Help Center</span></h1>
+            <h1 class="text-xl font-bold text-white tracking-tight">TradeBotPro <span class="text-green-500">Help Center</span></h1>
         </div>
-        <nav class="hidden md:flex space-x-1">
-            <a href="index.html" class="text-gray-300 hover:text-white px-3 py-2 rounded-md transition">Home</a>
-            <a href="feature_breakdown.html" class="text-gray-300 hover:text-white px-3 py-2 rounded-md transition">Features</a>
-            <a href="#settings-eli5" class="text-white bg-green-700 hover:bg-green-600 px-4 py-2 rounded-md transition font-medium shadow-md">Settings Explained</a>
+        <nav class="hidden md:flex gap-1">
+            <a href="index.html" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm transition">Home</a>
+            <a href="feature_breakdown.html" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm transition">Features</a>
+            <a href="#settings-eli5" class="text-white bg-green-700 hover:bg-green-600 px-4 py-2 rounded-md text-sm transition font-medium">Settings Explained</a>
+            <a href="#strategies" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm transition">Strategies</a>
+            <a href="#faq" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm transition">FAQ</a>
         </nav>
     </header>
 
+    <!-- ══════════ GETTING STARTED ══════════ -->
     <section id="top" class="pt-28 pb-16 px-6 bg-gray-900">
         <div class="max-w-4xl mx-auto text-center mb-12">
-            <h2 class="text-4xl md:text-5xl font-extrabold text-white mb-6">Getting Started</h2>
-            <p class="text-xl text-gray-400">
-                Five simple steps to automate your trading with Alpaca.
-            </p>
+            <h2 class="text-4xl md:text-5xl font-extrabold text-white mb-4">Getting Started</h2>
+            <p class="text-xl text-gray-400">Five simple steps to automate your trading with Alpaca.</p>
         </div>
 
-        <div class="max-w-4xl mx-auto space-y-8">
+        <div class="max-w-4xl mx-auto space-y-6">
 
             <div class="step-card p-6 rounded-xl flex items-start gap-5">
                 <div class="step-number">1</div>
                 <div>
-                    <h3 class="text-xl font-bold text-green-400 mb-2">Access Alpaca Markets</h3>
-                    <p class="text-gray-300 mb-3">
-                        TradeBotPro connects to Alpaca, a commission-free brokerage. You need an account there to trade.
-                    </p>
-                    <a href="https://alpaca.markets/" target="_blank" class="text-blue-400 hover:text-blue-300 font-medium inline-flex items-center">
-                        Visit Alpaca.Markets <span class="ml-1 text-lg">→</span>
-                    </a>
+                    <h3 class="text-lg font-bold text-green-400 mb-1">Create Your Alpaca Account</h3>
+                    <p class="text-gray-300 mb-3">TradeBotPro connects to <a href="https://alpaca.markets/" target="_blank" class="text-blue-400 hover:underline">Alpaca Markets</a> — a free, commission-free brokerage API. You must have an account there to trade.</p>
+                    <p class="text-gray-500 text-sm">No deposit required for Paper Trading (practice mode).</p>
                 </div>
             </div>
 
             <div class="step-card p-6 rounded-xl flex items-start gap-5">
                 <div class="step-number">2</div>
                 <div>
-                    <h3 class="text-xl font-bold text-green-400 mb-2">Create & Verify Account</h3>
-                    <p class="text-gray-300">
-                        Sign up and complete the identity verification (KYC). This is required by federal law for all financial trading accounts.
-                    </p>
+                    <h3 class="text-lg font-bold text-green-400 mb-1">Complete Identity Verification</h3>
+                    <p class="text-gray-300">Sign up and complete Alpaca's identity verification (KYC). This is required by federal law for all financial trading accounts. Takes about 5 minutes.</p>
                 </div>
             </div>
 
             <div class="step-card p-6 rounded-xl flex items-start gap-5">
                 <div class="step-number">3</div>
                 <div>
-                    <h3 class="text-xl font-bold text-green-400 mb-2">Generate API Keys</h3>
-                    <p class="text-gray-300 mb-3">
-                        Go to your Alpaca Dashboard. On the right side, look for "API Keys" and click "Generate".
-                    </p>
+                    <h3 class="text-lg font-bold text-green-400 mb-1">Generate API Keys</h3>
+                    <p class="text-gray-300 mb-3">In your Alpaca dashboard, find <strong>"API Keys"</strong> and click <strong>"Generate New Key."</strong></p>
                     <div class="bg-gray-800 p-3 rounded border-l-4 border-yellow-500 text-sm text-gray-300">
-                        <strong>Important:</strong> You will see a <strong>Key ID</strong> and a <strong>Secret Key</strong>. Copy these immediately! The Secret Key is shown only once.
+                        <strong class="text-white">Important:</strong> You'll see a <strong>Key ID</strong> and a <strong>Secret Key</strong>. Copy and save both immediately — the Secret Key is only shown once.
                     </div>
                 </div>
             </div>
@@ -151,14 +89,13 @@
             <div class="step-card p-6 rounded-xl flex items-start gap-5">
                 <div class="step-number">4</div>
                 <div>
-                    <h3 class="text-xl font-bold text-green-400 mb-2">Configure TradeBotPro</h3>
-                    <p class="text-gray-300 mb-2">
-                        Open the bot and go to the <strong>Settings</strong> tab.
-                    </p>
-                    <ul class="list-disc list-inside text-gray-400 space-y-1">
-                        <li>Paste your <strong>API Key</strong>.</li>
-                        <li>Paste your <strong>Secret Key</strong>.</li>
-                        <li>Select <strong>Paper Trading</strong> (Practice) or <strong>Live Trading</strong> (Real Money).</li>
+                    <h3 class="text-lg font-bold text-green-400 mb-1">Configure TradeBotPro</h3>
+                    <p class="text-gray-300 mb-2">Open the bot, go to the <strong>Settings</strong> tab, and paste your keys:</p>
+                    <ul class="list-disc list-inside text-gray-400 text-sm space-y-1">
+                        <li>Paste your <strong class="text-white">API Key ID</strong></li>
+                        <li>Paste your <strong class="text-white">Secret Key</strong></li>
+                        <li>Select <strong class="text-white">Paper Trading</strong> to start safely (recommended)</li>
+                        <li>Choose <strong class="text-white">Stocks</strong> or <strong class="text-white">Crypto</strong> as your asset type</li>
                     </ul>
                 </div>
             </div>
@@ -166,139 +103,303 @@
             <div class="step-card p-6 rounded-xl flex items-start gap-5">
                 <div class="step-number">5</div>
                 <div>
-                    <h3 class="text-xl font-bold text-green-400 mb-2">Activate License & Start</h3>
-                    <p class="text-gray-300">
-                        Click the <strong>Start Bot</strong> button on the Dashboard. A popup will ask for your <strong>License Key</strong>. Enter the key sent to your email to begin trading.
-                    </p>
+                    <h3 class="text-lg font-bold text-green-400 mb-1">Enter Your License Key &amp; Start</h3>
+                    <p class="text-gray-300">Click <strong>Start Bot</strong> on the Dashboard. The first time, a popup will ask for your license key — enter the key emailed to you after purchase. The bot will verify it and begin scanning immediately.</p>
                 </div>
             </div>
-
         </div>
     </section>
 
+    <!-- ══════════ SETTINGS EXPLAINED ══════════ -->
     <section id="settings-eli5" class="py-16 px-6 bg-gray-800 border-t border-gray-700">
         <div class="max-w-6xl mx-auto">
-            <h2 class="text-4xl font-bold text-center mb-4 text-white">Bot Settings: Explained Simply</h2>
-            <p class="text-xl text-center text-gray-400 mb-12">
-                Confused by the jargon? Here is exactly what every setting does.
-            </p>
+            <h2 class="text-4xl font-bold text-center mb-3 text-white">Bot Settings: Explained Simply</h2>
+            <p class="text-xl text-center text-gray-400 mb-12">Every setting, in plain English — no jargon.</p>
 
-            <div class="bg-gradient-to-r from-indigo-900 to-purple-900 border border-indigo-500 rounded-xl p-8 mb-12 shadow-2xl relative overflow-hidden">
-                <div class="relative z-10 flex flex-col md:flex-row items-center gap-6">
+            <!-- AI tip banner -->
+            <div class="bg-gradient-to-r from-indigo-900 to-purple-900 border border-indigo-500 rounded-xl p-7 mb-12 shadow-2xl">
+                <div class="flex flex-col md:flex-row items-center gap-6">
                     <div class="md:w-3/4">
-                        <h3 class="text-2xl font-bold text-white mb-2">💡 Pro Tip: Customize with AI</h3>
-                        <p class="text-gray-200 text-lg mb-4">
-                            Not sure what numbers to type? Take a screenshot of your Settings tab and upload it to <strong>ChatGPT</strong>, <strong>Gemini</strong> or any other AI platform that you choose.
-                        </p>
-                        <div class="bg-black bg-opacity-30 p-4 rounded-lg border border-indigo-400/30">
-                            <p class="text-indigo-200 italic font-mono text-sm">
-                                "Here is a screenshot of my bot settings. I have $500 to invest and I want to be very safe. What numbers should I put in the fields?"
-                            </p>
+                        <h3 class="text-xl font-bold text-white mb-2">💡 Pro Tip: Use AI to Set Your Numbers</h3>
+                        <p class="text-gray-200 mb-3">Not sure what values to use? Take a screenshot of your Settings tab and ask any AI (ChatGPT, Claude, Gemini):</p>
+                        <div class="bg-black/30 p-4 rounded-lg border border-indigo-400/30">
+                            <p class="text-indigo-200 italic font-mono text-sm">"Here is a screenshot of my TradeBotPro settings. I have $500 to invest and want to be conservative. What numbers should I use?"</p>
                         </div>
                     </div>
                     <div class="md:w-1/4 flex justify-center">
-                        <svg class="w-24 h-24 text-indigo-400 opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                        <svg class="w-20 h-20 text-indigo-400 opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
                     </div>
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+
                 <div class="eli5-card p-6 rounded-lg">
-                    <h4 class="text-green-400 font-bold text-lg mb-2">Trading Timeframe</h4>
-                    <p class="text-white font-semibold mb-1">The "Pulse" of the Bot</p>
-                    <p class="text-gray-400 text-sm mb-3">Controls how fast the bot thinks. <strong>5 Minute</strong> is for Day Trading (faster). <strong>30 Minute</strong> is for Swing Trading (slower, more reliable).</p>
+                    <h4 class="text-green-400 font-bold text-base mb-1">Trading Timeframe</h4>
+                    <p class="text-white font-semibold text-sm mb-2">The "Pulse" of the Bot</p>
+                    <p class="text-gray-400 text-sm">Controls the candle size for all strategies. <strong class="text-white">5 Minute</strong> = Day Trading (fast). <strong class="text-white">30 Minute</strong> = Swing Trading (reliable, fewer false signals).</p>
                 </div>
 
                 <div class="eli5-card p-6 rounded-lg">
-                    <h4 class="text-green-400 font-bold text-lg mb-2">Risk per Trade ($)</h4>
-                    <p class="text-white font-semibold mb-1">The "Bet Size"</p>
-                    <p class="text-gray-400 text-sm mb-3">This is NOT how much you buy. It is how much you are willing to <em>lose</em> if a trade fails. The bot calculates your share size automatically based on this number.</p>
+                    <h4 class="text-green-400 font-bold text-base mb-1">Risk per Trade ($)</h4>
+                    <p class="text-white font-semibold text-sm mb-2">The "Bet Size"</p>
+                    <p class="text-gray-400 text-sm">This is NOT how much you buy. It's how much you're willing to <em>lose</em> if a trade goes wrong. The bot uses ATR to calculate share size automatically from this number.</p>
                 </div>
 
                 <div class="eli5-card p-6 rounded-lg">
-                    <h4 class="text-green-400 font-bold text-lg mb-2">Live Strategies (Checkboxes)</h4>
-                    <p class="text-white font-semibold mb-1">The "Playbook"</p>
-                    <p class="text-gray-400 text-sm mb-3">You can check multiple boxes. The bot will scan for ALL of them at once. If "Trend Pullback" and "Momentum Cross" are both checked, it looks for both.</p>
+                    <h4 class="text-green-400 font-bold text-base mb-1">Live Strategies (Checkboxes)</h4>
+                    <p class="text-white font-semibold text-sm mb-2">The "Playbook"</p>
+                    <p class="text-gray-400 text-sm">Check multiple boxes and the bot scans for all of them simultaneously. Mix Trend Pullback + RSI Divergence for powerful combined coverage.</p>
                 </div>
 
                 <div class="eli5-card p-6 rounded-lg border-l-4 border-red-500">
-                    <h4 class="text-red-400 font-bold text-lg mb-2">ATR Stop Multiplier</h4>
-                    <p class="text-white font-semibold mb-1">The "Safety Net"</p>
-                    <p class="text-gray-400 text-sm mb-3">This sets your Stop Loss. A higher number (e.g., 2.0) gives the stock more room to wiggle. A lower number (e.g., 1.0) cuts losses very quickly.</p>
+                    <h4 class="text-red-400 font-bold text-base mb-1">ATR Stop Multiplier</h4>
+                    <p class="text-white font-semibold text-sm mb-2">The "Safety Net"</p>
+                    <p class="text-gray-400 text-sm">Sets your stop-loss width. Higher = more room to breathe. Lower = cuts losses faster. A value of <strong class="text-white">1.0</strong> is standard; use <strong class="text-white">1.5–2.0</strong> for swing trades.</p>
                 </div>
 
                 <div class="eli5-card p-6 rounded-lg border-l-4 border-blue-500">
-                    <h4 class="text-blue-400 font-bold text-lg mb-2">ATR Profit Multiplier</h4>
-                    <p class="text-white font-semibold mb-1">The "Goal Line"</p>
-                    <p class="text-gray-400 text-sm mb-3">This sets where you sell for a win. Usually, you want this number to be 2x your Stop Multiplier (e.g., Risk 1.0, Profit 2.0).</p>
+                    <h4 class="text-blue-400 font-bold text-base mb-1">ATR Profit Multiplier</h4>
+                    <p class="text-white font-semibold text-sm mb-2">The "Goal Line"</p>
+                    <p class="text-gray-400 text-sm">Sets your take-profit target. Best practice: set this to 2× your Stop Multiplier (e.g., Stop = 1.0, Profit = 2.0 gives you a 2:1 risk-reward ratio).</p>
                 </div>
 
                 <div class="eli5-card p-6 rounded-lg">
-                    <h4 class="text-purple-400 font-bold text-lg mb-2">Trade Mode</h4>
-                    <p class="text-white font-semibold mb-1">Day vs. Swing</p>
-                    <p class="text-gray-400 text-sm mb-3"><strong>Day Trade:</strong> Sells everything before the market closes (Stocks only).<br><strong>Swing Trade:</strong> Holds stocks overnight or for days.</p>
+                    <h4 class="text-purple-400 font-bold text-base mb-1">Trade Mode</h4>
+                    <p class="text-white font-semibold text-sm mb-2">Day vs. Swing</p>
+                    <p class="text-gray-400 text-sm"><strong class="text-white">Day Trade:</strong> Sells all stock positions before market close (3:50 PM ET). <strong class="text-white">Swing Trade:</strong> Holds overnight — only exits on stop-loss or take-profit.</p>
+                </div>
+
+                <!-- NEW v20.0 settings -->
+                <div class="eli5-card p-6 rounded-lg border-l-4 border-green-500">
+                    <h4 class="text-green-400 font-bold text-base mb-1">Enable Trailing Stop <span class="new-badge">NEW</span></h4>
+                    <p class="text-white font-semibold text-sm mb-2">Locks In Profits Automatically</p>
+                    <p class="text-gray-400 text-sm">When enabled, the bot moves your stop-loss upward as a trade becomes profitable — protecting gains without cutting winners short.</p>
+                </div>
+
+                <div class="eli5-card p-6 rounded-lg border-l-4 border-green-500">
+                    <h4 class="text-green-400 font-bold text-base mb-1">Trailing Stop % <span class="new-badge">NEW</span></h4>
+                    <p class="text-white font-semibold text-sm mb-2">How Tight the Trail Is</p>
+                    <p class="text-gray-400 text-sm">e.g., 1.5 = the stop trails 1.5% below the rolling high price. Tighter = more profit locked in but easier to get stopped out early.</p>
+                </div>
+
+                <div class="eli5-card p-6 rounded-lg border-l-4 border-green-500">
+                    <h4 class="text-green-400 font-bold text-base mb-1">Breakeven Trigger % <span class="new-badge">NEW</span></h4>
+                    <p class="text-white font-semibold text-sm mb-2">Move Stop to Entry Price</p>
+                    <p class="text-gray-400 text-sm">When a trade moves up by this %, the stop automatically moves to your entry price. You literally can no longer lose on that trade.</p>
+                </div>
+
+                <div class="eli5-card p-6 rounded-lg border-l-4 border-yellow-500">
+                    <h4 class="text-yellow-400 font-bold text-base mb-1">Min ATR % Filter <span class="new-badge">NEW</span></h4>
+                    <p class="text-white font-semibold text-sm mb-2">Volatility Guard</p>
+                    <p class="text-gray-400 text-sm">Skips trades when a stock is moving too slowly. e.g., 0.3 = skip the trade if ATR is less than 0.3% of price. Avoids choppy, low-opportunity conditions.</p>
+                </div>
+
+                <div class="eli5-card p-6 rounded-lg border-l-4 border-yellow-500">
+                    <h4 class="text-yellow-400 font-bold text-base mb-1">Signal Score Threshold <span class="new-badge">NEW</span></h4>
+                    <p class="text-white font-semibold text-sm mb-2">Confirmation Required</p>
+                    <p class="text-gray-400 text-sm">Set to 2 or 3 to require more independent signals before a trade is entered. Reduces false signals — but also reduces trade frequency. Start with 1 or 2.</p>
+                </div>
+
+                <div class="eli5-card p-6 rounded-lg">
+                    <h4 class="text-gray-300 font-bold text-base mb-1">Daily Profit / Stop-Loss Limits</h4>
+                    <p class="text-white font-semibold text-sm mb-2">Your Daily Guardrails</p>
+                    <p class="text-gray-400 text-sm">If your <em>realized</em> P/L hits either limit, the bot pauses new trades for the day. Hit the "Resume (Override P/L)" button to continue if needed.</p>
                 </div>
 
             </div>
         </div>
     </section>
 
-    <section class="py-16 px-6 bg-gray-900">
-        <div class="max-w-4xl mx-auto">
-            <h2 class="text-3xl font-bold text-white mb-8">A Few Included Strategies</h2>
-            
-            <div class="grid md:grid-cols-2 gap-8">
+    <!-- ══════════ STRATEGIES ══════════ -->
+    <section id="strategies" class="py-16 px-6 bg-gray-900 border-t border-gray-800">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="text-3xl font-bold text-white mb-3">All 12 Trading Strategies</h2>
+            <p class="text-gray-400 mb-10 text-lg">The bot analyzes candles from your chosen timeframe (5m, 15m, or 30m) to find signals. Mix and match with checkboxes.</p>
+
+            <div class="grid md:grid-cols-2 gap-5 mb-10">
                 <div>
                     <h3 class="text-xl font-bold text-blue-400 mb-4 border-b border-gray-700 pb-2">Stock Strategies</h3>
-                    <ul class="space-y-4 text-gray-300 text-sm">
-                        <li>
-                            <strong class="text-white block">Trend Pullback (BB+Stoch)</strong>
-                            Buys when an uptrending stock dips slightly (a "discount") and shows signs of bouncing back up.
-                        </li>
-                        <li>
-                            <strong class="text-white block">Pattern + Confirm</strong>
-                            Strict. Finds bullish candlestick patterns (Hammer, Engulfing) confirmed by MACD and RSI indicators.
-                        </li>
-                        <li>
-                            <strong class="text-white block">Momentum Cross</strong>
-                            Chases momentum. Buys when the MACD lines cross upward while the Stochastic indicator is also rising.
-                        </li>
-                    </ul>
+                    <div class="space-y-3">
+                        <div class="strat-card">
+                            <p class="font-semibold text-white text-sm">Trend Pullback (BB+Stoch)</p>
+                            <p class="text-gray-400 text-sm mt-1">Uptrend confirmed by MACD. Waits for price to dip to the Bollinger Band midline, then buys the bounce. The most reliable stock strategy.</p>
+                        </div>
+                        <div class="strat-card">
+                            <p class="font-semibold text-white text-sm">Pattern + Confirm (TA-Lib)</p>
+                            <p class="text-gray-400 text-sm mt-1">Strict. Finds bullish candlestick patterns (Hammer, Engulfing, Morning Star) confirmed by Volume surge, RSI &lt; 70, and MACD crossover.</p>
+                        </div>
+                        <div class="strat-card">
+                            <p class="font-semibold text-white text-sm">Pattern + Volume (TA-Lib)</p>
+                            <p class="text-gray-400 text-sm mt-1">Looser version of the above — requires only a bullish pattern plus a volume surge. More signals, slightly less selective.</p>
+                        </div>
+                        <div class="strat-card">
+                            <p class="font-semibold text-white text-sm">Mean Reversion (BB+RSI)</p>
+                            <p class="text-gray-400 text-sm mt-1">Buys when RSI is oversold (&lt; 30) AND price is below the lower Bollinger Band simultaneously — the "double confirmation" oversold signal.</p>
+                        </div>
+                        <div class="strat-card">
+                            <p class="font-semibold text-white text-sm">Momentum Cross (MACD+Stoch)</p>
+                            <p class="text-gray-400 text-sm mt-1">Buys when MACD just crossed up from below its signal line AND Stochastic is also rising. Chases clean momentum moves.</p>
+                        </div>
+                        <div class="strat-card">
+                            <p class="font-semibold text-white text-sm">Golden Cross (SMA 50/200)</p>
+                            <p class="text-gray-400 text-sm mt-1">The classic long-term bullish signal. Triggers when the 50-period SMA crosses above the 200-period SMA — works best on 30-min timeframe.</p>
+                        </div>
+                        <div class="strat-card">
+                            <p class="font-semibold text-white text-sm">VWAP Reversion (Intraday)</p>
+                            <p class="text-gray-400 text-sm mt-1">Buys when price is more than 2% below VWAP (statistically "cheap") while the 50-SMA is still above the 200-SMA (uptrend intact).</p>
+                        </div>
+                        <div class="strat-card border-green-500/30">
+                            <p class="font-semibold text-white text-sm">RSI Divergence (Bullish) <span class="new-badge">NEW v20</span></p>
+                            <p class="text-gray-400 text-sm mt-1">Detects when price makes a lower low but RSI makes a higher low — a divergence that signals weakening selling pressure and an incoming reversal.</p>
+                        </div>
+                    </div>
                 </div>
 
                 <div>
                     <h3 class="text-xl font-bold text-purple-400 mb-4 border-b border-gray-700 pb-2">Crypto Strategies</h3>
-                    <ul class="space-y-4 text-gray-300 text-sm">
-                        <li>
-                            <strong class="text-white block">Trend Follow (EMA 50/200)</strong>
-                            The "Golden Cross." Buys when the short-term trend crosses above the long-term trend.
-                        </li>
-                        <li>
-                            <strong class="text-white block">Breakout (BB+Vol)</strong>
-                            Buys when price explodes above the Bollinger Bands with a massive spike in volume. High risk, high reward.
-                        </li>
-                        <li>
-                            <strong class="text-white block">Mean Reversion</strong>
-                            Buys when a coin is "Oversold" (RSI < 30) and the price is statistically too low (Low Bollinger Band).
-                        </li>
-                    </ul>
+                    <div class="space-y-3">
+                        <div class="strat-card">
+                            <p class="font-semibold text-white text-sm">Trend Follow (EMA 50/200)</p>
+                            <p class="text-gray-400 text-sm mt-1">Buys when the EMA 50 crosses above EMA 200 AND MACD confirms momentum. The crypto "Golden Cross" — powerful on 15m/30m timeframes.</p>
+                        </div>
+                        <div class="strat-card">
+                            <p class="font-semibold text-white text-sm">Mean Reversion (BB+RSI)</p>
+                            <p class="text-gray-400 text-sm mt-1">The classic crypto oversold signal. Buys when RSI &lt; 30 AND price is below the lower Bollinger Band — BTC bounces strongly from this signal.</p>
+                        </div>
+                        <div class="strat-card">
+                            <p class="font-semibold text-white text-sm">Breakout (BB+Volume)</p>
+                            <p class="text-gray-400 text-sm mt-1">Buys when price breaks ABOVE the upper Bollinger Band with volume 3× above average. High risk, high reward — great for volatile crypto moves.</p>
+                        </div>
+                        <div class="strat-card">
+                            <p class="font-semibold text-white text-sm">MA Cross (SMA 20/50)</p>
+                            <p class="text-gray-400 text-sm mt-1">A simpler trend signal. Buys the moment the 20-SMA crosses above the 50-SMA — catches early trend changes before the crowd.</p>
+                        </div>
+                        <div class="strat-card">
+                            <p class="font-semibold text-white text-sm">Momentum (EMA 20 + MACD)</p>
+                            <p class="text-gray-400 text-sm mt-1">Buys when price crosses above the 20-EMA AND MACD simultaneously crosses from negative to positive territory. Catches early momentum shifts.</p>
+                        </div>
+                        <div class="strat-card">
+                            <p class="font-semibold text-white text-sm">MA Cross + RSI Oversold</p>
+                            <p class="text-gray-400 text-sm mt-1">The 20-SMA crosses above 50-SMA while RSI is simultaneously oversold (&lt; 30). A double-confirmation reversal signal.</p>
+                        </div>
+                        <div class="strat-card border-green-500/30">
+                            <p class="font-semibold text-white text-sm">RSI Divergence (Bullish) <span class="new-badge">NEW v20</span></p>
+                            <p class="text-gray-400 text-sm mt-1">Same powerful divergence signal applied to crypto. Price lower low + RSI higher low = selling exhaustion. Often catches BTC bounces early.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="py-16 px-6 bg-gray-800">
-        <h2 class="text-4xl font-bold text-center mb-8 text-white">Frequently Asked Questions (FAQ)</h2>
-        <div class="max-w-3xl mx-auto space-y-4">
-            
+    <!-- ══════════ NEW v20 FEATURES ══════════ -->
+    <section class="py-16 px-6 bg-gray-800 border-t border-gray-700">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="text-3xl font-bold text-white mb-3">New in v20.0</h2>
+            <p class="text-gray-400 mb-10 text-lg">Major upgrades that make the bot more powerful and easier to evaluate.</p>
+
+            <div class="grid md:grid-cols-2 gap-6">
+
+                <div class="eli5-card p-6 rounded-xl border-l-4 border-green-500">
+                    <h3 class="text-green-400 font-bold text-lg mb-2">📊 Stats &amp; Performance Tab</h3>
+                    <p class="text-gray-300 text-sm leading-relaxed mb-3">A dedicated dashboard that reads from your trade history and shows:</p>
+                    <ul class="text-gray-400 text-sm space-y-1.5">
+                        <li>✅ Total trades and Win Rate (%)</li>
+                        <li>✅ Sharpe Ratio (annualised) — &gt;1.0 is good, &gt;2.0 is excellent</li>
+                        <li>✅ Max Drawdown — largest peak-to-trough equity loss</li>
+                        <li>✅ Average Gain &amp; Average Loss per trade</li>
+                        <li>✅ Color-coded trade history (green = win, red = loss)</li>
+                        <li>✅ CSV export button for your full trade journal</li>
+                    </ul>
+                </div>
+
+                <div class="eli5-card p-6 rounded-xl border-l-4 border-emerald-500">
+                    <h3 class="text-emerald-400 font-bold text-lg mb-2">🔒 Trailing Stop Loss</h3>
+                    <p class="text-gray-300 text-sm leading-relaxed mb-3">Enable in Settings → Advanced Risk. Two phases:</p>
+                    <ul class="text-gray-400 text-sm space-y-1.5">
+                        <li><strong class="text-white">Phase 1 — Breakeven:</strong> When a trade rises by your "Breakeven Trigger %" (e.g., 1%), the stop automatically moves to your entry price. You cannot lose.</li>
+                        <li><strong class="text-white">Phase 2 — Trail:</strong> The stop then trails below the rolling high by your "Trailing Stop %" (e.g., 1.5%). As price rises, the stop follows — locking in more and more profit.</li>
+                    </ul>
+                </div>
+
+                <div class="eli5-card p-6 rounded-xl border-l-4 border-indigo-500">
+                    <h3 class="text-indigo-400 font-bold text-lg mb-2">📉 RSI Divergence Strategy</h3>
+                    <p class="text-gray-300 text-sm leading-relaxed">A professional reversal signal now built in for both stocks and crypto. When price makes a lower low but RSI makes a higher low, it means sellers are losing power even as price drops. This divergence often precedes sharp rallies and is missed by most retail traders.</p>
+                </div>
+
+                <div class="eli5-card p-6 rounded-xl border-l-4 border-yellow-500">
+                    <h3 class="text-yellow-400 font-bold text-lg mb-2">🔬 Enhanced Backtest Report</h3>
+                    <p class="text-gray-300 text-sm leading-relaxed">The backtest now outputs five new metrics after every run: Win Rate (%), Average Gain, Average Loss, Sharpe Ratio, and Max Drawdown — alongside the equity curve chart. Use these to decide whether a strategy is worth trading live.</p>
+                </div>
+
+                <div class="eli5-card p-6 rounded-xl border-l-4 border-orange-500">
+                    <h3 class="text-orange-400 font-bold text-lg mb-2">🔇 Volatility Filter</h3>
+                    <p class="text-gray-300 text-sm leading-relaxed">Set a "Min ATR %" in Advanced Risk settings. The bot will automatically skip any trade where the market is too quiet (ATR is too small relative to price). This avoids entering choppy, directionless markets where strategies have low edge.</p>
+                </div>
+
+                <div class="eli5-card p-6 rounded-xl border-l-4 border-pink-500">
+                    <h3 class="text-pink-400 font-bold text-lg mb-2">🔔 Sound Alerts</h3>
+                    <p class="text-gray-300 text-sm leading-relaxed">The bot now plays a brief audio beep on Windows when a trade executes. A high beep (880 Hz) signals a buy entry. A lower beep (440 Hz) signals a sell. No configuration needed — works on any Windows 10/11 PC.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════════ FAQ ══════════ -->
+    <section id="faq" class="py-16 px-6 bg-gray-900 border-t border-gray-800">
+        <h2 class="text-4xl font-bold text-center mb-4 text-white">Frequently Asked Questions</h2>
+        <p class="text-center text-gray-400 mb-12 text-lg">The questions we get most often — answered clearly.</p>
+        <div class="max-w-3xl mx-auto space-y-3">
+
             <div class="accordion-item">
                 <div class="accordion-header" onclick="toggleAccordion(this)">
-                    <span>Is TradeBotPro suitable for beginners?</span>
+                    <span>Do I need to know how to code?</span>
                     <span class="accordion-icon text-green-400">▼</span>
                 </div>
                 <div class="accordion-content">
-                    <p>Yes. The automation handles the complex math. However, we strongly recommend using "Paper Trading" mode first to learn how the bot behaves without risking real money.</p>
+                    <p>No. TradeBotPro is a downloadable Windows application. You install it like any program, enter your API keys, and click Start. Zero coding at any step.</p>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>What is Alpaca? Do I need an account?</span>
+                    <span class="accordion-icon text-green-400">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <p>Alpaca is a free, commission-free brokerage API. You sign up at alpaca.markets (free), complete identity verification, generate your API keys, and paste them into the bot. You can start with Paper Trading (fake money) — no deposit required.</p>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>Is my money at risk?</span>
+                    <span class="accordion-icon text-green-400">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <p><strong>Paper Trading mode uses completely fake money.</strong> Nothing is at risk. Live Trading uses real money only if you explicitly select it in Settings and confirm a warning dialog. We strongly recommend starting in Paper Trading to understand how the bot behaves before going live.</p>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>What if the bot makes bad trades?</span>
+                    <span class="accordion-icon text-green-400">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <p>You set a <strong>Daily Stop-Loss Limit</strong>. If the bot's realized losses exceed that amount in one day, it stops placing new trades automatically. Every individual trade also has a stop-loss based on ATR. The "Force Sell All" button on the dashboard lets you instantly exit all positions if needed.</p>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>Does it work on Mac?</span>
+                    <span class="accordion-icon text-green-400">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <p>Currently Windows 10 and Windows 11 only. Mac support is planned. For 24/7 operation (especially crypto), consider running the bot on a Windows VPS.</p>
                 </div>
             </div>
 
@@ -308,60 +409,56 @@
                     <span class="accordion-icon text-green-400">▼</span>
                 </div>
                 <div class="accordion-content">
-                    <p>Yes. The bot runs on your computer. If you close the program or put your computer to sleep, it stops trading. For 24/7 Crypto trading, consider using a VPS.</p>
+                    <p>Yes — the bot runs locally on your machine. If you close the app, it stops. All open trades and P/L are saved to a local SQLite database, so everything is restored perfectly when you restart. For 24/7 crypto trading, a Windows VPS is recommended.</p>
                 </div>
             </div>
 
             <div class="accordion-item">
                 <div class="accordion-header" onclick="toggleAccordion(this)">
-                    <span>What is Fractional Share trading?</span>
+                    <span>What is the Sharpe Ratio shown in the Stats tab?</span>
                     <span class="accordion-icon text-green-400">▼</span>
                 </div>
                 <div class="accordion-content">
-                    <p>This allows you to buy $50 worth of Amazon, even if one share costs $100. The bot uses this automatically to manage your risk precisely.</p>
+                    <p>The Sharpe Ratio measures your return relative to the risk you're taking. A Sharpe above 1.0 is considered good; above 2.0 is excellent. If your Sharpe is below 0.5, the strategy may not have a strong enough edge. Use backtesting to tune your settings until the Sharpe improves before going live.</p>
                 </div>
             </div>
 
             <div class="accordion-item">
                 <div class="accordion-header" onclick="toggleAccordion(this)">
-                    <span>Does this bot trade Options?</span>
+                    <span>Does this bot trade Options or Futures?</span>
                     <span class="accordion-icon text-green-400">▼</span>
                 </div>
                 <div class="accordion-content">
-                    <p>No. TradeBotPro is designed exclusively for <strong>Stocks (Equities)</strong> and <strong>Cryptocurrencies</strong>. It does not support options or futures trading.</p>
+                    <p>No. TradeBotPro is designed exclusively for <strong>Stocks (Equities)</strong> and <strong>Cryptocurrencies</strong> through the Alpaca API. It does not support options, futures, or forex trading.</p>
                 </div>
             </div>
 
         </div>
     </section>
 
-     <section class="py-10 px-6 bg-gray-900 border-t border-gray-800 text-center">
-        <div class="max-w-4xl mx-auto p-6 rounded-lg bg-gray-800 bg-opacity-50">
-            <h3 class="text-lg font-semibold mb-2 text-red-400">⚠ Risk Disclosure</h3>
-            <p class="text-gray-500 text-xs leading-relaxed">
-                Trading in financial markets carries a high level of risk. TradeBotPro is a software tool provided "as is" without warranties. We do not guarantee profits. Past performance is not indicative of future results. You acknowledge that you can lose some or all of your invested capital. The developers are not financial advisors.
-            </p>
+    <!-- Risk Disclosure -->
+    <section class="py-10 px-6 bg-gray-900 border-t border-gray-800 text-center">
+        <div class="max-w-4xl mx-auto p-6 rounded-lg bg-gray-800/50">
+            <h3 class="text-base font-semibold mb-2 text-red-400">⚠ Risk Disclosure</h3>
+            <p class="text-gray-500 text-xs leading-relaxed">Trading in financial markets carries a high level of risk. TradeBotPro is a software tool provided "as is" without warranties. We do not guarantee profits. Past performance is not indicative of future results. You acknowledge that you can lose some or all of your invested capital. The developers are not financial advisors.</p>
         </div>
     </section>
 
-    <footer class="bg-gray-900 py-8 text-center text-gray-600 text-sm">
-        <p>&copy; 2025 TradeBotPro. All rights reserved.</p>
+    <footer class="bg-gray-900 py-8 text-center text-gray-600 text-sm border-t border-gray-800">
+        <p>© 2025 TradeBotPro. All rights reserved.</p>
     </footer>
 
     <script>
         function toggleAccordion(header) {
             const content = header.nextElementSibling;
             const icon = header.querySelector('.accordion-icon');
-
-            // Close all others
             document.querySelectorAll('.accordion-content').forEach(item => {
                 if (item !== content) {
                     item.classList.remove('active');
-                    item.previousElementSibling.querySelector('.accordion-icon').style.transform = 'rotate(0deg)';
+                    const ih = item.previousElementSibling.querySelector('.accordion-icon');
+                    if (ih) ih.style.transform = 'rotate(0deg)';
                 }
             });
-
-            // Toggle current
             if (content.classList.contains('active')) {
                 content.classList.remove('active');
                 icon.style.transform = 'rotate(0deg)';
@@ -371,9 +468,5 @@
             }
         }
     </script>
-
 </body>
 </html>
-
-
-
